@@ -1,8 +1,10 @@
-import express from "express";
+import express, {Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import { config } from "./config/config"; 
+import  wordsRoute from "./routes/dictionaryRoutes";
+import categoriesRoute  from "./routes/categoryRoute";
 
 dotenv.config();
 
@@ -17,13 +19,11 @@ app.use( cors({ origin: allowedOrigin, methods: ["GET"], credentials: true, }), 
 
 app.use(express.json());
 
-// Routes (uncomment when ready)
-// import { wordsRoute } from "./routes/wordsRoutes.js";
-// import { categoriesRoute } from "./routes/categoriesRoute.js";
-// app.use("/api/v1/words", wordsRoute);
-// app.use("/api/v1/categories", categoriesRoute);
 
-app.get("/", (req, res) => {
+app.use("/api/v1/words", wordsRoute);
+app.use("/api/v1/categories", categoriesRoute);
+
+app.get("/", (req: Request, res: Response) => {
   res.send("API is running 🚀");
 });
 
