@@ -1,0 +1,80 @@
+.gameModes {
+	padding: var(--spacing-xs) 0;
+}
+
+.gameModes ul {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: var(--spacing-md);
+	list-style: none;
+	font-family: var(--font-family);
+	margin: 0;
+	padding: var(--spacing-md) 0;
+}
+
+ul li.gameModesItem {
+	background-color: var(--color-bg-secondary);
+	border-radius: 12px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+ul li.gameModesItem:hover {
+	background-color: var(--color-bg-accent);
+	transform: translateY(-5px);
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+ul li.gameModesItem button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--spacing-xs);
+	width: 100%;
+	height: 100%;
+	padding: var(--spacing-md);
+	background: none;
+	border: none;
+	font-size: var(--font-size-base);
+	font-weight: 500;
+	cursor: pointer;
+	color: var(--color-text-secondary);
+	transition: color 0.3s ease;
+}
+
+ul li.gameModesItem button:hover {
+	color: var(--color-text-primary);
+}
+
+ul li.gameModesItem button:focus {
+	outline: 3px solid var(--color-bg-accent);
+	outline-offset: 4px;
+	background-color: var(--color-bg-accent);
+	color: var(--color-text-primary);
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+ul li.gameModesItem button svg {
+	fill: var(--color-bg-accent);
+	color: var(--color-bg-accent);
+	width: var(--font-size-xl);
+	height: var(--font-size-xl);
+}
+
+ul li.gameModesItem:hover button svg,
+ul li.gameModesItem button:focus svg {
+	fill: var(--color-bg-tertiary);
+	color: var(--color-bg-tertiary);
+}
+
+ul li.gameModesItem button.active {
+	background-color: var(--color-bg-accent);
+	color: var(--color-text-primary);
+}
+
+ul li.gameModesItem button.active svg {
+	fill: var(--color-bg-tertiary);
+	color: var(--color-bg-tertiary);
+}
