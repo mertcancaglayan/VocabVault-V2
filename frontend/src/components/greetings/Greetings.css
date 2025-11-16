@@ -1,0 +1,29 @@
+.greetings-section {
+	padding: var(--spacing-sm);
+}
+
+.greeting-title {
+	font-weight: var(--font-weight-bold);
+	font-size: var(--font-size-xl);
+	margin-bottom: var(--spacing-xs);
+}
+
+.greeting-subtitle {
+	font-size: var(--font-size-base);
+	color: var(--color-text-secondary);
+}
+
+picture {
+	max-width: 800px;
+	width: 100%;
+}
+
+picture img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
+h2 {
+    text-align: center;
+}

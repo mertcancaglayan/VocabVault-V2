@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getCategoriesV2, getWords, type CategoryItem, type WordItem } from "./api/api"
+import Home from "./pages/Home"
 
 function App() {
   const [categories, setCategories] = useState<CategoryItem[]>([])
@@ -23,7 +24,7 @@ function App() {
 
   return (
     <>
-      <h2>Categories</h2>
+      {/* <h2>Categories</h2>
       <ul>
         {categories.map((e) => (
           <li key={e.key}>
@@ -39,7 +40,9 @@ function App() {
         {words.map((word) => (
           <li key={word.id}>{word.from} → {word.to}</li>
         ))}
-      </ul>
+      </ul> */}
+      <Home></Home>
+
     </>
   )
 }
