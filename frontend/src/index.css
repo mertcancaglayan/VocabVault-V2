@@ -86,6 +86,7 @@ main {
 	align-items: center;
 	max-width: 1200px;
 	padding: var(--spacing-sm);
+	gap: var(--spacing-lg);
 }
 
 section {
