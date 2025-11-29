@@ -1,6 +1,7 @@
 
 import Home from "./pages/Home"
 import { AppProvider } from "./context/AppContext"
+import QuizPage from "./pages/quiz/QuizPage"
 
 function App() {
 
@@ -37,7 +38,7 @@ function App() {
       </ul> */}
       <AppProvider>
           
-        <Home></Home>
+        <QuizPage></QuizPage>
       </AppProvider>
 
     </>

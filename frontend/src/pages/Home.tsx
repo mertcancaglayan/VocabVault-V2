@@ -8,6 +8,7 @@ import Header from '../components/header/Header';
 function Home() {
     return (
         <main>
+            
             <Header></Header>
             {/* <GreetingsSection></GreetingsSection> */}
             <GameModesComponent></GameModesComponent>
