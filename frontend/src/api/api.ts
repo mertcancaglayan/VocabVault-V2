@@ -38,7 +38,11 @@ export const getCategoriesV2 = async (): Promise<CategoryDocument[]> => {
 	}
 };
 
-export const getWords = async (category: CategoryDocument, fromLang: string, toLang: string): Promise<WordsDocument> => {
+export const getWords = async (category: Subcategory | null, fromLang: string, toLang: string): Promise<WordsDocument> => {
+	if (!category) {
+		throw new Error("Category is required");
+	}
+
 	const url: string = `${API_URL}/api/v1/words/category/${category.key}/lang/${fromLang}-${toLang}`;
 
 	try {
@@ -48,7 +52,7 @@ export const getWords = async (category: CategoryDocument, fromLang: string, toL
 
 		return await response.json();
 	} catch (error) {
-		console.error("Error fetching categories:", error);
+		console.error("Error fetching words:", error);
 		throw error;
 	}
 };
