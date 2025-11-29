@@ -1,13 +1,16 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export interface CategoryItem {
+export interface Subcategory {
 	key: string;
 	label: string;
+	emoji: string;
+	description: string;
 }
 
 export interface CategoryDocument {
-	_id: string;
-	categories: CategoryItem[];
+	key: string;
+	label: string;
+	subcategories: Subcategory[];
 }
 
 export interface WordsDocument {
@@ -35,7 +38,7 @@ export const getCategoriesV2 = async (): Promise<CategoryDocument[]> => {
 	}
 };
 
-export const getWords = async (category: CategoryItem, fromLang: string, toLang: string): Promise<WordsDocument> => {
+export const getWords = async (category: CategoryDocument, fromLang: string, toLang: string): Promise<WordsDocument> => {
 	const url: string = `${API_URL}/api/v1/words/category/${category.key}/lang/${fromLang}-${toLang}`;
 
 	try {

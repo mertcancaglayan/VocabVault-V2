@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ICategory, Categories } from "../models/Category";
+import { CategoryDocument, Categories } from "../models/Category";
 
 export const getCategories = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const categories: ICategory[] = await Categories.find();
+		const categories: CategoryDocument[] = await Categories.find();
 		res.status(200).json(categories);
 	} catch (error: any) {
 		console.error("Error in get controller", error);
