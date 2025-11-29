@@ -1,23 +1,29 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-export interface ICategory {
-	id: string;
+export interface Subcategory {
 	key: string;
 	label: string;
+	emoji: string;
+	description: string;
 }
 
-const categoriesSchema: Schema<ICategory> = new mongoose.Schema({
-	id: { type: String, required: true },
-	key: {
-		type: String,
-		required: true,
-	},
-	label: {
-		type: String,
-		required: true,
-	},
+export interface CategoryDocument {
+	key: string;
+	label: string;
+	subcategories: Subcategory[];
+}
+
+const SubcategorySchema = new Schema<Subcategory>({
+	key: { type: String, required: true, unique: false },
+	label: { type: String, required: true },
+	emoji: { type: String, required: true },
+	description: { type: String, required: true },
 });
 
-export const Categories = mongoose.model("Categories", categoriesSchema);
+const CategorySchema = new Schema<CategoryDocument>({
+	key: { type: String, required: true, unique: true },
+	label: { type: String, required: true },
+	subcategories: { type: [SubcategorySchema], required: true },
+});
 
-
+export const Categories = mongoose.model("categoriesv2", CategorySchema);

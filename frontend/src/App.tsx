@@ -1,27 +1,20 @@
-import { useEffect, useState } from "react"
-import { getCategoriesV2, getWords, type CategoryItem, type WordItem } from "./api/api"
+
 import Home from "./pages/Home"
 import { AppProvider } from "./context/AppContext"
 
 function App() {
-  const [categories, setCategories] = useState<CategoryItem[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<CategoryItem | null>(null)
 
-  const [words, setWords] = useState<WordItem[]>([])
 
-  useEffect(() => {
-    getCategoriesV2()
-      .then(data => setCategories(data[0].categories))
-      .catch(err => console.error(err))
-  }, [])
+  // const [words, setWords] = useState<WordItem[]>([])
 
-  useEffect(() => {
-    if (!selectedCategory) return
 
-    getWords(selectedCategory, "en", "tr")
-      .then(data => setWords(data.words))
-      .catch(err => console.error(err))
-  }, [selectedCategory])
+  // useEffect(() => {
+  //   if (!selectedCategory) return
+
+  //   getWords(selectedCategory, "en", "tr")
+  //     .then(data => setWords(data.words))
+  //     .catch(err => console.error(err))
+  // }, [selectedCategory])
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import type { GameMode } from "../data/gameModes";
-import type { CategoryItem } from "../api/api";
+import type { Subcategory } from "../api/api";
 
 
 interface LanguagePair {
@@ -11,8 +11,8 @@ interface LanguagePair {
 interface AppContextType {
     languagePair: LanguagePair | null;
     setLanguagePair: React.Dispatch<React.SetStateAction<LanguagePair | null>>;
-    category: CategoryItem | null;
-    setCategory: React.Dispatch<React.SetStateAction<CategoryItem | null>>;
+    category: Subcategory | null;
+    setCategory: React.Dispatch<React.SetStateAction<Subcategory | null>>;
     gameMode: GameMode | null;
     setGameMode: React.Dispatch<React.SetStateAction<GameMode | null>>;
 }
@@ -21,7 +21,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
     const [languagePair, setLanguagePair] = useState<LanguagePair | null>(null);
-    const [category, setCategory] = useState<CategoryItem | null>(null)
+    const [category, setCategory] = useState<Subcategory | null>(null)
     const [gameMode, setGameMode] = useState<GameMode | null>(null)
 
     useEffect(() => {

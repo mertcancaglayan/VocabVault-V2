@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Dictionary, IDictionary, IWord } from "../models/Dictionary";
-import { ICategory } from "../models/Category";
 import { shuffle } from "../utils/shuffle";
 
 export const getDictionary = async (req: Request, res: Response): Promise<void> => {
