@@ -57,14 +57,11 @@ const getRandomWrongWords = (correctWord: string, allWords: string[]): string[] 
 const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFormattedWord[] => {
 	const allToWords: string[] = dictionary.map((word) => word.translations?.[lang2]).filter(Boolean);
 
-    
-
 	const words: IFormattedWord[] = [];
 
 	dictionary.forEach((word) => {
 		const from: string = word.translations[lang1];
 		const to: string = word.translations[lang2];
-
 
 		if (from && to) {
 			const wrongWords: string[] = getRandomWrongWords(to, allToWords);
@@ -80,5 +77,5 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 		}
 	});
 
-	return words;
+	return shuffle(words);
 };

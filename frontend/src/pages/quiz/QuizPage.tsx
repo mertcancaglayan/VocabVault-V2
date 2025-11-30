@@ -1,4 +1,5 @@
 import Header from "../../components/header/Header";
+import QuizSlider from "../../components/quizSlider/QuizSlider";
 import "./quizPage.css";
 
 export default function QuizPage() {
@@ -14,31 +15,8 @@ export default function QuizPage() {
                     </div>
                 </div>
 
-                <section className="quiz-question">
-                    <h1>Which word means "hello"?</h1>
 
-                    <form className="quiz-options">
-                        <label className="option">
-                            <input type="radio" name="question1" defaultChecked />
-                            <span className="option-text">Bonjour</span>
-                        </label>
-
-                        <label className="option">
-                            <input type="radio" name="question1" />
-                            <span className="option-text">Au revoir</span>
-                        </label>
-
-                        <label className="option">
-                            <input type="radio" name="question1" />
-                            <span className="option-text">Merci</span>
-                        </label>
-
-                        <label className="option">
-                            <input type="radio" name="question1" />
-                            <span className="option-text">S'il vous plaît</span>
-                        </label>
-                    </form>
-                </section>
+                <QuizSlider></QuizSlider>
 
                 <div className="quiz-action">
                     <button className="btn-primary">Check</button>
