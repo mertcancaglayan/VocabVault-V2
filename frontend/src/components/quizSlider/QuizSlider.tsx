@@ -3,15 +3,16 @@ import { useContext, useState } from "react";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
 import AppContext from "../../context/AppContext";
 import { useQuizWords } from "../../hooks/useQuizWords";
+import { createQuizResults } from "../../utils/quizHelpers";
 
 
 function QuizSlider() {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
-    const { results, setResults } = contextValue;
+    const { setResults } = contextValue;
 
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [selectedOption, setSelectedOption] = useState<string>("");
 
     const location = useLocation();
     const { category, from, to } = location.state || {};
@@ -30,7 +31,7 @@ function QuizSlider() {
 
     const currentSlide = words[currentSlideIndex];
 
-    function handleAnswer(selected: string,) {
+    function handleAnswer(selected: string) {
         setSelectedOption(selected);
     }
 
@@ -40,22 +41,13 @@ function QuizSlider() {
             return;
         }
 
-        setSelectedOption(null);
+        if (!words[currentSlideIndex]) return;
 
         const current = words[currentSlideIndex];
-
-        const newResult = {
-            id: current.id,
-            selected: selectedOption,
-            correct: current.to,
-            isCorrect: selectedOption === current.to,
-        };
+        const newResult = createQuizResults(current, selectedOption)
 
         setResults(prev => [...prev, newResult]);
-
-        setSelectedOption(null);
-
-        console.log(results);
+        setSelectedOption("");
 
         if (words && currentSlideIndex < words.length - 1) {
             setCurrentSlideIndex(prev => prev + 1);

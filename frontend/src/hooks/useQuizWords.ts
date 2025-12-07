@@ -1,6 +1,6 @@
 import { getWords, type WordItem, type Subcategory } from "../api/api";
 import { useEffect, useState } from "react";
-import { shuffle } from "../utils/shuffle";
+import { prepareQuizWords } from "../utils/quizHelpers";
 
 export interface ShuffledWord extends WordItem {
 	shuffledOptions: string[];
@@ -23,10 +23,7 @@ export function useQuizWords(category: Subcategory, fromLangSafe: string, toLang
 				const data = await getWords(category, fromLangSafe, toLangSafe);
 				const limited = data.words?.slice(0, QUIZ_WORD_LIMIT) || [];
 
-				const prepared = limited.map((w) => ({
-					...w,
-					shuffledOptions: shuffle([w.to, ...w.wrongWords]),
-				}));
+				const prepared = prepareQuizWords(limited);
 
 				setWords(prepared);
 			} catch (error) {
