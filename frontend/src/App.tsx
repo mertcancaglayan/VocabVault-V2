@@ -1,6 +1,8 @@
 
 import Home from "./pages/Home"
 import { AppProvider } from "./context/AppContext"
+import QuizPage from "./pages/quiz/QuizPage"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 function App() {
 
@@ -35,10 +37,15 @@ function App() {
           <li key={word.id}>{word.from} → {word.to}</li>
         ))}
       </ul> */}
-      <AppProvider>
-          
-        <Home></Home>
-      </AppProvider>
+      <BrowserRouter>
+        <AppProvider>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/quiz" element={<QuizPage />}></Route>
+          </Routes>
+        </AppProvider>
+
+      </BrowserRouter>
 
     </>
   )

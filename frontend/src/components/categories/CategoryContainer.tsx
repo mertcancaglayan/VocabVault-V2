@@ -16,21 +16,6 @@ function CategoryContainer() {
     return (
         <section className="categories-sliders">
 
-            {/* {categories.map((cat) => (
-                <button key={cat.key}
-                    type="button"
-                    className={`category-card ${category?.key === cat.key ? "active" : ""}`}
-                    onClick={() => setCategory(cat)}
-                    aria-pressed={category?.key === cat.key}
-                >
-                    <div className="category-icon">{cat.emoji}</div>
-                    <div className="category-content">
-                        <h2 className="category-title">{cat.label}</h2>
-                        <p className="category-description">{cat.description}</p>
-                    </div>
-                </button>
-            ))} */}
-
             {categories.map((cat) => (
                 <Slider key={cat.key} cat={cat}></Slider>
             ))}
