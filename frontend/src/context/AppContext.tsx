@@ -8,6 +8,13 @@ interface LanguagePair {
     to: string;
 }
 
+interface ResultI {
+    id: string;
+    selected: string;
+    correct: string;
+    isCorrect: boolean;
+}
+
 interface AppContextType {
     languagePair: LanguagePair | null;
     setLanguagePair: React.Dispatch<React.SetStateAction<LanguagePair | null>>;
@@ -17,6 +24,8 @@ interface AppContextType {
     setGameMode: React.Dispatch<React.SetStateAction<GameMode | null>>;
     selectedWords: WordItem[];
     setSelectedWords: React.Dispatch<React.SetStateAction<WordItem[]>>
+    results: ResultI[];
+    setResults: React.Dispatch<React.SetStateAction<ResultI[]>>
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -26,6 +35,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const [category, setCategory] = useState<Subcategory | null>(null)
     const [gameMode, setGameMode] = useState<GameMode | null>(null)
     const [selectedWords, setSelectedWords] = useState<WordItem[]>([]);
+    const [results, setResults] = useState<ResultI[]>([]);
 
     useEffect(() => {
         let fromLang: string | null = localStorage.getItem("wordvault2_fromLang");
@@ -48,7 +58,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }, [])
 
     return (
-        <AppContext.Provider value={{ languagePair, setLanguagePair, category, setCategory, gameMode, setGameMode, selectedWords, setSelectedWords }}>
+        <AppContext.Provider value={{ languagePair, setLanguagePair, category, setCategory, gameMode, setGameMode, selectedWords, setSelectedWords, results, setResults }}>
             {children}
         </AppContext.Provider>
     )

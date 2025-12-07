@@ -8,6 +8,7 @@ export default function QuizPage() {
 
             <main className="quiz-main">
                 <Header />
+                
 
                 <div className="quiz-progress">
                     <div className="progress-bar">
@@ -18,9 +19,7 @@ export default function QuizPage() {
 
                 <QuizSlider></QuizSlider>
 
-                <div className="quiz-action">
-                    <button className="btn-primary">Check</button>
-                </div>
+
             </main>
         </>
     );

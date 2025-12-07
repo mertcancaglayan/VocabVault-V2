@@ -1,14 +1,15 @@
-import type { WordItem } from "../../../api/api"
-import { shuffle } from "../../../utils/shuffle";
+import type { ShuffledWord } from "../QuizSlider";
 
+interface QuizSliderItemProps extends ShuffledWord {
+    handleAnswer: (selected: string, correct: string, id: string) => void;
 
-function QuizSliderItem({ wrongWords, from, to, id }: WordItem) {
+}
 
-    const options = [to, ...wrongWords];
-    const shuffled = shuffle(options);
+function QuizSliderItem({ shuffledOptions, from, to, id, handleAnswer }: QuizSliderItemProps) {
 
-
-
+    function handleSelect(opt: string) {
+        handleAnswer(opt, to, id);
+    }
 
     return (
         <section className="quiz-question" key={id}>
@@ -17,19 +18,20 @@ function QuizSliderItem({ wrongWords, from, to, id }: WordItem) {
             </h1>
 
             <form className="quiz-options">
-                {
-                    shuffled.map((opt, i) => (
-                        <label className="option" key={i}>
-                            <input
-                                type="radio"
-                                name={`question-${id}`}
-                            />
-                            <span className="option-text">{opt}</span>
-                        </label>
-                    ))}
+                {shuffledOptions.map((opt, i) => (
+                    <label className="option" key={i}>
+                        <input
+                            type="radio"
+                            name={`question-${id}`}
+                            value={opt}
+                            onChange={() => handleSelect(opt)}
+                        />
+                        <span className="option-text">{opt}</span>
+                    </label>
+                ))}
             </form>
         </section>
-    )
+    );
 }
 
-export default QuizSliderItem
+export default QuizSliderItem;
