@@ -1,20 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { getWords, type WordItem } from "../../api/api";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
 import AppContext from "../../context/AppContext";
-import { shuffle } from "../../utils/shuffle";
+import { useQuizWords } from "../../hooks/useQuizWords";
 
-export interface ShuffledWord extends WordItem {
-    shuffledOptions: string[];
-}
 
 function QuizSlider() {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
     const { results, setResults } = contextValue;
 
-    const [slides, setSlides] = useState<{ words: ShuffledWord[] }>();
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -26,30 +21,14 @@ function QuizSlider() {
 
     const navigateTo = useNavigate();
 
-    useEffect(() => {
-        if (!category || !fromLangSafe || !toLangSafe) return;
+    const { words, isLoading, error } = useQuizWords(
+        category,
+        fromLangSafe,
+        toLangSafe
+    );
 
-        async function fetchWords() {
-            try {
-                const data = await getWords(category, fromLangSafe, toLangSafe);
-                const QUIZ_WORD_LIMIT = 5;
-                const limited = data.words?.slice(0, QUIZ_WORD_LIMIT) || [];
 
-                const prepared = limited.map(w => ({
-                    ...w,
-                    shuffledOptions: shuffle([w.to, ...w.wrongWords]),
-                }));
-
-                setSlides({ words: prepared });
-            } catch (error) {
-                console.error("Error fetching words:", error);
-            }
-        }
-
-        fetchWords();
-    }, [category, fromLangSafe, toLangSafe]);
-
-    const currentSlide = slides?.words[currentSlideIndex];
+    const currentSlide = words[currentSlideIndex];
 
     function handleAnswer(selected: string,) {
         setSelectedOption(selected);
@@ -63,7 +42,7 @@ function QuizSlider() {
 
         setSelectedOption(null);
 
-        const current = slides!.words[currentSlideIndex];
+        const current = words[currentSlideIndex];
 
         const newResult = {
             id: current.id,
@@ -78,17 +57,29 @@ function QuizSlider() {
 
         console.log(results);
 
-        if (slides && currentSlideIndex < slides.words.length - 1) {
+        if (words && currentSlideIndex < words.length - 1) {
             setCurrentSlideIndex(prev => prev + 1);
         } else {
             navigateTo("/results");
         }
     }
 
+    if (isLoading) {
+        return <p>Loading questions...</p>;
+    }
+
+    if (error) {
+        return <p>Error loading quiz: {error.message}</p>;
+    }
+
+    if (words.length === 0) {
+        return <p>No questions available for this category.</p>;
+    }
+
     return (
         <>
             <div className="progress">
-                {currentSlideIndex + 1} / {slides?.words.length}
+                {currentSlideIndex + 1} / {words.length}
             </div>
 
             <div className="quiz-slider">
