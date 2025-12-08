@@ -8,8 +8,9 @@ interface LanguagePair {
     to: string;
 }
 
-interface ResultI {
+export interface ResultI {
     id: string;
+    question: string;
     selected: string;
     correct: string;
     isCorrect: boolean;

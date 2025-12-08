@@ -1,0 +1,54 @@
+:root {
+	--text-light: #ffffff;
+	--text-muted: #9db0b9;
+	--accent: #3b82f6;
+	--correct: #22c55e;
+	--incorrect: #ef4444;
+	--border: #283339;
+	--radius: 12px;
+	font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+}
+
+.result-card {
+	display: flex;
+	align-items: stretch;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background: var(--color-bg-secondary);
+	gap: var(--spacing-sm);
+	padding: var(--spacing-sm);
+	border-radius: var(--radius-sm);
+	width: 100%;
+	max-width: 800px;
+}
+
+.result-info {
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+}
+
+.status,
+.answers {
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-xs);
+}
+
+.question {
+	font-weight: var(--font-weight-bold);
+	font-size: var(--font-size-sm);
+}
+
+.result-icon {
+	display: flex;
+	align-items: center;
+}
+
+.result-card.correct .status {
+	color: var(--correct);
+}
+
+.result-card.incorrect .status {
+	color: var(--incorrect);
+}
