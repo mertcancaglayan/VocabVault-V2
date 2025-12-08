@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import { AppProvider } from "./context/AppContext"
 import QuizPage from "./pages/quiz/QuizPage"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Results from "./pages/results/Results"
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/quiz" element={<QuizPage />}></Route>
+            <Route path="/results" element={<Results />}></Route>
           </Routes>
         </AppProvider>
 
