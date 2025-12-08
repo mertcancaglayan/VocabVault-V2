@@ -27,3 +27,11 @@
 	background-color: var(--color-border);
 	transform: scale(1.03);
 }
+
+.word-item.matched {
+	background-color: red;
+}
+
+.word-item.selected {
+	background-color: green;
+}

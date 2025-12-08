@@ -6,7 +6,7 @@ export interface ShuffledWord extends WordItem {
 	shuffledOptions: string[];
 }
 
-const QUIZ_WORD_LIMIT = 5;
+const QUIZ_WORD_LIMIT = 6;
 
 export function useQuizWords(category: Subcategory, fromLangSafe: string, toLangSafe: string) {
 	const [words, setWords] = useState<ShuffledWord[]>([]);
