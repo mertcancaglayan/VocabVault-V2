@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
 import AppContext from "../../context/AppContext";
 import { useQuizWords } from "../../hooks/useQuizWords";
@@ -9,9 +9,8 @@ import { createQuizResults } from "../../utils/quizHelpers";
 function QuizSlider() {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
-    const { setResults } = contextValue;
+    const { setResults, currentSlideIndex, setCurrentSlideIndex, setTotalQuestions } = contextValue;
 
-    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState<string>("");
 
     const location = useLocation();
@@ -27,6 +26,12 @@ function QuizSlider() {
         fromLangSafe,
         toLangSafe
     );
+
+    useEffect(() => {
+        if (words.length > 0) {
+            setTotalQuestions(words.length);
+        }
+    }, [words, setTotalQuestions]);
 
 
     const currentSlide = words[currentSlideIndex];
@@ -70,10 +75,6 @@ function QuizSlider() {
 
     return (
         <>
-            <div className="progress">
-                {currentSlideIndex + 1} / {words.length}
-            </div>
-
             <div className="quiz-slider">
                 {currentSlide ? (
                     <QuizSliderItem

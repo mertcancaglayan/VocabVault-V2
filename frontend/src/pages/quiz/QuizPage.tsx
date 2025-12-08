@@ -1,4 +1,5 @@
 import Header from "../../components/header/Header";
+import ProgressBar from "../../components/progressBar/ProgressBar";
 import QuizSlider from "../../components/quizSlider/QuizSlider";
 import "./quizPage.css";
 
@@ -8,18 +9,8 @@ export default function QuizPage() {
 
             <main className="quiz-main">
                 <Header />
-                
-
-                <div className="quiz-progress">
-                    <div className="progress-bar">
-                        <div className="progress-fill" style={{ width: "60%" }}></div>
-                    </div>
-                </div>
-
-
+                <ProgressBar></ProgressBar>
                 <QuizSlider></QuizSlider>
-
-
             </main>
         </>
     );
