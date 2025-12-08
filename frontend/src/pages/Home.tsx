@@ -14,7 +14,6 @@ function Home() {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("CategoryContainer must be used within AppProvider");
 
-
     const { category, languagePair } = contextValue;
 
 
