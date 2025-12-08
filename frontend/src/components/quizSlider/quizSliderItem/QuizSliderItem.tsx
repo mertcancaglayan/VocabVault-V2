@@ -1,4 +1,4 @@
-import type { ShuffledWord } from "../QuizSlider";
+import type { ShuffledWord } from "../../../hooks/useQuizWords";
 
 interface QuizSliderItemProps extends ShuffledWord {
     handleAnswer: (selected: string, correct: string, id: string) => void;

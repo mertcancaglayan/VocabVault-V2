@@ -1,22 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { getWords, type WordItem } from "../../api/api";
 import { useContext, useEffect, useState } from "react";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
 import AppContext from "../../context/AppContext";
-import { shuffle } from "../../utils/shuffle";
+import { useQuizWords } from "../../hooks/useQuizWords";
+import { createQuizResults } from "../../utils/quizHelpers";
 
-export interface ShuffledWord extends WordItem {
-    shuffledOptions: string[];
-}
 
 function QuizSlider() {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
-    const { results, setResults } = contextValue;
+    const { setResults, currentSlideIndex, setCurrentSlideIndex, setTotalQuestions } = contextValue;
 
-    const [slides, setSlides] = useState<{ words: ShuffledWord[] }>();
-    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [selectedOption, setSelectedOption] = useState<string>("");
 
     const location = useLocation();
     const { category, from, to } = location.state || {};
@@ -26,32 +21,22 @@ function QuizSlider() {
 
     const navigateTo = useNavigate();
 
+    const { words, isLoading, error } = useQuizWords(
+        category,
+        fromLangSafe,
+        toLangSafe
+    );
+
     useEffect(() => {
-        if (!category || !fromLangSafe || !toLangSafe) return;
-
-        async function fetchWords() {
-            try {
-                const data = await getWords(category, fromLangSafe, toLangSafe);
-                const QUIZ_WORD_LIMIT = 5;
-                const limited = data.words?.slice(0, QUIZ_WORD_LIMIT) || [];
-
-                const prepared = limited.map(w => ({
-                    ...w,
-                    shuffledOptions: shuffle([w.to, ...w.wrongWords]),
-                }));
-
-                setSlides({ words: prepared });
-            } catch (error) {
-                console.error("Error fetching words:", error);
-            }
+        if (words.length > 0) {
+            setTotalQuestions(words.length);
         }
+    }, [words, setTotalQuestions]);
 
-        fetchWords();
-    }, [category, fromLangSafe, toLangSafe]);
 
-    const currentSlide = slides?.words[currentSlideIndex];
+    const currentSlide = words[currentSlideIndex];
 
-    function handleAnswer(selected: string,) {
+    function handleAnswer(selected: string) {
         setSelectedOption(selected);
     }
 
@@ -61,36 +46,35 @@ function QuizSlider() {
             return;
         }
 
-        setSelectedOption(null);
+        if (!words[currentSlideIndex]) return;
 
-        const current = slides!.words[currentSlideIndex];
-
-        const newResult = {
-            id: current.id,
-            selected: selectedOption,
-            correct: current.to,
-            isCorrect: selectedOption === current.to,
-        };
+        const current = words[currentSlideIndex];
+        const newResult = createQuizResults(current, selectedOption)
 
         setResults(prev => [...prev, newResult]);
+        setSelectedOption("");
 
-        setSelectedOption(null);
-
-        console.log(results);
-
-        if (slides && currentSlideIndex < slides.words.length - 1) {
+        if (words && currentSlideIndex < words.length - 1) {
             setCurrentSlideIndex(prev => prev + 1);
         } else {
             navigateTo("/results");
         }
     }
 
+    if (isLoading) {
+        return <p>Loading questions...</p>;
+    }
+
+    if (error) {
+        return <p>Error loading quiz: {error.message}</p>;
+    }
+
+    if (words.length === 0) {
+        return <p>No questions available for this category.</p>;
+    }
+
     return (
         <>
-            <div className="progress">
-                {currentSlideIndex + 1} / {slides?.words.length}
-            </div>
-
             <div className="quiz-slider">
                 {currentSlide ? (
                     <QuizSliderItem

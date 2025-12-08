@@ -7,23 +7,14 @@ interface SliderItemProps {
     item: Subcategory
 }
 
-
-
 function SliderItem({ item }: SliderItemProps) {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("CategoryContainer must be used within AppProvider");
-
-
     const { category, setCategory } = contextValue;
-
-
 
     function categorySelection(selected: Subcategory | null) {
         setCategory(selected);
-
-
     }
-
 
     return (
         <button key={item.key}

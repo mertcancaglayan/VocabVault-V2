@@ -1,24 +1,3 @@
-.quiz-progress {
-	width: 100%;
-	padding: 0 1rem;
-}
-
-.progress-bar {
-	background-color: var(--color-border);
-	border-radius: var(--radius-sm);
-	height: var(--radius-sm);
-	overflow: hidden;
-	max-width: 400px;
-	margin: 0 auto;
-}
-
-.progress-fill {
-	background-color: var(--color-text-primary);
-	height: 100%;
-	border-radius: 6px;
-	transition: width 0.3s ease-in-out;
-}
-
 .quiz-slider {
 	width: 100%;
 }
