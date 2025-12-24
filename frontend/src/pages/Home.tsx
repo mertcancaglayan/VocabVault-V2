@@ -32,7 +32,7 @@ function Home() {
             <CategoryContainer></CategoryContainer>
             <button
                 onClick={() =>
-                    navigateToQuiz(`/quiz`, {
+                    navigateToQuiz(`/matching`, {
                         state: { category, from, to },
                     })
                 }

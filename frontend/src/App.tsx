@@ -4,6 +4,7 @@ import { AppProvider } from "./context/AppContext"
 import QuizPage from "./pages/quiz/QuizPage"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Results from "./pages/results/Results"
+import MatchingMode from "./pages/matching/MatchingMode"
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/quiz" element={<QuizPage />}></Route>
             <Route path="/results" element={<Results />}></Route>
+            <Route path="/matching" element={<MatchingMode />}></Route>
           </Routes>
         </AppProvider>
 
