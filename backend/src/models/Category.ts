@@ -26,4 +26,4 @@ const CategorySchema = new Schema<CategoryDocument>({
 	subcategories: { type: [SubcategorySchema], required: true },
 });
 
-export const Categories = mongoose.model("categoriesv2", CategorySchema);
+export const Categories = mongoose.model("categoriesv3", CategorySchema);

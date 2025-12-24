@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { Dictionary, IDictionary, IWord } from "../models/Dictionary";
 import { shuffle } from "../utils/shuffle";
 
+const ALLOWED_LANGUAGES = ["en", "tr", "pl", "de", "es"];
+
 export const getDictionary = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const words: IWord[] = await Dictionary.find();
@@ -26,25 +28,40 @@ export interface IFormattedWord {
 	to: string;
 	partOfSpeech?: string;
 	wrongWords: string[];
+	example: string;
 }
 
 export const getWordsByCategory = async (req: Request<IParams>, res: Response): Promise<void> => {
 	try {
 		const { category, langPair } = req.params;
 
+		if (!langPair || !langPair.includes("-")) {
+			res.status(400).json({ message: "Invalid language format. Use 'lang1-lang2' (e.g., en-tr)." });
+			return;
+		}
+
 		const [lang1, lang2] = langPair.split("-");
 
-		const dictionary: IWord[] = await Dictionary.find({ category: category.toLowerCase() }).lean();
+		if (!ALLOWED_LANGUAGES.includes(lang1) || !ALLOWED_LANGUAGES.includes(lang2)) {
+			res.status(400).json({ message: "One or more specified languages are not supported." });
+			return;
+		}
+
+		const safeCategory = String(category).toLowerCase();
+
+		const dictionary: IWord[] = await Dictionary.find({ sub_category_key: safeCategory.toLowerCase() }).lean();
 
 		if (!dictionary.length) {
-			res.status(404).json({ message: `No words found for category: ${category}` });
+			res.status(404).json({ message: `No words found for category: ${safeCategory}` });
+			return;
 		}
 
 		const words: IFormattedWord[] = formatQuestions(dictionary, lang1, lang2);
+
 		res.status(200).json({ words });
 	} catch (error: any) {
-		console.error("Error in getWordsByCategory", error);
-		res.status(500).json({ message: error.message });
+		console.error("Error in getWordsByCategory:", error);
+		res.status(500).json({ message: "Internal Server Error" });
 	}
 };
 
@@ -55,13 +72,14 @@ const getRandomWrongWords = (correctWord: string, allWords: string[]): string[] 
 };
 
 const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFormattedWord[] => {
-	const allToWords: string[] = dictionary.map((word) => word.translations?.[lang2]).filter(Boolean);
+	const allToWords: string[] = dictionary.map((word) => word.word?.[lang2]).filter(Boolean);
 
 	const words: IFormattedWord[] = [];
 
 	dictionary.forEach((word) => {
-		const from: string = word.translations[lang1];
-		const to: string = word.translations[lang2];
+		const from: string = word.word[lang1];
+		const to: string = word.word[lang2];
+		const example: string = word.example[lang2];
 
 		if (from && to) {
 			const wrongWords: string[] = getRandomWrongWords(to, allToWords);
@@ -73,6 +91,7 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 				to,
 				partOfSpeech: word.partOfSpeech || "",
 				wrongWords,
+				example,
 			});
 		}
 	});
