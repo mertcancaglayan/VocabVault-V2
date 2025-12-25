@@ -14,13 +14,14 @@ function Home() {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("CategoryContainer must be used within AppProvider");
 
-    const { category, languagePair } = contextValue;
+    const { category, languagePair, gameMode } = contextValue;
 
 
     if (!languagePair) return;
 
     const { from, to } = languagePair;
 
+    
 
 
     return (
@@ -31,12 +32,14 @@ function Home() {
             <GameModesComponent></GameModesComponent>
             <CategoryContainer></CategoryContainer>
             <button
-                onClick={() =>
-                    navigateToQuiz(`/matching`, {
-                        state: { category, from, to },
-                    })
-                }
-                disabled={!category}
+                onClick={() => {
+                    if (gameMode) {
+                        navigateToQuiz(`/${gameMode.key}`, {
+                            state: { category, from, to },
+                        })
+                    }
+                }}
+                disabled={!category || !gameMode}
             >Go To Mode</button>
 
         </main>
