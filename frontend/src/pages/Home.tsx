@@ -1,4 +1,3 @@
-// import GreetingsSection from '../components/greetings/Greetings'
 import { useNavigate } from "react-router-dom";
 import "../../src/index.css";
 import CategoryContainer from "../components/categories/CategoryContainer";

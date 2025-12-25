@@ -3,6 +3,7 @@ import Header from "../../components/header/Header"
 import { useQuizWords } from "../../hooks/useQuizWords";
 import FlashCard from "../../components/flashcard/FlashCard";
 import { useState } from "react";
+import "./flashCards.css"
 
 
 function FlashCards() {
@@ -61,8 +62,10 @@ function FlashCards() {
                         )
                     }
                 </div>
-                <button onClick={handlePrev}  disabled={currentSlideIndex === 0}>prev</button>
-                <button onClick={handleNext}>{currentSlideIndex === words.length - 1 ? "end" : "next"}</button>
+                <div className="controls">
+                    <button className="card-btn" onClick={handlePrev} disabled={currentSlideIndex === 0}>prev</button>
+                    <button className="card-btn" onClick={handleNext}>{currentSlideIndex === words.length - 1 ? "end" : "next"}</button>
+                </div>
             </section>
         </main>
     )
