@@ -5,6 +5,7 @@ import QuizPage from "./pages/quiz/QuizPage"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Results from "./pages/results/Results"
 import MatchingMode from "./pages/matching/MatchingMode"
+import FlashCards from "./pages/flashCards/FlashCards"
 
 function App() {
 
@@ -46,10 +47,11 @@ function App() {
             <Route path="/quiz" element={<QuizPage />}></Route>
             <Route path="/results" element={<Results />}></Route>
             <Route path="/wordMatching" element={<MatchingMode />}></Route>
-          </Routes>
-        </AppProvider>
+            <Route path="/flashCards" element={<FlashCards />}></Route>
+        </Routes>
+      </AppProvider>
 
-      </BrowserRouter>
+    </BrowserRouter >
 
     </>
   )
