@@ -45,7 +45,7 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/quiz" element={<QuizPage />}></Route>
             <Route path="/results" element={<Results />}></Route>
-            <Route path="/matching" element={<MatchingMode />}></Route>
+            <Route path="/wordMatching" element={<MatchingMode />}></Route>
           </Routes>
         </AppProvider>
 
