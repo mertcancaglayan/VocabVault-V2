@@ -21,9 +21,8 @@ function Home() {
 
     const { from, to } = languagePair;
 
+    console.log("rerendered");
     
-
-
     return (
         <main>
 
