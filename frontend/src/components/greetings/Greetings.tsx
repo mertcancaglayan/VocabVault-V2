@@ -3,9 +3,12 @@ import { getRandomGreetings } from "../../data/greetings";
 import "../greetings/Greetings.css"
 import MainButton from "../ui/mainButton/MainButton";
 
-function GreetingsSection() {
-    const [greeting] = useState<string>(() => getRandomGreetings());
+interface GreetingsSectionProps {
+    onContinue: () => void
+}
 
+function GreetingsSection({ onContinue }: GreetingsSectionProps) {
+    const [greeting] = useState<string>(() => getRandomGreetings());
 
 
     return (
@@ -17,7 +20,7 @@ function GreetingsSection() {
 
             <div className="btn-bottom">
             </div>
-            <MainButton text="Let's Start" />
+            <MainButton onClick={onContinue} text="Let's Start" />
 
         </section>
     );

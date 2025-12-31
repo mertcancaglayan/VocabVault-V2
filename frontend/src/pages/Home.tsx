@@ -2,46 +2,61 @@ import { useNavigate } from "react-router-dom";
 import "../../src/index.css";
 import CategoryContainer from "../components/categories/CategoryContainer";
 import GameModesComponent from "../components/gameModes/GameModes";
-import Header from '../components/header/Header';
-import { useContext } from "react";
+import Header from "../components/header/Header";
+import { useCallback, useContext, useState } from "react";
 import AppContext from "../context/AppContext";
-
+import GreetingsSection from "../components/greetings/Greetings";
 
 function Home() {
-    const navigateToQuiz = useNavigate();
+    const [isGreeted, setIsGreeted] = useState(() => sessionStorage.getItem("greeted") === "true");
+    const navigate = useNavigate();
 
     const contextValue = useContext(AppContext);
-    if (!contextValue) throw new Error("CategoryContainer must be used within AppProvider");
+
+    const handleContinue = useCallback(() => {
+        sessionStorage.setItem("greeted", "true")
+        setIsGreeted(true)
+    }, []);
+
+    if (!contextValue) {
+        throw new Error("Home must be used within AppProvider");
+    }
 
     const { category, languagePair, gameMode } = contextValue;
 
-
-    if (!languagePair) return;
+    if (!languagePair) return null;
 
     const { from, to } = languagePair;
 
-    console.log("rerendered");
-    
+
+
     return (
         <main>
+            <Header />
 
-            <Header></Header>
-            {/* <GreetingsSection></GreetingsSection> */}
-            <GameModesComponent></GameModesComponent>
-            <CategoryContainer></CategoryContainer>
-            <button
-                onClick={() => {
-                    if (gameMode) {
-                        navigateToQuiz(`/${gameMode.key}`, {
-                            state: { category, from, to },
-                        })
-                    }
-                }}
-                disabled={!category || !gameMode}
-            >Go To Mode</button>
+            {!isGreeted ? (
+                <GreetingsSection onContinue={handleContinue} />
+            ) : (
+                <>
+                    <GameModesComponent />
+                    <CategoryContainer />
 
+                    <button
+                        onClick={() => {
+                            if (gameMode) {
+                                navigate(`/${gameMode.key}`, {
+                                    state: { category, from, to },
+                                });
+                            }
+                        }}
+                        disabled={!category || !gameMode}
+                    >
+                        Go To Mode
+                    </button>
+                </>
+            )}
         </main>
-    )
+    );
 }
 
-export default Home
+export default Home;

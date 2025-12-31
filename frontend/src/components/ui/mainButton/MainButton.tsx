@@ -1,16 +1,18 @@
+import { memo } from "react";
 import "../mainButton/MainButton.css"
 interface MainButtonProps {
   text: string;
   disabled?: boolean;
+  onClick: () => void;
 }
 
-function MainButton({ text, disabled }: MainButtonProps) {
+function MainButton({ text, disabled, onClick }: MainButtonProps) {
 
 
 
   return (
-    <button disabled={disabled} className='btn-main'>{text}</button>
+    <button disabled={disabled} onClick={onClick} className='btn-main'>{text}</button>
   )
 }
 
-export default MainButton
+export default memo(MainButton);
