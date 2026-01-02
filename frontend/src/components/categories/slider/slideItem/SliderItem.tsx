@@ -2,12 +2,14 @@ import { useContext } from "react";
 import AppContext from "../../../../context/AppContext";
 import { type Subcategory } from "../../../../api/api";
 import "../slideItem/SliderItem.css"
+import type { CategoryIcon } from "../../../../data/categoryIcons";
 
 interface SliderItemProps {
-    item: Subcategory
+    item: Subcategory,
+    icon?: CategoryIcon
 }
 
-function SliderItem({ item }: SliderItemProps) {
+function SliderItem({ item, icon }: SliderItemProps) {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("CategoryContainer must be used within AppProvider");
     const { category, setCategory } = contextValue;
@@ -25,6 +27,9 @@ function SliderItem({ item }: SliderItemProps) {
         >
             <div className="card-content">
                 <h2 className="card-title">{item.label}</h2>
+                <span className="category-icon">
+                    {icon?.icon}
+                </span>
             </div>
         </button>
     )
