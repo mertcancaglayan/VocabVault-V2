@@ -1,14 +1,20 @@
 import { FaGear } from "react-icons/fa6"
 import "../header/Header.css"
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import AppContext from "../../context/AppContext";
+
+export type languages = language[]
+
+export interface language {
+    lang: string
+    text: string
+}
+
+const languages = [{ lang: "tr", text: "🇹🇷 Türkçe " }, { lang: "en", text: "🇬🇧 English" }, { lang: "pl", text: "🇵🇱 Polski" }]
 
 function Header() {
     const [open, setOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
-
-    const handleClick = () => {
-        setOpen(prev => !prev);
-    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -18,6 +24,28 @@ function Header() {
         document.addEventListener("mousedown", handleClickOutside)
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [])
+
+    const contextValue = useContext(AppContext);
+    if (!contextValue) {
+        throw new Error("Home must be used within AppProvider");
+    }
+
+    const { languagePair, updateLanguage } = contextValue
+
+    if (!languagePair) return
+    const { from, to } = languagePair;
+
+    const handleClick = () => {
+        setOpen(prev => !prev);
+    };
+
+    const handleLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
+
+        updateLanguage({ fromLang: from, toLang: e.target.value })
+        console.log(languagePair);
+
+    }
+
 
     return (
         <header className="header">
@@ -36,10 +64,10 @@ function Header() {
                     <div className="dropDown-menu">
                         <div className="lang-selection">
                             <label htmlFor="select-lang">Target Language</label>
-                            <select id="select-lang" defaultValue="en">
-                                <option value="tr">🇹🇷 Türkçe</option>
-                                <option value="en">🇬🇧 English</option>
-                                <option value="pl">🇵🇱 Polski</option>
+                            <select onChange={handleLang} id="select-lang" defaultValue={to}>
+                                {languages.map((lang) => {
+                                    return (<option disabled={to === lang.lang || lang.lang === from} key={lang.lang} value={lang.lang}>{lang.text}</option>)
+                                })}
                             </select>
                         </div>
 

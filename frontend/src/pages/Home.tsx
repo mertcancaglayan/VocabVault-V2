@@ -28,8 +28,6 @@ function Home() {
 
     const { from, to } = languagePair;
 
-
-
     return (
         <main>
             <Header />
