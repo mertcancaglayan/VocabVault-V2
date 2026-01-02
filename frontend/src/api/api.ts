@@ -21,7 +21,6 @@ export interface WordItem {
 	id: string;
 	from: string;
 	to: string;
-	partOfSpeech: string;
 	wrongWords: string[];
 }
 
@@ -38,7 +37,11 @@ export const getCategoriesV2 = async (): Promise<CategoryDocument[]> => {
 	}
 };
 
-export const getWords = async (category: Subcategory | null, fromLang: string, toLang: string): Promise<WordsDocument> => {
+export const getWords = async (
+	category: Subcategory | null,
+	fromLang: string,
+	toLang: string,
+): Promise<WordsDocument> => {
 	if (!category) {
 		throw new Error("Category is required");
 	}
