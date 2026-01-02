@@ -6,11 +6,12 @@ export interface ILangMap {
 
 export interface IWord {
 	_id: string;
+	category_key: string;
 	sub_category_key: string;
+	sub_category_label: string;
 	level: string;
-	word: ILangMap;
+	translations: ILangMap;
 	example: ILangMap;
-	partOfSpeech?: string;
 }
 
 export interface IDictionary {
@@ -20,17 +21,18 @@ export interface IDictionary {
 export const wordSchema: Schema<IWord> = new mongoose.Schema(
 	{
 		_id: { type: String, required: true },
+		category_key: { type: String, required: true },
 		sub_category_key: { type: String, required: true },
-		level: {type: String, required :true},
-		word: {
+		sub_category_label: { type: String, required: true },
+		level: { type: String, required: true },
+		translations: {
 			type: Map,
 			of: String,
 			required: true,
 		},
 		example: { type: Map, of: String },
-		partOfSpeech: { type: String },
 	},
-	{ collection: "dictionaryv2" },
+	{ collection: "dictionaryv3" },
 );
 
 export const Dictionary: Model<IWord> = mongoose.model("Dictionary", wordSchema);

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Dictionary, IDictionary, IWord } from "../models/Dictionary";
 import { shuffle } from "../utils/shuffle";
 
-const ALLOWED_LANGUAGES = ["en", "tr", "pl", "de", "es"];
+const ALLOWED_LANGUAGES = ["en", "tr", "pl"];
 
 export const getDictionary = async (req: Request, res: Response): Promise<void> => {
 	try {
@@ -26,7 +26,6 @@ export interface IFormattedWord {
 	id: string;
 	from: string;
 	to: string;
-	partOfSpeech?: string;
 	wrongWords: string[];
 	example: string;
 }
@@ -72,13 +71,13 @@ const getRandomWrongWords = (correctWord: string, allWords: string[]): string[] 
 };
 
 const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFormattedWord[] => {
-	const allToWords: string[] = dictionary.map((word) => word.word?.[lang2]).filter(Boolean);
+	const allToWords: string[] = dictionary.map((word) => word.translations?.[lang2]).filter(Boolean);
 
 	const words: IFormattedWord[] = [];
 
 	dictionary.forEach((word) => {
-		const from: string = word.word[lang1];
-		const to: string = word.word[lang2];
+		const from: string = word.translations[lang1];
+		const to: string = word.translations[lang2];
 		const example: string = word.example[lang2];
 
 		if (from && to) {
@@ -89,7 +88,6 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 				id,
 				from,
 				to,
-				partOfSpeech: word.partOfSpeech || "",
 				wrongWords,
 				example,
 			});
