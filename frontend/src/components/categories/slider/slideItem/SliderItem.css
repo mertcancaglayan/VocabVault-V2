@@ -11,9 +11,10 @@
 	transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 	color: var(--color-text-secondary);
 	min-height: 180px;
+	max-height: 200px;
 	scroll-snap-align: start;
-    min-width: 220px;
-    width: 220px;
+	min-width: 220px;
+	width: 220px;
 }
 
 .slider-card:hover,
@@ -33,12 +34,23 @@
 }
 
 .category-icon {
-	color: var(--color-text-primary);
 	font-size: var(--font-size-lg);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: var(--spacing-xs);
+	max-width: 100%;
+}
+
+.category-icon svg {
+	width: 100%;
+	height: auto;
+	max-height: 100px;
+	fill: var(--color-text-secondary);
+}
+
+.slider-card.active .category-icon svg{
+	fill: var(--color-text-primary);
 }
 
 .card-content {
@@ -46,11 +58,13 @@
 	flex-direction: column;
 	gap: var(--spacing-xs);
 	text-align: center;
+	justify-content: space-between;
 }
 
 .card-title {
 	font-weight: var(--font-weight-bold);
 	font-size: var(--font-size-base);
+	height: 50px;
 }
 
 .card-description {
