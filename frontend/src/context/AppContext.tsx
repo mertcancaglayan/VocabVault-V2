@@ -49,7 +49,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         let toLang: string | null = localStorage.getItem("wordvault2_toLang");
 
         if (!fromLang) {
-            fromLang = navigator.language
+            fromLang = navigator.language.split("-")[0]
+            
         }
         if (!toLang) {
             toLang = "en"
@@ -60,8 +61,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
         localStorage.setItem("wordvault2_fromLang", fromLang);
         localStorage.setItem("wordvault2_toLang", toLang);
-
-
     }, [])
 
     return (
