@@ -11,7 +11,7 @@ function FlashCards() {
 
 
     const location = useLocation();
-    const { category, from, to } = location.state || {};
+    const { category, from, to, difficulty } = location.state || {};
 
     const fromLangSafe = from || localStorage.getItem("wordvault_fromLang");
     const toLangSafe = to || localStorage.getItem("wordvault_toLang");
@@ -20,7 +20,8 @@ function FlashCards() {
     const { words, isLoading, error } = useQuizWords(
         categorySafe,
         fromLangSafe,
-        toLangSafe
+        toLangSafe,
+        difficulty
     );
 
     function handlePrev() {

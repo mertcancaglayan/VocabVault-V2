@@ -20,6 +20,7 @@ export const getDictionary = async (req: Request, res: Response): Promise<void> 
 interface IParams {
 	category: string;
 	langPair: string;
+	difficulty: string;
 }
 
 export interface IFormattedWord {
@@ -32,7 +33,7 @@ export interface IFormattedWord {
 
 export const getWordsByCategory = async (req: Request<IParams>, res: Response): Promise<void> => {
 	try {
-		const { category, langPair } = req.params;
+		const { category, langPair, difficulty } = req.params;
 
 		if (!langPair || !langPair.includes("-")) {
 			res.status(400).json({ message: "Invalid language format. Use 'lang1-lang2' (e.g., en-tr)." });
@@ -48,7 +49,29 @@ export const getWordsByCategory = async (req: Request<IParams>, res: Response): 
 
 		const safeCategory = String(category).toLowerCase();
 
-		const dictionary: IWord[] = await Dictionary.find({ sub_category_key: safeCategory.toLowerCase() }).lean();
+		let level: String[] = [];
+
+		switch (difficulty) {
+			case "easy":
+				level = ["A1", "A2", "B1"];
+				break;
+			case "normal":
+				level = ["A2", "B1", "B2"];
+				break;
+			case "expert":
+				level = ["B2", "C1", "C2"];
+				break;
+			case "random":
+				level = ["A1", "A2", "B1", "B2", "C1", "C2"];
+				break;
+			default:
+				break;
+		}
+
+		const dictionary: IWord[] = await Dictionary.find({
+			sub_category_key: safeCategory.toLowerCase(),
+			level: { $in: level },
+		}).lean();
 
 		if (!dictionary.length) {
 			res.status(404).json({ message: `No words found for category: ${safeCategory}` });

@@ -8,7 +8,7 @@ export interface ShuffledWord extends WordItem {
 
 const QUIZ_WORD_LIMIT = 6;
 
-export function useQuizWords(category: Subcategory, fromLangSafe: string, toLangSafe: string) {
+export function useQuizWords(category: Subcategory, fromLangSafe: string, toLangSafe: string, difficulty: string) {
 	const [words, setWords] = useState<ShuffledWord[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<Error | null>(null);
@@ -20,7 +20,7 @@ export function useQuizWords(category: Subcategory, fromLangSafe: string, toLang
 			try {
 				setIsLoading(true);
 				setError(null);
-				const data = await getWords(category, fromLangSafe, toLangSafe);
+				const data = await getWords(category, fromLangSafe, toLangSafe, difficulty);
 				const limited = data.words?.slice(0, QUIZ_WORD_LIMIT) || [];
 
 				const prepared = prepareQuizWords(limited);

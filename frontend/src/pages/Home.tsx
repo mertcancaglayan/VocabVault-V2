@@ -22,13 +22,11 @@ function Home() {
         throw new Error("Home must be used within AppProvider");
     }
 
-    const { category, languagePair, gameMode } = contextValue;
+    const { category, languagePair, gameMode, difficulty } = contextValue;
 
     if (!languagePair) return null;
 
     const { from, to } = languagePair;
-
-
 
     return (
         <main>
@@ -45,7 +43,7 @@ function Home() {
                         onClick={() => {
                             if (gameMode) {
                                 navigate(`/${gameMode.key}`, {
-                                    state: { category, from, to },
+                                    state: { category, from, to, difficulty },
                                 });
                             }
                         }}
