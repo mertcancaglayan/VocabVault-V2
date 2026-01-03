@@ -1,6 +1,5 @@
 import type { WordItem } from "../api/api";
 import type { ResultI } from "../context/AppContext";
-import type { ShuffledWord } from "../hooks/useQuizWords";
 import { shuffle } from "./shuffle";
 
 export function prepareQuizWords(words: WordItem[]) {
@@ -10,7 +9,7 @@ export function prepareQuizWords(words: WordItem[]) {
 	}));
 }
 
-export function createQuizResults(word: ShuffledWord, selectedOption: string): ResultI {
+export function createQuizResults(word: WordItem, selectedOption: string): ResultI {
 	return {
 		id: word.id,
 		question: word.from,
