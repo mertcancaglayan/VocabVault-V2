@@ -13,7 +13,7 @@ const PORT = config.port;
 
 connectDB();
 
-const allowedOrigin = config.frontUrl;
+const allowedOrigin = config.frontUrl && config.mobileTestUrl;
 
 app.use( cors({ origin: allowedOrigin, methods: ["GET"], credentials: true, }), );
 

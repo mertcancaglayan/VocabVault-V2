@@ -1,6 +1,9 @@
 .sliderContainer {
 	width: 100%;
 }
+.sliderContainer h5 {
+	font-size: var(--font-size-sm);
+}
 
 .slider.snaps-inline {
 	scroll-snap-type: inline mandatory;
@@ -18,4 +21,13 @@
 	overflow-x: auto;
 	overflow-y: hidden;
 	overscroll-behavior-inline: contain;
+}
+
+/* Small devices (tablet portrait ↓) */
+@media (max-width: 768px) {
+	.slider {
+		gap: var(--spacing-sm);
+		min-height: 140px;
+		margin: 10px 0 0;
+	}
 }

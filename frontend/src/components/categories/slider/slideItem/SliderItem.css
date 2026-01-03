@@ -49,7 +49,7 @@
 	fill: var(--color-text-secondary);
 }
 
-.slider-card.active .category-icon svg{
+.slider-card.active .category-icon svg {
 	fill: var(--color-text-primary);
 }
 
@@ -71,4 +71,29 @@
 	font-weight: var(--font-weight-normal);
 	font-size: var(--font-size-sm);
 	color: var(--color-text-secondary);
+}
+
+/* Small devices (tablet portrait ↓) */
+@media (max-width: 768px) {
+	.slider-card {
+		gap: 0;
+		padding: var(--spacing-sm);
+		border-radius: var(--radius-sm);
+		min-width: 120px;
+		width: 120px;
+		min-height: 120px;
+		max-height: 120px;
+	}
+
+	.slider-card .card-title {
+		font-size: var(--font-size-xs);
+		height: auto;
+	}
+
+	.category-icon svg {
+		width: 100%;
+		height: auto;
+		max-height: 50px;
+		fill: var(--color-text-secondary);
+	}
 }
