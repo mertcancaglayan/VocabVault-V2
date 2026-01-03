@@ -7,6 +7,7 @@ interface Config {
 	nodeEnv: string;
 	atlasUrl: string;
 	frontUrl: string;
+	mobileTestUrl: string;
 }
 
 export const config: Config = {
@@ -14,4 +15,5 @@ export const config: Config = {
 	nodeEnv: process.env.NODE_ENV || "development",
 	atlasUrl: process.env.ATLAS_URL || "",
 	frontUrl: process.env.FRONT_URL || "",
+	mobileTestUrl: process.env.MODEL_TEST_URL || "",
 };

@@ -1,3 +1,9 @@
+.result-section {
+	max-height: fit-content;
+	--correct: #4ade80;
+	--incorrect: #fca5a5;
+}
+
 .result-card {
 	display: flex;
 	align-items: stretch;
@@ -10,12 +16,12 @@
 	width: 100%;
 	max-width: 800px;
 }
-
 .result-info {
 	flex: 2;
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-xs);
+	align-items: start;
 }
 
 .status,
@@ -34,10 +40,17 @@
 	align-items: center;
 }
 
-.result-card.correct .status {
+.result-card.correct .status,
+.result-card.correct .result-icon {
 	color: var(--correct);
 }
 
-.result-card.incorrect .status {
+.result-card.incorrect .status,
+.result-card.incorrect .result-icon {
 	color: var(--incorrect);
+}
+
+.quiz-action {
+	display: flex;
+	gap: var(--spacing-md);
 }

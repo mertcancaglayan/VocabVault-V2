@@ -31,7 +31,6 @@ function Home() {
     return (
         <main>
             <Header />
-
             {!isGreeted ? (
                 <GreetingsSection onContinue={handleContinue} />
             ) : (
@@ -39,7 +38,7 @@ function Home() {
                     <GameModesComponent />
                     <CategoryContainer />
 
-                    <button
+                    <button className="action-btn"
                         onClick={() => {
                             if (gameMode) {
                                 navigate(`/${gameMode.key}`, {

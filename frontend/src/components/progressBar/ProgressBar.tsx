@@ -11,18 +11,14 @@ function ProgressBar() {
     const progressPercentage = totalQuestions > 0 ? ((currentSlideIndex + 1) / totalQuestions) * 100 : 0;
 
     return (
-        <>
-            <div className="quiz-progress">
-                <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: `${progressPercentage}%` }}></div>
-                </div>
-                <div className="progress">
-                    {currentSlideIndex + 1} / {totalQuestions}
-                </div>
+        <div className="quiz-progress">
+            <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${progressPercentage}%` }}></div>
             </div>
-        </>
-
-
+            <div className="progress">
+                {currentSlideIndex + 1} / {totalQuestions}
+            </div>
+        </div>
     )
 }
 

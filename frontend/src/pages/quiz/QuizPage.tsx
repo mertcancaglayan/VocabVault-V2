@@ -5,13 +5,10 @@ import "./quizPage.css";
 
 export default function QuizPage() {
     return (
-        <>
-
-            <main className="quiz-main">
-                <Header />
-                <ProgressBar></ProgressBar>
-                <QuizSlider></QuizSlider>
-            </main>
-        </>
+        <main className="quiz-main">
+            <Header />
+            <ProgressBar></ProgressBar>
+            <QuizSlider></QuizSlider>
+        </main>
     );
 }

@@ -78,3 +78,15 @@ ul li.gameModesItem button.active svg {
 	fill: var(--color-bg-tertiary);
 	color: var(--color-bg-tertiary);
 }
+
+/* Small devices (tablet portrait ↓) */
+@media (max-width: 768px) {
+	.gameModes {
+		padding: 0;
+	}
+
+	.gameModes ul {
+		gap: var(--spacing-xs);
+		padding: var(--spacing-xs) 0;
+	}
+}
