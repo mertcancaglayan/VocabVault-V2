@@ -55,7 +55,7 @@ function Results() {
     return (
         <main className="quiz-main">
             <Header />
-            <section>
+            <section className="result-section">
                 {results.map((result, index) => {
                     return (
                         <article key={index} className={result.isCorrect ? "result-card correct" : "result-card incorrect"}>

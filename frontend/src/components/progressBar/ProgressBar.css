@@ -1,6 +1,7 @@
 .quiz-progress {
 	width: 100%;
-	padding: 0 1rem;
+	padding: 0 var(--spacing-sm);
+	gap: var(--spacing-sm);
 }
 
 .progress-bar {
@@ -15,6 +16,10 @@
 .progress-fill {
 	background-color: var(--color-text-primary);
 	height: 100%;
-	border-radius: 6px;
+	border-radius: var(--radius-sm);
 	transition: width 0.3s ease-in-out;
+}
+
+.progress {
+	margin: var(--spacing-xs) 0 0;
 }

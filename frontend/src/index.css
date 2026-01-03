@@ -107,3 +107,17 @@ section {
 		gap: var(--spacing-xs);
 	}
 }
+
+.action-btn {
+	background-color: var(--color-bg-accent);
+	border: none;
+	color: var(--color-text-primary);
+	padding: var(--spacing-xs);
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	transition: var(--transition-normal);
+}
+
+.action-btn:hover {
+	opacity: 0.7;
+}
