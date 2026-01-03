@@ -30,7 +30,7 @@ function Header() {
         throw new Error("Home must be used within AppProvider");
     }
 
-    const { languagePair, updateLanguage } = contextValue
+    const { languagePair, updateLanguage, difficulty, setDifficulty } = contextValue
 
     if (!languagePair) return
     const { from, to } = languagePair;
@@ -40,10 +40,12 @@ function Header() {
     };
 
     const handleLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-
         updateLanguage({ fromLang: from, toLang: e.target.value })
-        console.log(languagePair);
 
+    }
+
+    const handleDifficulty = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setDifficulty(e.target.value)
     }
 
 
@@ -73,10 +75,11 @@ function Header() {
 
                         <div className="level-selection">
                             <label htmlFor="select-level">Difficulty</label>
-                            <select id="select-level" defaultValue="normal">
+                            <select onChange={handleDifficulty} id="select-level" defaultValue={difficulty}>
                                 <option value="easy">🐣 Easy</option>
                                 <option value="normal">👤 Normal</option>
                                 <option value="expert">🔥 Expert</option>
+                                <option value="random">😂 Random</option>
                             </select>
                         </div>
                     </div>

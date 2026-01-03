@@ -32,12 +32,15 @@ interface AppContextType {
     totalQuestions: number;
     setTotalQuestions: React.Dispatch<React.SetStateAction<number>>;
     updateLanguage: (params: { fromLang: string; toLang: string }) => void;
+    difficulty: string;
+    setDifficulty: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
     const [languagePair, setLanguagePair] = useState<LanguagePair | null>(null);
+    const [difficulty, setDifficulty] = useState<string>("random");
     const [category, setCategory] = useState<Subcategory | null>(null)
     const [gameMode, setGameMode] = useState<GameMode | null>(null)
     const [selectedWords, setSelectedWords] = useState<WordItem[]>([]);
@@ -69,7 +72,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
 
     return (
-        <AppContext.Provider value={{ languagePair, setLanguagePair, category, setCategory, gameMode, setGameMode, selectedWords, setSelectedWords, results, setResults, totalQuestions, setTotalQuestions, currentSlideIndex, setCurrentSlideIndex, updateLanguage }}>
+        <AppContext.Provider value={{ languagePair, setLanguagePair, category, setCategory, gameMode, setGameMode, selectedWords, setSelectedWords, results, setResults, totalQuestions, setTotalQuestions, currentSlideIndex, setCurrentSlideIndex, updateLanguage, difficulty, setDifficulty }}>
             {children}
         </AppContext.Provider>
     )

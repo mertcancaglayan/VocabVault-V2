@@ -22,7 +22,7 @@ function MatchingMode() {
     const [selectedRight, setSelectedRight] = useState<SelectedWord | null>(null);
 
     const location = useLocation();
-    const { category, from, to } = location.state || {};
+    const { category, from, to, difficulty } = location.state || {};
 
     const fromLangSafe = from || localStorage.getItem("wordvault_fromLang");
     const toLangSafe = to || localStorage.getItem("wordvault_toLang");
@@ -31,7 +31,8 @@ function MatchingMode() {
     const { words, isLoading, error } = useQuizWords(
         categorySafe,
         fromLangSafe,
-        toLangSafe
+        toLangSafe,
+        difficulty
     );
 
     useEffect(() => {

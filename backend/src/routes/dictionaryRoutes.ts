@@ -5,6 +5,6 @@ const router: Router = express.Router();
 
 router.get("/", getDictionary);
 
-router.get("/category/:category/lang/:langPair", getWordsByCategory);
+router.get("/category/:category/lang/:langPair/difficulty/:difficulty", getWordsByCategory);
 
 export default router;

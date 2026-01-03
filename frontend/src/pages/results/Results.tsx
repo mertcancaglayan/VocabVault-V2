@@ -10,7 +10,7 @@ function Results() {
 
     const navigateTo = useNavigate();
 
-    const { results, setResults, setCurrentSlideIndex, category, languagePair } = contextValue;
+    const { results, setResults, setCurrentSlideIndex, category, languagePair, difficulty } = contextValue;
 
     if (!languagePair) return;
 
@@ -37,11 +37,12 @@ function Results() {
         resetQuiz()
 
         navigateTo(`/quiz`, {
-            state: { category, from, to },
+            state: { category, from, to, difficulty },
         })
     }
 
     function handleHomeNavigation() {
+        resetQuiz()
         navigateTo("/")
     }
 
@@ -55,9 +56,9 @@ function Results() {
         <main className="quiz-main">
             <Header />
             <section>
-                {results.map((result) => {
+                {results.map((result, index) => {
                     return (
-                        <article className={result.isCorrect ? "result-card correct" : "result-card incorrect"}>
+                        <article key={index} className={result.isCorrect ? "result-card correct" : "result-card incorrect"}>
                             <div className="result-icon">
                                 {
                                     result.isCorrect ? ICONS.correct : ICONS.incorrect

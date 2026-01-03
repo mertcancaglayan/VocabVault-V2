@@ -41,12 +41,13 @@ export const getWords = async (
 	category: Subcategory | null,
 	fromLang: string,
 	toLang: string,
+	difficulty: string,
 ): Promise<WordsDocument> => {
 	if (!category) {
 		throw new Error("Category is required");
 	}
 
-	const url: string = `${API_URL}/api/v1/words/category/${category.key}/lang/${fromLang}-${toLang}`;
+	const url: string = `${API_URL}/api/v1/words/category/${category.key}/lang/${fromLang}-${toLang}/difficulty/${difficulty}`;
 
 	try {
 		const response = await fetch(url);

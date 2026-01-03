@@ -14,7 +14,7 @@ function QuizSlider() {
     const [selectedOption, setSelectedOption] = useState<string>("");
 
     const location = useLocation();
-    const { category, from, to } = location.state || {};
+    const { category, from, to, difficulty } = location.state || {};
 
     const fromLangSafe = from || localStorage.getItem("wordvault_fromLang");
     const toLangSafe = to || localStorage.getItem("wordvault_toLang");
@@ -24,7 +24,7 @@ function QuizSlider() {
     const { words, isLoading, error } = useQuizWords(
         category,
         fromLangSafe,
-        toLangSafe
+        toLangSafe, difficulty
     );
 
     useEffect(() => {
