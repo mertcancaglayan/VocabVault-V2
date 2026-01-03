@@ -8,12 +8,19 @@
 	width: 100%;
 }
 
-.header-title {
+.header-title, a {
 	font-size: var(--font-size-xl);
 	color: var(--color-text-primary);
 	margin: 0;
 	font-weight: var(--font-weight-bold);
 	letter-spacing: calc(var(--letter-spacing-tight) * 2);
+	cursor: pointer;
+	text-decoration: none;
+	transition: var(--transition-fast);
+}
+
+ a:hover {
+	opacity: 0.7;
 }
 
 .settings-wrapper {

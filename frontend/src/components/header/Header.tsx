@@ -2,6 +2,7 @@ import { FaGear } from "react-icons/fa6"
 import "../header/Header.css"
 import { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../../context/AppContext";
+import { Link } from "react-router-dom";
 
 export type languages = language[]
 
@@ -51,7 +52,7 @@ function Header() {
 
     return (
         <header className="header">
-            <h2 className="header-title">The Word Vault Project</h2>
+            <h2 className="header-title"><Link to={"/"}>The Word Vault Project</Link></h2>
 
             <div className="settings-wrapper" ref={dropdownRef}>
                 <button
