@@ -1,0 +1,23 @@
+.slider-navs {
+	display: flex;
+	gap: var(--spacing-md);
+	justify-content: flex-end;
+	height: max-content;
+	align-items: center;
+}
+
+.slider-prev,
+.slider-next {
+	cursor: pointer;
+	transition: var(--transition-slow);
+	padding: var(--spacing-xs);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+	background-color: var(--color-bg-accent);
+}
