@@ -3,6 +3,10 @@
 	grid-template-columns: 1fr 1fr;
 	gap: var(--spacing-sm);
 	max-width: 800px;
+	--color-success: #22c55e; /* green */
+	--color-primary: #3b82f6; /* blue */
+	--color-success-bg: #dcfce7;
+	--color-primary-bg: #e0edff;
 }
 
 .word-list {
@@ -29,9 +33,32 @@
 }
 
 .word-item.matched {
-	background-color: red;
+	background-color: var(--color-success-bg);
+	border-color: var(--color-success);
+	color: var(--color-success);
+	cursor: default;
+	animation: matchPop 0.25s ease;
 }
 
 .word-item.selected {
-	background-color: green;
+	background-color: var(--color-primary-bg);
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.word-item.matched:hover {
+	transform: none;
+	background-color: var(--color-success-bg);
+}
+
+@keyframes matchPop {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
