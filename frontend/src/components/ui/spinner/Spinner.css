@@ -1,0 +1,38 @@
+.spinner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--spacing-lg);
+}
+
+.grid-loader {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 8px;
+	width: 60px;
+	height: 60px;
+}
+.grid-dot {
+	background: var(--color-bg-accent);
+	border-radius: 50%;
+	animation: gridPulse 1.4s infinite;
+}
+.grid-dot:nth-child(2),
+.grid-dot:nth-child(4),
+.grid-dot:nth-child(6) {
+	animation-delay: 0.2s;
+}
+.grid-dot:nth-child(3),
+.grid-dot:nth-child(5),
+.grid-dot:nth-child(9) {
+	animation-delay: 0.4s;
+}
+@keyframes gridPulse {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(0.3);
+	}
+}

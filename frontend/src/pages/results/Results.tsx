@@ -35,7 +35,6 @@ function Results() {
 
     function handleRetry() {
         resetQuiz()
-
         navigateTo(`/quiz`, {
             state: { category, from, to, difficulty },
         })

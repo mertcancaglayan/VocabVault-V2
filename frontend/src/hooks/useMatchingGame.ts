@@ -44,7 +44,6 @@ export function useMatchingGame() {
 
 		setLeftWords(left);
 		setRightWords(right);
-
 		setMatchedIds(new Set());
 		setSelectedLeft(null);
 		setSelectedRight(null);

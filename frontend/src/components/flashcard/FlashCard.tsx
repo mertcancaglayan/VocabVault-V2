@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import "./FlashCard.css"
 
 function FlashCard({ frontText, backText }: { frontText: string; backText: string }) {
