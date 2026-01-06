@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import "../categories/CategoryContainer.css"
-import { getCategoriesV2, type CategoryDocument, } from "../../api/api"
+import { getCategoriesV2 } from "../../api/api"
 import Slider from "./slider/Slider"
+import type { CategoryDocument } from "../../models/models"
 
 function CategoryContainer() {
     const [categories, setCategories] = useState<CategoryDocument[]>([])

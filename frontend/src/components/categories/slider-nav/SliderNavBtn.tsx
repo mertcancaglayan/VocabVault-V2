@@ -1,7 +1,7 @@
 import "../slider-nav/sliderNavBtn.css"
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import type { SlideDirection } from "../slider/Slider";
+import type { SlideDirection } from "../../../models/models";
 
 interface SliderNavBtnProps {
     slide: (direction: SlideDirection) => void

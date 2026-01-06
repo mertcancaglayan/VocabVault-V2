@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getWords, type Subcategory, type WordItem } from "../api/api";
+import { getWords} from "../api/api";
+import type { Subcategory, WordItem } from "../models/models";
 
 export interface ShuffledWord extends WordItem {
 	shuffledOptions: string[];
