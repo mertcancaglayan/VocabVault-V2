@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useParams } from "./useParams"; // Your custom hook
+import { useParams } from "./useParams";
 import { useWords } from "./useWords";
 import { useContext, useEffect, useMemo, useState } from "react";
 import AppContext from "../context/AppContext";
-import { createQuizResults, prepareQuizWords } from "../utils/quizHelpers"; // Import prepareQuizWords
+import { createQuizResults, prepareQuizWords } from "../utils/quizHelpers"; 
 
 const SLIDER_GAME_LIMIT = 10;
 

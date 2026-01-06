@@ -13,8 +13,9 @@ function Results() {
     const { results, setResults, setCurrentSlideIndex, category, languagePair, difficulty } = contextValue;
 
     if (!languagePair) return;
-    
+
     const { from, to } = languagePair;
+
 
     const ICONS = {
         correct: (
@@ -34,7 +35,6 @@ function Results() {
 
     function handleRetry() {
         resetQuiz()
-
         navigateTo(`/quiz`, {
             state: { category, from, to, difficulty },
         })

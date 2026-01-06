@@ -13,7 +13,6 @@ function GameModesComponent() {
 
     const { gameMode, setGameMode } = contextValue;
 
-
     function switchGameMode(mode: GameMode) {
         setGameMode(mode);
     }

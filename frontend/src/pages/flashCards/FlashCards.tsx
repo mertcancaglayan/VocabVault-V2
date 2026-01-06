@@ -3,6 +3,7 @@ import FlashCard from "../../components/flashcard/FlashCard";
 import "./flashCards.css"
 import { useFlashCards } from "../../hooks/useFlashCards";
 import ContentState from "../../components/ui/contentState/ContentState";
+import ProgressBar from "../../components/progressBar/ProgressBar";
 
 
 function FlashCards() {
@@ -17,9 +18,7 @@ function FlashCards() {
                     error={error}
                     isEmpty={gameWords.length === 0}
                 >
-                    <div className="progress">
-                        {currentSlideIndex + 1} / {gameWords.length}
-                    </div>
+                    <ProgressBar></ProgressBar>
                     <div className="flasCardSlider">
                         {
                             gameWords.length === 0 ? (
