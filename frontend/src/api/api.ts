@@ -1,28 +1,6 @@
+import type { CategoryDocument, Subcategory, WordsDocument } from "../models/models";
+
 const API_URL = import.meta.env.VITE_API_URL;
-
-export interface Subcategory {
-	key: string;
-	label: string;
-	emoji: string;
-	description: string;
-}
-
-export interface CategoryDocument {
-	key: string;
-	label: string;
-	subcategories: Subcategory[];
-}
-
-export interface WordsDocument {
-	words: WordItem[];
-}
-
-export interface WordItem {
-	id: string;
-	from: string;
-	to: string;
-	wrongWords: string[];
-}
 
 export const getCategoriesV2 = async (): Promise<CategoryDocument[]> => {
 	try {

@@ -1,6 +1,4 @@
 import type { JSX } from "react";
-// We use Material Design (Md) for the standard Quiz icon
-// We use Tabler Icons (Tb) for Cards and Matching as they have the best specific visuals
 import { MdQuiz } from "react-icons/md";
 import { TbCards, TbArrowsJoin2 } from "react-icons/tb";
 

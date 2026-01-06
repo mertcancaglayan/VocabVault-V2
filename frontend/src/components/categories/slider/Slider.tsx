@@ -1,9 +1,9 @@
-import type { CategoryDocument } from "../../../api/api";
 import "../slider/Slider.css";
 import SliderItem from "./slideItem/SliderItem";
 import { getCategoryIcons } from "../../../data/categoryIcons";
 import SliderNavBtn from "../slider-nav/SliderNavBtn";
 import { useRef } from "react";
+import type { CategoryDocument, SlideDirection } from "../../../models/models";
 
 interface SliderCategoryProp {
     cat: CategoryDocument;
@@ -11,9 +11,6 @@ interface SliderCategoryProp {
 const iconMap = new Map(
     getCategoryIcons().map(icon => [icon.key, icon])
 );
-
-export type SlideDirection = "next" | "prev";
-
 
 function Slider({ cat }: SliderCategoryProp) {
     const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -40,7 +37,6 @@ function Slider({ cat }: SliderCategoryProp) {
             });
         }
     }
-
 
     return (
         <>

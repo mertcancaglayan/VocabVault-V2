@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import AppContext from "../../../../context/AppContext";
-import { type Subcategory } from "../../../../api/api";
+
 import "../slideItem/SliderItem.css"
 import type { CategoryIcon } from "../../../../data/categoryIcons";
+import type { Subcategory } from "../../../../models/models";
 
 interface SliderItemProps {
     item: Subcategory,

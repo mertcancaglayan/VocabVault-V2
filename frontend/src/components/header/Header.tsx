@@ -4,13 +4,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../../context/AppContext";
 import { Link } from "react-router-dom";
 
-export type languages = language[]
-
-export interface language {
-    lang: string
-    text: string
-}
-
 const languages = [{ lang: "tr", text: "🇹🇷 Türkçe " }, { lang: "en", text: "🇬🇧 English" }, { lang: "pl", text: "🇵🇱 Polski" }]
 
 function Header() {

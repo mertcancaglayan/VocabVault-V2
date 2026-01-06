@@ -1,4 +1,3 @@
-
 import Home from "./pages/Home"
 import { AppProvider } from "./context/AppContext"
 import QuizPage from "./pages/quiz/QuizPage"
@@ -8,52 +7,18 @@ import MatchingMode from "./pages/matching/MatchingMode"
 import FlashCards from "./pages/flashCards/FlashCards"
 
 function App() {
-
-
-  // const [words, setWords] = useState<WordItem[]>([])
-
-
-  // useEffect(() => {
-  //   if (!selectedCategory) return
-
-  //   getWords(selectedCategory, "en", "tr")
-  //     .then(data => setWords(data.words))
-  //     .catch(err => console.error(err))
-  // }, [selectedCategory])
-
   return (
-    <>
-      {/* <h2>Categories</h2>
-      <ul>
-        {categories.map((e) => (
-          <li key={e.key}>
-            <button onClick={() => setSelectedCategory(e)}>
-              {e.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <h2>Words</h2>
-      <ul>
-        {words.map((word) => (
-          <li key={word.id}>{word.from} → {word.to}</li>
-        ))}
-      </ul> */}
-      <BrowserRouter>
-        <AppProvider>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/quiz" element={<QuizPage />}></Route>
-            <Route path="/results" element={<Results />}></Route>
-            <Route path="/wordMatching" element={<MatchingMode />}></Route>
-            <Route path="/flashCards" element={<FlashCards />}></Route>
+    <BrowserRouter>
+      <AppProvider>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/quiz" element={<QuizPage />}></Route>
+          <Route path="/results" element={<Results />}></Route>
+          <Route path="/wordMatching" element={<MatchingMode />}></Route>
+          <Route path="/flashCards" element={<FlashCards />}></Route>
         </Routes>
       </AppProvider>
-
     </BrowserRouter >
-
-    </>
   )
 }
 

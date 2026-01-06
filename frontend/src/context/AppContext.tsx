@@ -1,20 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import type { GameMode } from "../data/gameModes";
-import { type WordItem, type Subcategory } from "../api/api";
-
-
-interface LanguagePair {
-    from: string;
-    to: string;
-}
-
-export interface ResultI {
-    id: string;
-    question: string;
-    selected: string;
-    correct: string;
-    isCorrect: boolean;
-}
+import type { LanguagePair, ResultI, Subcategory, WordItem } from "../models/models";
 
 interface AppContextType {
     languagePair: LanguagePair | null;

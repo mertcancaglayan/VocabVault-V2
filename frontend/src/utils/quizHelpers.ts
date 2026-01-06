@@ -1,5 +1,4 @@
-import type { WordItem } from "../api/api";
-import type { ResultI } from "../context/AppContext";
+import type { ResultI, WordItem } from "../models/models";
 import { shuffle } from "./shuffle";
 
 export function prepareQuizWords(words: WordItem[]) {
