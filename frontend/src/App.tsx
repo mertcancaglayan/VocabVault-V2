@@ -5,18 +5,21 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Results from "./pages/results/Results"
 import MatchingMode from "./pages/matching/MatchingMode"
 import FlashCards from "./pages/flashCards/FlashCards"
+import QuizFlowProvider from "./providers/QuizFlowProvider"
 
 function App() {
   return (
     <BrowserRouter>
       <AppProvider>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/quiz" element={<QuizPage />}></Route>
-          <Route path="/results" element={<Results />}></Route>
-          <Route path="/wordMatching" element={<MatchingMode />}></Route>
-          <Route path="/flashCards" element={<FlashCards />}></Route>
-        </Routes>
+        <QuizFlowProvider>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/quiz" element={<QuizPage />}></Route>
+            <Route path="/results" element={<Results />}></Route>
+            <Route path="/wordMatching" element={<MatchingMode />}></Route>
+            <Route path="/flashCards" element={<FlashCards />}></Route>
+          </Routes>
+        </QuizFlowProvider>
       </AppProvider>
     </BrowserRouter >
   )
