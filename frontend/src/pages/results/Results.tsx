@@ -10,7 +10,7 @@ function Results() {
 
     const navigateTo = useNavigate();
 
-    const { results, setResults, setCurrentSlideIndex, category, languagePair, difficulty } = contextValue;
+    const { results, category, languagePair, difficulty } = contextValue;
 
     if (!languagePair) return;
 
@@ -32,24 +32,15 @@ function Results() {
         )
     };
 
-
     function handleRetry() {
-        resetQuiz()
         navigateTo(`/quiz`, {
-            state: { category, from, to, difficulty },
+            state: { category, from, to, difficulty, intent: "retry" },
         })
     }
 
     function handleHomeNavigation() {
-        resetQuiz()
         navigateTo("/")
     }
-
-    function resetQuiz() {
-        setResults([])
-        setCurrentSlideIndex(0)
-    }
-
 
     return (
         <main className="quiz-main">

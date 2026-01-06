@@ -9,7 +9,6 @@ function CategoryContainer() {
 
     useEffect(() => {
         getCategoriesV2().then(data => setCategories(data)).catch(err => console.error(err))
-        
     }, [])
 
     return (
