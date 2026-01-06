@@ -13,9 +13,8 @@ function Results() {
     const { results, setResults, setCurrentSlideIndex, category, languagePair, difficulty } = contextValue;
 
     if (!languagePair) return;
-
+    
     const { from, to } = languagePair;
-
 
     const ICONS = {
         correct: (
