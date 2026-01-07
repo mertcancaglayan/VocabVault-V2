@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { useParams } from "./useParams";
 import { useWords } from "./useWords";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ export function useFlashCards() {
 	const contextValue = useContext(AppContext);
 	if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
 
-	const { currentSlideIndex, setCurrentSlideIndex } = contextValue;
+	const { currentSlideIndex, setCurrentSlideIndex, setTotalQuestions } = contextValue;
 
 	const { category, from, to, difficulty } = useParams();
 	const { words: allWords, isLoading, error } = useWords(category, from, to, difficulty);
@@ -27,6 +27,12 @@ export function useFlashCards() {
 			setCurrentSlideIndex(currentSlideIndex - 1);
 		}
 	}
+
+	useEffect(() => {
+		if (gameWords.length > 0) {
+			setTotalQuestions(gameWords.length);
+		}
+	}, [gameWords, setTotalQuestions]);
 
 	const navigateTo = useNavigate();
 
@@ -45,5 +51,9 @@ export function useFlashCards() {
 		handlePrev,
 		handleNext,
 		currentSlideIndex,
+		category,
+		from,
+		to,
+		difficulty,
 	};
 }

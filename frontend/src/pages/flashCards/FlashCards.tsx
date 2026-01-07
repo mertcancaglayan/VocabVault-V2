@@ -4,10 +4,18 @@ import "./flashCards.css"
 import { useFlashCards } from "../../hooks/useFlashCards";
 import ContentState from "../../components/ui/contentState/ContentState";
 import ProgressBar from "../../components/progressBar/ProgressBar";
-
+import { useNavigate } from "react-router-dom";
 
 function FlashCards() {
-    const { isLoading, error, gameWords, currentSlideIndex, handlePrev, handleNext } = useFlashCards()
+    const navigateTo = useNavigate();
+
+    const { isLoading, error, gameWords, currentSlideIndex, handlePrev, handleNext, category, from, to, difficulty, } = useFlashCards()
+
+    function handleRetry() {
+        navigateTo(`/flashcards`, {
+            state: { category, from, to, difficulty, intent: "retry" },
+        })
+    }
 
     return (
         <main className="game-section">
@@ -32,6 +40,7 @@ function FlashCards() {
                     <div className="controls">
                         <button className="card-btn" onClick={handlePrev} disabled={currentSlideIndex === 0}>prev</button>
                         <button className="card-btn" onClick={handleNext}>{currentSlideIndex === gameWords.length - 1 ? "end" : "next"}</button>
+                        <button className="card-btn" onClick={handleRetry} disabled={currentSlideIndex != gameWords.length - 1}>Retry</button>
                     </div>
                 </ContentState>
             </section>

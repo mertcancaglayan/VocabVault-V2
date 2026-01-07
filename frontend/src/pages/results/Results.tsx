@@ -1,21 +1,12 @@
-import { useContext } from "react"
 import Header from "../../components/header/Header"
+import { useQuizLogic } from "../../hooks/useQuizLogic";
 import "../results/results.css"
-import AppContext from "../../context/AppContext"
 import { useNavigate } from "react-router-dom"
 
 function Results() {
-    const contextValue = useContext(AppContext)
-    if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
-
     const navigateTo = useNavigate();
 
-    const { results, category, languagePair, difficulty } = contextValue;
-
-    if (!languagePair) return;
-
-    const { from, to } = languagePair;
-
+    const { category, from, to, difficulty, results } = useQuizLogic()
 
     const ICONS = {
         correct: (
