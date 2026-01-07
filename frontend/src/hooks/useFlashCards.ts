@@ -1,12 +1,16 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 import { useParams } from "./useParams";
 import { useWords } from "./useWords";
 import { useNavigate } from "react-router-dom";
+import AppContext from "../context/AppContext";
 
 const FLASCARDS_GAME_LIMIT = 10;
 
 export function useFlashCards() {
-	const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+	const contextValue = useContext(AppContext);
+	if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
+
+	const { currentSlideIndex, setCurrentSlideIndex } = contextValue;
 
 	const { category, from, to, difficulty } = useParams();
 	const { words: allWords, isLoading, error } = useWords(category, from, to, difficulty);
