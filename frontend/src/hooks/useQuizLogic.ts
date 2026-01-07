@@ -3,7 +3,7 @@ import { useParams } from "./useParams";
 import { useWords } from "./useWords";
 import { useContext, useEffect, useMemo, useState } from "react";
 import AppContext from "../context/AppContext";
-import { createQuizResults, prepareQuizWords } from "../utils/quizHelpers"; 
+import { createQuizResults, prepareQuizWords } from "../utils/quizHelpers";
 
 const SLIDER_GAME_LIMIT = 10;
 
@@ -11,7 +11,7 @@ export function useQuizLogic() {
 	const contextValue = useContext(AppContext);
 	if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
 
-	const { setResults, currentSlideIndex, setCurrentSlideIndex, setTotalQuestions } = contextValue;
+	const { setResults, currentSlideIndex, setCurrentSlideIndex, setTotalQuestions, results } = contextValue;
 	const [selectedOption, setSelectedOption] = useState<string>("");
 
 	const { category, from, to, difficulty } = useParams();
@@ -66,5 +66,10 @@ export function useQuizLogic() {
 		selectedOption,
 		handleAnswer,
 		handleNext,
+		results,
+		category,
+		from,
+		to,
+		difficulty,
 	};
 }
