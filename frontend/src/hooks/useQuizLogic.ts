@@ -54,7 +54,9 @@ export function useQuizLogic() {
 		if (currentSlideIndex < gameWords.length - 1) {
 			setCurrentSlideIndex((prev) => prev + 1);
 		} else {
-			navigateTo("/results");
+			navigateTo(`/results`, {
+				state: { category, from, to, difficulty},
+			});
 		}
 	}
 
