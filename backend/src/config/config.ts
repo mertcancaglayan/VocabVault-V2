@@ -8,6 +8,7 @@ interface Config {
 	atlasUrl: string;
 	frontUrl: string;
 	mobileTestUrl: string;
+	adminUrl: string;
 }
 
 export const config: Config = {
@@ -16,4 +17,5 @@ export const config: Config = {
 	atlasUrl: process.env.ATLAS_URL || "",
 	frontUrl: process.env.FRONT_URL || "",
 	mobileTestUrl: process.env.MODEL_TEST_URL || "",
+	adminUrl: process.env.ADMIN_URL || "",
 };
