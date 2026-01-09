@@ -42,8 +42,6 @@ function QuizFlowProvider({ children }: Props) {
             setCurrentSlideIndex(0);
         };
 
-        console.log("değişti");
-
         prevPath.current = currentPath
 
     }, [location.pathname, location.key, setResults, setCurrentSlideIndex, location.state?.intent]);
