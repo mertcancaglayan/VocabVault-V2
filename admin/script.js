@@ -11,45 +11,59 @@ const getWords = async () => {
 const data = await getWords();
 const words = data.words;
 
-const tableHeader = document.querySelector(".table-header");
-const section = document.getElementById("admin-section");
+const tableHeadRow = document.getElementById("table-head-row");
+const tbody = document.getElementById("admin-section");
 
 const languages = Object.keys(words[0]?.translations ?? {});
 
-tableHeader.innerHTML = `
-		<span>ID</span>
-		<span>Category</span>
-		${languages.map((l) => `<span>${l.toUpperCase()}</span>`).join("")}
-		<span>Actions</span>
+tableHeadRow.innerHTML = `
+	<th scope="col">ID</th>
+<th scope="col" class="category-header">
+	<span>Category</span>
+	<select id="categoryFilter">
+		<option value="">All</option>
+	</select>
+</th>
+	${languages.map((l) => `<th scope="col">${l.toUpperCase()}</th>`).join("")}
+	<th scope="col">Actions</th>
 `;
 
-section.innerHTML = words
+tbody.innerHTML = words
 	.map((word) => {
 		const translationsHTML = languages
-			.map((lang) => `<input type="text" value="${word.translations[lang] ?? ""}" data-lang="${lang}" />`)
+			.map(
+				(lang) => `
+					<td>
+						<input
+							type="text"
+							value="${word.translations[lang] ?? ""}"
+							data-lang="${lang}"
+						/>
+					</td>
+				`,
+			)
 			.join("");
 
 		return `
-			<div class="table-row">
-				<span class="id">${word._id}</span>
-				<span>${word.sub_category_label}</span>
+			<tr class="table-row">
+				<td class="id">${word._id}</td>
+				<td>${word.sub_category_label}</td>
 				${translationsHTML}
-				<button class="save-btn"  data-id="${word._id}">Save</button>
-			</div>
+				<td>
+					<button class="save-btn" data-id="${word._id}">Save</button>
+				</td>
+			</tr>
 		`;
 	})
 	.join("");
 
 async function patchWord(wordId, translations) {
-	const myHeaders = new Headers();
-
-	myHeaders.append("Content-Type", "application/json");
-	myHeaders.append("x-api-key",ADMIN_API_KEY);
-	
-
 	const response = await fetch(`${API_URL}/api/v1/admin/words/${wordId}`, {
 		method: "PATCH",
-		headers: myHeaders,
+		headers: {
+			"Content-Type": "application/json",
+			"x-api-key": ADMIN_API_KEY,
+		},
 		body: JSON.stringify({ translations }),
 	});
 
@@ -59,29 +73,44 @@ async function patchWord(wordId, translations) {
 	}
 
 	const data = await response.json();
-
-	const updatedID = data._id;
-
-	showMessage(updatedID);
+	alert(`Updated: ${data._id}`);
 }
 
-function showMessage(updatedID) {
-	alert(`Updated: ${updatedID}`);
-}
-
-section.addEventListener("click", (e) => {
+tbody.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("save-btn")) return;
 
-	const row = e.target.closest(".table-row");
+	const row = e.target.closest("tr");
 	const wordId = e.target.dataset.id;
 
 	const inputs = row.querySelectorAll("input[data-lang]");
 	const translations = {};
 
 	inputs.forEach((input) => {
-		const lang = input.dataset.lang;
-		translations[lang] = input.value.trim();
+		translations[input.dataset.lang] = input.value.trim();
 	});
 
 	patchWord(wordId, translations);
+});
+
+const categoryFilter = document.getElementById("categoryFilter");
+
+const subCategories = [...new Set(words.map((word) => word.sub_category_label))].sort();
+
+subCategories.forEach((category) => {
+	const option = document.createElement("option");
+	option.value = category;
+	option.textContent = category;
+	categoryFilter.appendChild(option);
+});
+
+categoryFilter.addEventListener("change", () => {
+	const selected = categoryFilter.value;
+
+	document.querySelectorAll("#admin-section tr").forEach((row) => {
+		const categoryCell = row.children[1].textContent.trim();
+
+		const match = !selected || categoryCell === selected;
+		
+		row.style.display = match ? "" : "none";
+	});
 });
