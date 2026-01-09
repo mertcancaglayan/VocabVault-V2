@@ -1,0 +1,106 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: system-ui, sans-serif;
+}
+
+body {
+	background-color: #1e1e1e;
+	color: #f1f1f1;
+}
+
+/* Header */
+.admin-header {
+	background: #111;
+	padding: 1rem 2rem;
+	border-bottom: 1px solid #333;
+}
+
+.admin-header h1 {
+	font-size: 1.5rem;
+}
+
+/* Layout */
+.admin-container {
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+/* Table */
+.word-table {
+	width: 100%;
+	background: #252525;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+/* Header row */
+.table-header,
+.table-row {
+	display: grid;
+	grid-template-columns:
+		120px
+		120px
+		repeat(3, 1fr)
+		120px;
+	gap: 0.75rem;
+	padding: 10px;
+	align-items: center;
+}
+
+.table-header {
+	background: #2f2f2f;
+	font-weight: bold;
+	border-bottom: 1px solid #3a3a3a;
+}
+
+/* Rows */
+.table-row {
+	border-bottom: 1px solid #333;
+}
+
+.table-row:last-child {
+	border-bottom: none;
+}
+
+/* Inputs */
+.table-row input {
+	background: #1a1a1a;
+	border: 1px solid #3a3a3a;
+	color: #fff;
+	padding: 0.4rem 0.5rem;
+	border-radius: 4px;
+	font-size: 0.95rem;
+}
+
+.table-row input:focus {
+	outline: none;
+	border-color: #4caf50;
+}
+
+/* ID column */
+.id {
+	font-size: 0.75rem;
+	color: #aaa;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Button */
+.save-btn {
+	background: #4caf50;
+	color: #fff;
+	border: none;
+	padding: 0.4rem 0.75rem;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.save-btn:hover {
+	background: #43a047;
+}
