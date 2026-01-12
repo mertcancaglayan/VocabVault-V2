@@ -19,7 +19,7 @@ connectDB();
 app.use(helmet());
 app.use(mongoSanitize());
 
-const allowedOrigins = [config.frontUrl, config.mobileTestUrl].filter(Boolean);
+const allowedOrigins = [config.frontUrl, config.mobileTestUrl, config.frontUrlDev].filter(Boolean);
 
 const publicCors = cors({
 	origin: allowedOrigins,
