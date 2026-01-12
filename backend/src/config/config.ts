@@ -9,6 +9,7 @@ interface Config {
 	frontUrl: string;
 	mobileTestUrl: string;
 	adminUrl: string;
+	frontUrlAdmin: string;
 }
 
 export const config: Config = {
@@ -16,6 +17,7 @@ export const config: Config = {
 	nodeEnv: process.env.NODE_ENV || "development",
 	atlasUrl: process.env.ATLAS_URL || "",
 	frontUrl: process.env.FRONT_URL || "",
+	frontUrlAdmin: process.env.FRONT_URL_DEV || "",
 	mobileTestUrl: process.env.MODEL_TEST_URL || "",
 	adminUrl: process.env.ADMIN_URL || "",
 };
