@@ -7,9 +7,10 @@ interface ContentStateProps {
     error?: Error | null;
     isEmpty: boolean;
     children: ReactNode;
+    loadingMsg: string;
 }
 
-function ContentState({ isLoading, error, isEmpty, children }: ContentStateProps) {
+function ContentState({ isLoading, error, isEmpty, children, loadingMsg }: ContentStateProps) {
 
     const navigateTo = useNavigate()
 
@@ -17,10 +18,10 @@ function ContentState({ isLoading, error, isEmpty, children }: ContentStateProps
         navigateTo("/")
     }
 
-    if (isLoading) return <Spinner message={"Loading questions..."}></Spinner>;
-    if (error) return <p>Error loading quiz: {error.message}</p>;
+    if (isLoading) return <Spinner message={`Loading ${loadingMsg}...`}></Spinner>;
+    if (error) return <p>Error loading {loadingMsg}: {error.message}</p>;
     if (isEmpty) return <>
-        <p>No questions available for this category.</p>
+        {loadingMsg === "categories" ? <p>No {loadingMsg} available</p> : <p>No {loadingMsg} available for this category.</p>}
         <button className="card-btn" onClick={handleNavigate}>Home</button>
     </>;
 

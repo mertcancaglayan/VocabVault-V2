@@ -16,6 +16,8 @@ function QuizSlider() {
             isLoading={isLoading}
             error={error}
             isEmpty={gameWords.length === 0}
+            loadingMsg="questions"
+
         >
             <div className="quiz-slider">
                 {currentSlide ? (

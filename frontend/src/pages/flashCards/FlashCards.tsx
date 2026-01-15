@@ -25,6 +25,8 @@ function FlashCards() {
                     isLoading={isLoading}
                     error={error}
                     isEmpty={gameWords.length === 0}
+                loadingMsg="cards"
+
                 >
                     <ProgressBar></ProgressBar>
                     <div className="flasCardSlider">
