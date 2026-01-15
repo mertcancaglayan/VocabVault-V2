@@ -1,38 +1,26 @@
-import { useEffect, useState } from "react"
 import "../categories/CategoryContainer.css"
-import { getCategoriesV2 } from "../../api/api"
 import Slider from "./slider/Slider"
-import type { CategoryDocument } from "../../models/models"
-import Spinner from "../ui/spinner/Spinner"
+import { useCategories } from "../../hooks/useCategories";
+import ContentState from "../ui/contentState/ContentState";
 
 function CategoryContainer() {
-    const [categories, setCategories] = useState<CategoryDocument[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        setIsLoading(true)
-
-        getCategoriesV2()
-            .then(data => {
-                setCategories(data)
-            })
-            .catch(err => {
-                console.error(err)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
-    }, [])
-
-
-    if (isLoading) return <Spinner message={"Loading categories..."}></Spinner>;
+    const { categories, isLoading, error } = useCategories();
 
     return (
-        <section className="categories-sliders">
-            {categories.map((cat) => (
-                <Slider key={cat.key} cat={cat}></Slider>
-            ))}
-        </section>
+        <ContentState
+            isLoading={isLoading}
+            error={error}
+            isEmpty={categories.length === 0}
+            loadingMsg="categories"
+        >
+            <section className="categories-sliders">
+                {categories.map((cat) => (
+                    <Slider key={cat.key} cat={cat}></Slider>
+                ))}
+            </section>
+
+        </ContentState>
+
     )
 }
 

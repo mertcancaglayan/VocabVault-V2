@@ -26,6 +26,7 @@ function MatchingMode() {
                 isLoading={isLoading}
                 error={error}
                 isEmpty={gameWords.length === 0}
+                loadingMsg="words"
             >
                 <section className="matching-grid">
                     {!isGameComplete ? (
