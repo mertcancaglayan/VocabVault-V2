@@ -2,8 +2,14 @@ import "../categories/CategoryContainer.css"
 import Slider from "./slider/Slider"
 import { useCategories } from "../../hooks/useCategories";
 import ContentState from "../ui/contentState/ContentState";
+import type { allowedLangs } from "../../models/models";
 
-function CategoryContainer() {
+interface CategoryContainerProps {
+    fromLang: allowedLangs;
+}
+
+
+function CategoryContainer({ fromLang }: CategoryContainerProps) {
     const { categories, isLoading, error } = useCategories();
 
     return (
@@ -15,7 +21,7 @@ function CategoryContainer() {
         >
             <section className="categories-sliders">
                 {categories.map((cat) => (
-                    <Slider key={cat.key} cat={cat}></Slider>
+                    <Slider key={cat.key} cat={cat} fromLang={fromLang}></Slider>
                 ))}
             </section>
 

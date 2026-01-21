@@ -3,7 +3,12 @@ import { getGameModes, type GameMode } from '../../data/gameModes';
 import "../gameModes/GameModes.css";
 import AppContext from '../../context/AppContext';
 
-function GameModesComponent() {
+
+interface GameModesProps {
+    fromLang: "en" | "tr" | "pl";
+}
+
+function GameModesComponent({ fromLang }: GameModesProps) {
     const [gameModes] = useState<GameMode[]>(() => getGameModes());
     const contextValue = useContext(AppContext);
 
@@ -23,7 +28,7 @@ function GameModesComponent() {
                 {gameModes.map((mode) => (
                     <li className='gameModesItem' key={mode.key}>
                         <button className={gameMode?.key === mode.key ? "active" : ""} onClick={() => switchGameMode(mode)}>
-                            {mode.icon} {mode.name}
+                            {mode.icon} {mode.name[fromLang]}
                         </button>
                     </li>
                 ))}

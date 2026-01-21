@@ -25,7 +25,6 @@ function Home() {
     const { category, languagePair, gameMode, difficulty } = contextValue;
 
     if (!languagePair) return null;
-
     const { from, to } = languagePair;
 
     return (
@@ -35,8 +34,8 @@ function Home() {
                 <GreetingsSection onContinue={handleContinue} />
             ) : (
                 <>
-                    <GameModesComponent />
-                    <CategoryContainer />
+                    <GameModesComponent fromLang={from} />
+                    <CategoryContainer fromLang={from} />
 
                     <button className="action-btn"
                         onClick={() => {

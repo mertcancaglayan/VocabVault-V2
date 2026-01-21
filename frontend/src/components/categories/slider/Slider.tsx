@@ -3,16 +3,17 @@ import SliderItem from "./slideItem/SliderItem";
 import { getCategoryIcons } from "../../../data/categoryIcons";
 import SliderNavBtn from "../slider-nav/SliderNavBtn";
 import { useRef } from "react";
-import type { CategoryDocument, SlideDirection } from "../../../models/models";
+import type { allowedLangs, CategoryDocument, SlideDirection } from "../../../models/models";
 
 interface SliderCategoryProp {
     cat: CategoryDocument;
+    fromLang: allowedLangs;
 }
 const iconMap = new Map(
     getCategoryIcons().map(icon => [icon.key, icon])
 );
 
-function Slider({ cat }: SliderCategoryProp) {
+function Slider({ cat, fromLang }: SliderCategoryProp) {
     const sliderRef = useRef<HTMLDivElement | null>(null);
 
     function slide(direction: SlideDirection) {
@@ -43,7 +44,7 @@ function Slider({ cat }: SliderCategoryProp) {
             <hr />
             <div className="sliderContainer">
                 <div className="slider-top-area">
-                    <h5>{cat.label}</h5>
+                    <h5>{cat.labels[fromLang]}</h5>
                     <SliderNavBtn slide={slide}></SliderNavBtn>
                 </div>
 
