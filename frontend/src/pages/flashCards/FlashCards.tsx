@@ -25,8 +25,7 @@ function FlashCards() {
                     isLoading={isLoading}
                     error={error}
                     isEmpty={gameWords.length === 0}
-                loadingMsg="cards"
-
+                    loadingMsg="cards"
                 >
                     <ProgressBar></ProgressBar>
                     <div className="flasCardSlider">
@@ -35,7 +34,7 @@ function FlashCards() {
                                 <p>No questions available for this category.</p>
 
                             ) : (
-                                <FlashCard frontText={gameWords[currentSlideIndex].from} backText={gameWords[currentSlideIndex].to} key={gameWords[currentSlideIndex].id}></FlashCard>
+                                <FlashCard frontText={gameWords[currentSlideIndex].fromWord} backText={gameWords[currentSlideIndex].toWord} key={gameWords[currentSlideIndex].id}></FlashCard>
                             )
                         }
                     </div>

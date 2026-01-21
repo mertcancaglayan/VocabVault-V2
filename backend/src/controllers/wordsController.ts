@@ -25,8 +25,8 @@ interface IParams {
 
 export interface IFormattedWord {
 	id: string;
-	from: string;
-	to: string;
+	fromWord: string;
+	toWord: string;
 	wrongWords: string[];
 	example: string;
 }
@@ -99,18 +99,18 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 	const words: IFormattedWord[] = [];
 
 	dictionary.forEach((word) => {
-		const from: string = word.translations[lang1];
-		const to: string = word.translations[lang2];
+		const fromWord: string = word.translations[lang1];
+		const toWord: string = word.translations[lang2];
 		const example: string = word.example[lang2];
 
-		if (from && to) {
-			const wrongWords: string[] = getRandomWrongWords(to, allToWords);
+		if (fromWord && toWord) {
+			const wrongWords: string[] = getRandomWrongWords(toWord, allToWords);
 			const id: string = word._id;
 
 			words.push({
 				id,
-				from,
-				to,
+				fromWord,
+				toWord,
 				wrongWords,
 				example,
 			});

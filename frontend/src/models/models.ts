@@ -23,8 +23,8 @@ export interface WordsDocument {
 
 export interface WordItem {
 	id: string;
-	from: string;
-	to: string;
+	fromWord: string;
+	toWord: string;
 	wrongWords: string[];
 }
 
