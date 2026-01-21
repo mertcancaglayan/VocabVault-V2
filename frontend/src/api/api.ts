@@ -1,6 +1,6 @@
 import type { CategoryDocument, Subcategory, WordsDocument } from "../models/models";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL_DEV;
 
 export const getCategoriesV2 = async (): Promise<CategoryDocument[]> => {
 	try {
