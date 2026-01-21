@@ -1,13 +1,19 @@
+export interface Labels {
+	en: string;
+	tr: string;
+	pl: string;
+}
+
 export interface Subcategory {
 	key: string;
-	label: string;
+	labels: Labels;
 	emoji: string;
 	description: string;
 }
 
 export interface CategoryDocument {
 	key: string;
-	label: string;
+	labels: Labels;
 	subcategories: Subcategory[];
 }
 
@@ -17,8 +23,8 @@ export interface WordsDocument {
 
 export interface WordItem {
 	id: string;
-	from: string;
-	to: string;
+	fromWord: string;
+	toWord: string;
 	wrongWords: string[];
 }
 
@@ -29,9 +35,11 @@ export interface language {
 	text: string;
 }
 
+export type allowedLangs = "en" | "tr" | "pl";
+
 export interface LanguagePair {
-	from: string;
-	to: string;
+	from: allowedLangs;
+	to: allowedLangs;
 }
 
 export interface ResultI {

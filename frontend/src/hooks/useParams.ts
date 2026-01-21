@@ -5,8 +5,8 @@ export function useParams() {
 	const state = location.state || {};
 
 	const category = state.category || "colors";
-	const from = state.from || localStorage.getItem("wordvault_fromLang");
-	const to = state.to || localStorage.getItem("wordvault_toLang");
+	const from = state.from || localStorage.getItem("wordvault2_fromLang");
+	const to = state.to || localStorage.getItem("wordvault2_toLang");
 	const difficulty = state.difficulty; 
 
 	return {

@@ -32,13 +32,13 @@ export function useMatchingGame() {
 
 		const left = gameWords.map((w) => ({
 			id: w.id,
-			word: w.from,
+			word: w.fromWord,
 			matched: false,
 		}));
 
 		const right = shuffle(gameWords).map((w) => ({
 			id: w.id,
-			word: w.to,
+			word: w.toWord,
 			matched: false,
 		}));
 

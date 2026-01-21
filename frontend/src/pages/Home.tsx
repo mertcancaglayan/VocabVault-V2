@@ -6,6 +6,7 @@ import Header from "../components/header/Header";
 import { useCallback, useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 import GreetingsSection from "../components/greetings/Greetings";
+import { buttonTexts } from "../data/buttonTexts";
 
 function Home() {
     const [isGreeted, setIsGreeted] = useState(() => sessionStorage.getItem("greeted") === "true");
@@ -25,8 +26,9 @@ function Home() {
     const { category, languagePair, gameMode, difficulty } = contextValue;
 
     if (!languagePair) return null;
-
     const { from, to } = languagePair;
+
+    const actionButtonText = buttonTexts[from].start
 
     return (
         <main>
@@ -35,8 +37,8 @@ function Home() {
                 <GreetingsSection onContinue={handleContinue} />
             ) : (
                 <>
-                    <GameModesComponent />
-                    <CategoryContainer />
+                    <GameModesComponent fromLang={from} />
+                    <CategoryContainer fromLang={from} />
 
                     <button className="action-btn"
                         onClick={() => {
@@ -48,7 +50,7 @@ function Home() {
                         }}
                         disabled={!category || !gameMode}
                     >
-                        Go To Mode
+                        {actionButtonText}
                     </button>
                 </>
             )}

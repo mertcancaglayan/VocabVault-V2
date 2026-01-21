@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { getWords} from "../api/api";
-import type { Subcategory, WordItem } from "../models/models";
+import type { allowedLangs, Subcategory, WordItem } from "../models/models";
 
 export interface ShuffledWord extends WordItem {
 	shuffledOptions: string[];
 }
 
-export function useWords(category: Subcategory, from: string, to: string, difficulty: string) {
+export function useWords(category: Subcategory, from: allowedLangs, to: allowedLangs, difficulty: string) {
 	const [words, setWords] = useState<WordItem[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<Error | null>(null);

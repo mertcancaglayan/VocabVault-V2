@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import AppContext from "../../../../context/AppContext";
-
 import "../slideItem/SliderItem.css"
 import type { CategoryIcon } from "../../../../data/categoryIcons";
 import type { Subcategory } from "../../../../models/models";
@@ -13,7 +12,11 @@ interface SliderItemProps {
 function SliderItem({ item, icon }: SliderItemProps) {
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("CategoryContainer must be used within AppProvider");
-    const { category, setCategory } = contextValue;
+
+    const { languagePair, category, setCategory } = contextValue;
+
+    if (!languagePair) return null;
+    const { from } = languagePair;
 
     function categorySelection(selected: Subcategory | null) {
         setCategory(selected);
@@ -27,7 +30,7 @@ function SliderItem({ item, icon }: SliderItemProps) {
             aria-pressed={category?.key === item.key}
         >
             <div className="card-content">
-                <h2 className="card-title">{item.label}</h2>
+                <h2 className="card-title">{item.labels[from]}</h2>
                 <span className="category-icon">
                     {icon?.icon}
                 </span>

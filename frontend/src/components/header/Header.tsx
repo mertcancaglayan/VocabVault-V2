@@ -3,6 +3,8 @@ import "../header/Header.css"
 import { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../../context/AppContext";
 import { Link } from "react-router-dom";
+import type { allowedLangs } from "../../models/models";
+import { settingsText } from "../../data/settingsTexts";
 
 const languages = [{ lang: "tr", text: "🇹🇷 Türkçe " }, { lang: "en", text: "🇬🇧 English" }, { lang: "pl", text: "🇵🇱 Polski" }]
 
@@ -29,19 +31,20 @@ function Header() {
     if (!languagePair) return
     const { from, to } = languagePair;
 
+    const texts = settingsText[from]
+
     const handleClick = () => {
         setOpen(prev => !prev);
     };
 
     const handleLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        updateLanguage({ fromLang: from, toLang: e.target.value })
+        updateLanguage({ fromLang: from, toLang: e.target.value as allowedLangs })
 
     }
 
     const handleDifficulty = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setDifficulty(e.target.value)
     }
-
 
     return (
         <header className="header">
@@ -59,7 +62,7 @@ function Header() {
                 {open && (
                     <div className="dropDown-menu">
                         <div className="lang-selection">
-                            <label htmlFor="select-lang">Target Language</label>
+                            <label htmlFor="select-lang">{texts.targetLanguage}</label>
                             <select onChange={handleLang} id="select-lang" defaultValue={to}>
                                 {languages.map((lang) => {
                                     return (<option disabled={to === lang.lang || lang.lang === from} key={lang.lang} value={lang.lang}>{lang.text}</option>)
@@ -68,12 +71,12 @@ function Header() {
                         </div>
 
                         <div className="level-selection">
-                            <label htmlFor="select-level">Difficulty</label>
+                            <label htmlFor="select-level">{texts.difficulty}</label>
                             <select onChange={handleDifficulty} id="select-level" defaultValue={difficulty}>
-                                <option value="easy">🐣 Easy</option>
-                                <option value="normal">👤 Normal</option>
-                                <option value="expert">🔥 Expert</option>
-                                <option value="random">😂 Random</option>
+                                <option value="easy">🐣 {texts.easy}</option>
+                                <option value="normal">👤 {texts.normal}</option>
+                                <option value="expert">🔥 {texts.expert}</option>
+                                <option value="random">😂 {texts.random}</option>
                             </select>
                         </div>
                     </div>

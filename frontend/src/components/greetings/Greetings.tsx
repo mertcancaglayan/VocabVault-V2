@@ -1,14 +1,12 @@
-import { useState } from "react";
-import { getRandomGreetings } from "../../data/greetings";
-import "../greetings/Greetings.css"
 import MainButton from "../ui/mainButton/MainButton";
+import { useRandomGreetings } from "../../data/greetings";
 
 interface GreetingsSectionProps {
     onContinue: () => void
 }
 
 function GreetingsSection({ onContinue }: GreetingsSectionProps) {
-    const [greeting] = useState<string>(() => getRandomGreetings());
+    const greeting = useRandomGreetings()
 
 
     return (

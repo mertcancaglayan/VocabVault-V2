@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 import type { GameMode } from "../data/gameModes";
-import type { LanguagePair, ResultI, Subcategory, WordItem } from "../models/models";
+import type { allowedLangs, LanguagePair, ResultI, Subcategory, WordItem } from "../models/models";
 
 interface AppContextType {
     languagePair: LanguagePair | null;
@@ -17,7 +17,7 @@ interface AppContextType {
     setCurrentSlideIndex: React.Dispatch<React.SetStateAction<number>>;
     totalQuestions: number;
     setTotalQuestions: React.Dispatch<React.SetStateAction<number>>;
-    updateLanguage: (params: { fromLang: string; toLang: string }) => void;
+    updateLanguage: (params: { fromLang: allowedLangs; toLang: allowedLangs }) => void;
     difficulty: string;
     setDifficulty: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -35,26 +35,21 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const [totalQuestions, setTotalQuestions] = useState(0);
 
 
-    function updateLanguage({ fromLang, toLang }: { fromLang: string; toLang: string }) {
-        setLanguagePair({ from: fromLang, to: toLang })
+    const updateLanguage = useCallback(({ fromLang, toLang }: { fromLang: allowedLangs; toLang: allowedLangs }) => {
+        setLanguagePair({ from: fromLang, to: toLang });
         localStorage.setItem("wordvault2_fromLang", fromLang);
         localStorage.setItem("wordvault2_toLang", toLang);
-    }
-
+    }, []);
 
     useEffect(() => {
-        let fromLang: string | null = localStorage.getItem("wordvault2_fromLang");
-        let toLang: string | null = localStorage.getItem("wordvault2_toLang");
+        const storedFrom = localStorage.getItem("wordvault2_fromLang") as allowedLangs | null;
+        const storedTo = localStorage.getItem("wordvault2_toLang") as allowedLangs | null;
 
-        if (!fromLang) {
-            fromLang = navigator.language.split("-")[0]
+        const fromLang = storedFrom || (navigator.language.split("-")[0] as allowedLangs);
+        const toLang = storedTo || "en";
 
-        }
-        if (!toLang) {
-            toLang = "en"
-        }
-        updateLanguage({ fromLang, toLang })
-    }, [])
+        updateLanguage({ fromLang, toLang });
+    }, [updateLanguage]);
 
 
     return (
