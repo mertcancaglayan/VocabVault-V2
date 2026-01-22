@@ -1,10 +1,8 @@
-import { useContext } from "react"
-import AppContext from "../../context/AppContext"
+import { useAppContext } from "../../hooks/useAppContext";
 import "../progressBar/ProgressBar.css"
 
 function ProgressBar() {
-    const contextValue = useContext(AppContext);
-    if (!contextValue) throw new Error("ProgressBar must be used within AppProvider");
+    const contextValue = useAppContext()
 
     const { currentSlideIndex, totalQuestions } = contextValue;
 

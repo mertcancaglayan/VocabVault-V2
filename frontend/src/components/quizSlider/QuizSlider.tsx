@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { buttonTexts } from "../../data/buttonTexts";
 import { useQuizLogic } from "../../hooks/useQuizLogic";
 import ContentState from "../ui/contentState/ContentState";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
-import AppContext from "../../context/AppContext";
 import { MdNavigateNext } from "react-icons/md";
+import { useAppContext } from "../../hooks/useAppContext";
 
 function QuizSlider() {
     const {
@@ -16,11 +15,7 @@ function QuizSlider() {
         handleNext
     } = useQuizLogic();
 
-    const contextValue = useContext(AppContext);
-
-    if (!contextValue) {
-        throw new Error("Home must be used within AppProvider");
-    }
+    const contextValue = useAppContext()
 
     const { languagePair, } = contextValue;
 

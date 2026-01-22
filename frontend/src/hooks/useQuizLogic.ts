@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useParams } from "./useParams";
 import { useWords } from "./useWords";
-import { useContext, useEffect, useMemo, useState } from "react";
-import AppContext from "../context/AppContext";
+import { useEffect, useMemo, useState } from "react";
 import { createQuizResults, prepareQuizWords } from "../utils/quizHelpers";
+import { useAppContext } from "./useAppContext";
 
 const SLIDER_GAME_LIMIT = 10;
 
 export function useQuizLogic() {
-	const contextValue = useContext(AppContext);
-	if (!contextValue) throw new Error("QuizSlider must be used within AppProvider");
+	const contextValue = useAppContext();
 
 	const { setResults, currentSlideIndex, setCurrentSlideIndex, setTotalQuestions, results } = contextValue;
 	const [selectedOption, setSelectedOption] = useState<string>("");
@@ -55,7 +54,7 @@ export function useQuizLogic() {
 			setCurrentSlideIndex((prev) => prev + 1);
 		} else {
 			navigateTo(`/results`, {
-				state: { category, from, to, difficulty},
+				state: { category, from, to, difficulty },
 			});
 		}
 	}

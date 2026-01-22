@@ -1,6 +1,8 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import type { GameMode } from "../data/gameModes";
 import type { allowedLangs, LanguagePair, ResultI, Subcategory, WordItem } from "../models/models";
+import { getStoredLanguage } from "../utils/language";
+import { DEFAULT_DIFFICULTY, DEFAULT_TO_LANG, STORAGE_KEYS } from "../constants/storage";
 
 interface AppContextType {
     languagePair: LanguagePair | null;
@@ -26,7 +28,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
     const [languagePair, setLanguagePair] = useState<LanguagePair | null>(null);
-    const [difficulty, setDifficulty] = useState<string>("random");
+    const [difficulty, setDifficulty] = useState<string>(DEFAULT_DIFFICULTY);
     const [category, setCategory] = useState<Subcategory | null>(null)
     const [gameMode, setGameMode] = useState<GameMode | null>(null)
     const [selectedWords, setSelectedWords] = useState<WordItem[]>([]);
@@ -37,16 +39,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     const updateLanguage = useCallback(({ fromLang, toLang }: { fromLang: allowedLangs; toLang: allowedLangs }) => {
         setLanguagePair({ from: fromLang, to: toLang });
-        localStorage.setItem("wordvault2_fromLang", fromLang);
-        localStorage.setItem("wordvault2_toLang", toLang);
+        localStorage.setItem(STORAGE_KEYS.FROM_LANG, fromLang);
+        localStorage.setItem(STORAGE_KEYS.TO_LANG, toLang);
     }, []);
 
     useEffect(() => {
-        const storedFrom = localStorage.getItem("wordvault2_fromLang") as allowedLangs | null;
-        const storedTo = localStorage.getItem("wordvault2_toLang") as allowedLangs | null;
+        const storedFrom = getStoredLanguage(STORAGE_KEYS.FROM_LANG) as allowedLangs | null;
+        const storedTo = getStoredLanguage(STORAGE_KEYS.TO_LANG) as allowedLangs | null;
 
         const fromLang = storedFrom || (navigator.language.split("-")[0] as allowedLangs);
-        const toLang = storedTo || "en";
+        const toLang = storedTo || DEFAULT_TO_LANG;
 
         updateLanguage({ fromLang, toLang });
     }, [updateLanguage]);
@@ -70,7 +72,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         difficulty,
         setDifficulty,
     }), [languagePair, category, gameMode, selectedWords, results, totalQuestions, currentSlideIndex, updateLanguage, difficulty]);
-
 
     return (
         <AppContext.Provider value={contextValue}>

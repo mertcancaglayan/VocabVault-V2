@@ -1,23 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { useCallback, useContext } from "react";
+import { useCallback } from "react";
 import "../../src/index.css";
 import CategoryContainer from "../components/categories/CategoryContainer";
 import GameModesComponent from "../components/gameModes/GameModes";
 import Header from "../components/header/Header";
-import AppContext from "../context/AppContext";
 import GreetingsSection from "../components/greetings/Greetings";
 import { useGreetingState } from "../hooks/useGreetingState";
 import GameStartSection from "../components/gameStartSection/GameStartSection";
 import type { allowedLangs } from "../models/models";
+import { useAppContext } from "../hooks/useAppContext";
 
 function Home() {
     const navigate = useNavigate();
     const { isGreeted, handleContinue } = useGreetingState();
 
-    const contextValue = useContext(AppContext);
-    if (!contextValue) {
-        throw new Error("Home must be used within AppProvider");
-    }
+    const contextValue = useAppContext()
 
     const { category, languagePair, gameMode, difficulty } = contextValue;
 
