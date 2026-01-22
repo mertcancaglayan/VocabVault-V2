@@ -1,5 +1,6 @@
 import MainButton from "../ui/mainButton/MainButton";
 import { useRandomGreetings } from "../../data/greetings";
+import "../greetings/Greetings.css"
 
 interface GreetingsSectionProps {
     onContinue: () => void
@@ -7,7 +8,6 @@ interface GreetingsSectionProps {
 
 function GreetingsSection({ onContinue }: GreetingsSectionProps) {
     const greeting = useRandomGreetings()
-
 
     return (
         <section className="greetings-section">
@@ -19,7 +19,6 @@ function GreetingsSection({ onContinue }: GreetingsSectionProps) {
             <div className="btn-bottom">
             </div>
             <MainButton onClick={onContinue} text="Let's Start" />
-
         </section>
     );
 }
