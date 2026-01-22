@@ -3,7 +3,6 @@ import "../progressBar/ProgressBar.css"
 
 function ProgressBar() {
     const contextValue = useAppContext()
-
     const { currentSlideIndex, totalQuestions } = contextValue;
 
     const progressPercentage = totalQuestions > 0 ? ((currentSlideIndex + 1) / totalQuestions) * 100 : 0;

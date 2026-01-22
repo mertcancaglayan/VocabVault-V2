@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import type { allowedLangs } from "../../models/models";
 import { settingsText } from "../../data/settingsTexts";
 import { useAppContext } from "../../hooks/useAppContext";
+import { useLanguagePair } from "../../hooks/useLanguagePair";
 
 const languages = [{ lang: "tr", text: "🇹🇷 Türkçe " }, { lang: "en", text: "🇬🇧 English" }, { lang: "pl", text: "🇵🇱 Polski" }]
 
@@ -22,11 +23,9 @@ function Header() {
     }, [])
 
     const contextValue = useAppContext()
+    const { updateLanguage, difficulty, setDifficulty } = contextValue
 
-    const { languagePair, updateLanguage, difficulty, setDifficulty } = contextValue
-
-    if (!languagePair) return
-    const { from, to } = languagePair;
+    const { from, to } = useLanguagePair();
 
     const texts = settingsText[from]
 

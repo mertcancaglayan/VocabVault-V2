@@ -3,7 +3,7 @@ import { useQuizLogic } from "../../hooks/useQuizLogic";
 import ContentState from "../ui/contentState/ContentState";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
 import { MdNavigateNext } from "react-icons/md";
-import { useAppContext } from "../../hooks/useAppContext";
+import { useLanguagePair } from "../../hooks/useLanguagePair";
 
 function QuizSlider() {
     const {
@@ -15,13 +15,7 @@ function QuizSlider() {
         handleNext
     } = useQuizLogic();
 
-    const contextValue = useAppContext()
-
-    const { languagePair, } = contextValue;
-
-    if (!languagePair) return null;
-    const { from } = languagePair;
-
+    const { from } = useLanguagePair();
     const actionButtonText = buttonTexts[from].next
 
     return (
@@ -30,7 +24,6 @@ function QuizSlider() {
             error={error}
             isEmpty={gameWords.length === 0}
             loadingMsg="questions"
-
         >
             <div className="quiz-slider">
                 {currentSlide ? (
@@ -38,6 +31,7 @@ function QuizSlider() {
                         key={currentSlide.id}
                         {...currentSlide}
                         handleAnswer={handleAnswer}
+                        fromLang={from}
                     />
                 ) : (
                     <p>Loading questions...</p>

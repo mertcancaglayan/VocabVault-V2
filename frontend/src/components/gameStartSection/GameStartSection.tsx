@@ -11,7 +11,6 @@ interface GameStartSectionProps {
 }
 
 function GameStartSection({ fromLang, category, gameMode, onStart }: GameStartSectionProps) {
-
     const actionButtonText = buttonTexts[fromLang].start
 
     return (

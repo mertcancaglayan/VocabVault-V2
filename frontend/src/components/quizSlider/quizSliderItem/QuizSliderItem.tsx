@@ -1,24 +1,19 @@
 import { quizPageText } from "../../../data/quizPageTexts";
 import type { ShuffledWord } from "../../../hooks/useWords";
-import { useAppContext } from "../../../hooks/useAppContext";
+import type { allowedLangs } from "../../../models/models";
+
 
 interface QuizSliderItemProps extends ShuffledWord {
     handleAnswer: (selected: string, correct: string, id: string) => void;
+    fromLang: allowedLangs
 }
 
-function QuizSliderItem({ shuffledOptions, fromWord, toWord, id, handleAnswer }: QuizSliderItemProps) {
-    const contextValue = useAppContext()
-
-    const { languagePair } = contextValue;
-
-    if (!languagePair) return null;
-    const { from } = languagePair;
-
+function QuizSliderItem({ shuffledOptions, fromWord, toWord, id, handleAnswer, fromLang }: QuizSliderItemProps) {
     function handleSelect(opt: string) {
         handleAnswer(opt, toWord, id);
     }
 
-    const question = quizPageText[from].question;
+    const question = quizPageText[fromLang].question;
 
     return (
         <section className="quiz-question" key={id}>
