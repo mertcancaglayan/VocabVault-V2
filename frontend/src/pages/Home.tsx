@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { useCallback, useContext } from "react";
 import "../../src/index.css";
 import CategoryContainer from "../components/categories/CategoryContainer";
 import GameModesComponent from "../components/gameModes/GameModes";
 import Header from "../components/header/Header";
-import { useContext } from "react";
 import AppContext from "../context/AppContext";
 import GreetingsSection from "../components/greetings/Greetings";
-import { buttonTexts } from "../data/buttonTexts";
-import { FaPlay } from "react-icons/fa";
 import { useGreetingState } from "../hooks/useGreetingState";
+import GameStartSection from "../components/gameStartSection/GameStartSection";
+import type { allowedLangs } from "../models/models";
 
 function Home() {
     const navigate = useNavigate();
-    const { isGreeted, handleContinue } = useGreetingState()
+    const { isGreeted, handleContinue } = useGreetingState();
 
     const contextValue = useContext(AppContext);
     if (!contextValue) {
@@ -21,10 +21,17 @@ function Home() {
 
     const { category, languagePair, gameMode, difficulty } = contextValue;
 
-    if (!languagePair) return null;
-    const { from, to } = languagePair;
+    const { from = "en" as allowedLangs, to = "tr" as allowedLangs } = languagePair || {};
 
-    const actionButtonText = buttonTexts[from].start
+    const handleStartGame = useCallback(() => {
+        if (gameMode) {
+            navigate(`/${gameMode.key}`, {
+                state: { category, from, to, difficulty },
+            });
+        }
+    }, [gameMode, navigate, category, from, to, difficulty]);
+
+    if (!languagePair) return null;
 
     return (
         <main>
@@ -35,19 +42,12 @@ function Home() {
                 <>
                     <GameModesComponent fromLang={from} />
                     <CategoryContainer fromLang={from} />
-
-                    <button className="btn-primary start-game-btn"
-                        onClick={() => {
-                            if (gameMode) {
-                                navigate(`/${gameMode.key}`, {
-                                    state: { category, from, to, difficulty },
-                                });
-                            }
-                        }}
-                        disabled={!category || !gameMode}
-                    >
-                        {actionButtonText} <FaPlay />
-                    </button>
+                    <GameStartSection
+                        fromLang={from}
+                        category={category}
+                        gameMode={gameMode}
+                        onStart={handleStartGame}
+                    />
                 </>
             )}
         </main>

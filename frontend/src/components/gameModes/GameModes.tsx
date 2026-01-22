@@ -2,10 +2,11 @@ import { useContext, useState } from 'react';
 import { getGameModes, type GameMode } from '../../data/gameModes';
 import "../gameModes/GameModes.css";
 import AppContext from '../../context/AppContext';
+import type { allowedLangs } from '../../models/models';
 
 
 interface GameModesProps {
-    fromLang: "en" | "tr" | "pl";
+    fromLang: allowedLangs;
 }
 
 function GameModesComponent({ fromLang }: GameModesProps) {
