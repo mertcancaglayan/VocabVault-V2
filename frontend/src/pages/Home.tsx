@@ -7,18 +7,17 @@ import Header from "../components/header/Header";
 import GreetingsSection from "../components/greetings/Greetings";
 import { useGreetingState } from "../hooks/useGreetingState";
 import GameStartSection from "../components/gameStartSection/GameStartSection";
-import type { allowedLangs } from "../models/models";
 import { useAppContext } from "../hooks/useAppContext";
+import { useLanguagePair } from "../hooks/useLanguagePair";
 
 function Home() {
     const navigate = useNavigate();
     const { isGreeted, handleContinue } = useGreetingState();
 
     const contextValue = useAppContext()
+    const { category, gameMode, difficulty } = contextValue;
 
-    const { category, languagePair, gameMode, difficulty } = contextValue;
-
-    const { from = "en" as allowedLangs, to = "tr" as allowedLangs } = languagePair || {};
+    const { from, to } = useLanguagePair();
 
     const handleStartGame = useCallback(() => {
         if (gameMode) {
@@ -27,8 +26,6 @@ function Home() {
             });
         }
     }, [gameMode, navigate, category, from, to, difficulty]);
-
-    if (!languagePair) return null;
 
     return (
         <main>

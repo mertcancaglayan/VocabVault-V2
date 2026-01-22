@@ -2,6 +2,7 @@ import "../slideItem/SliderItem.css"
 import type { CategoryIcon } from "../../../../data/categoryIcons";
 import type { Subcategory } from "../../../../models/models";
 import { useAppContext } from "../../../../hooks/useAppContext";
+import { useLanguagePair } from "../../../../hooks/useLanguagePair";
 
 interface SliderItemProps {
     item: Subcategory,
@@ -10,11 +11,9 @@ interface SliderItemProps {
 
 function SliderItem({ item, icon }: SliderItemProps) {
     const contextValue = useAppContext()
-
-    const { languagePair, category, setCategory } = contextValue;
-
-    if (!languagePair) return null;
-    const { from } = languagePair;
+    const { category, setCategory } = contextValue;
+    
+    const { from } = useLanguagePair();
 
     function categorySelection(selected: Subcategory | null) {
         setCategory(selected);

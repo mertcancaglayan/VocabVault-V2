@@ -5,3 +5,5 @@ export const STORAGE_KEYS = {
 
 export const DEFAULT_DIFFICULTY = "random";
 export const DEFAULT_TO_LANG = "en" as const;
+export const DEFAULT_FROM_LANG = "tr" as const;
+

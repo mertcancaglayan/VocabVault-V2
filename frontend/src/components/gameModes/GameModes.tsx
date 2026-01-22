@@ -13,7 +13,6 @@ function GameModesComponent({ fromLang }: GameModesProps) {
     const [gameModes] = useState<GameMode[]>(() => getGameModes());
     
     const contextValue = useAppContext()
-
     const { gameMode, setGameMode } = contextValue;
 
     function switchGameMode(mode: GameMode) {
