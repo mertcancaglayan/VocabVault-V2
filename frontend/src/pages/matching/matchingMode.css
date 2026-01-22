@@ -24,7 +24,9 @@
 	border-radius: 8px;
 	text-align: center;
 	cursor: pointer;
-	transition: background-color 0.2s ease, transform 0.1s ease;
+	transition:
+		background-color 0.2s ease,
+		transform 0.1s ease;
 }
 
 .word-item:hover {
@@ -49,6 +51,10 @@
 .word-item.matched:hover {
 	transform: none;
 	background-color: var(--color-success-bg);
+}
+
+.complete-state {
+	width: 100%;
 }
 
 @keyframes matchPop {

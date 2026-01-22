@@ -7,8 +7,9 @@ export interface ButtonTexts {
     confirm: string;
     start: string;
     finish: string;
+    home: string;
+    greeting: string;
 }
-
 
 export interface ButtonTextsI { [key: string]: ButtonTexts }
 
@@ -22,6 +23,8 @@ export const buttonTexts: ButtonTextsI = {
         confirm: "Confirm",
         start: "Start",
         finish: "Finish",
+        home: "Home Page",
+        greeting: "Let's Start",
     },
     tr: {
         next: "İleri",
@@ -32,6 +35,8 @@ export const buttonTexts: ButtonTextsI = {
         confirm: "Onayla",
         start: "Başla",
         finish: "Bitir",
+        home: "Ana Sayfa",
+        greeting: "Hadi Başlayalım",
     },
     pl: {
         next: "Dalej",
@@ -42,5 +47,7 @@ export const buttonTexts: ButtonTextsI = {
         confirm: "Potwierdź",
         start: "Start",
         finish: "Zakończ",
+        home: "Strona Główna",
+        greeting: "Zacznijmy",
     },
 };

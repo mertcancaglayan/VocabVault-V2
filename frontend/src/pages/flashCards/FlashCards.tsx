@@ -1,20 +1,38 @@
-import Header from "../../components/header/Header"
+import Header from "../../components/header/Header";
 import FlashCard from "../../components/flashcard/FlashCard";
-import "./flashCards.css"
 import { useFlashCards } from "../../hooks/useFlashCards";
 import ContentState from "../../components/ui/contentState/ContentState";
 import ProgressBar from "../../components/progressBar/ProgressBar";
 import { useNavigate } from "react-router-dom";
+import { buttonTexts } from "../../data/buttonTexts";
+import { FaArrowRotateRight } from "react-icons/fa6";
+import { FaHome } from "react-icons/fa";
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
 function FlashCards() {
     const navigateTo = useNavigate();
 
-    const { isLoading, error, gameWords, currentSlideIndex, handlePrev, handleNext, category, from, to, difficulty, } = useFlashCards()
+    const {
+        isLoading,
+        error,
+        gameWords,
+        currentSlideIndex,
+        handlePrev,
+        handleNext,
+        category,
+        from,
+        to,
+        difficulty,
+    } = useFlashCards();
+
+    const isLastCard = currentSlideIndex === gameWords.length - 1;
+    const currentWord = gameWords[currentSlideIndex];
+    const buttonText = buttonTexts[from];
 
     function handleRetry() {
-        navigateTo(`/flashcards`, {
+        navigateTo("/flashcards", {
             state: { category, from, to, difficulty, intent: "retry" },
-        })
+        });
     }
 
     return (
@@ -27,26 +45,59 @@ function FlashCards() {
                     isEmpty={gameWords.length === 0}
                     loadingMsg="cards"
                 >
-                    <ProgressBar></ProgressBar>
-                    <div className="flasCardSlider">
-                        {
-                            gameWords.length === 0 ? (
-                                <p>No questions available for this category.</p>
+                    <ProgressBar />
 
-                            ) : (
-                                <FlashCard frontText={gameWords[currentSlideIndex].fromWord} backText={gameWords[currentSlideIndex].toWord} key={gameWords[currentSlideIndex].id}></FlashCard>
-                            )
-                        }
+                    <div className="flashCardSlider">
+                        {gameWords.length === 0 ? (
+                            <p>No questions available for this category.</p>
+                        ) : (
+                            <FlashCard
+                                key={currentWord.id}
+                                frontText={currentWord.fromWord}
+                                backText={currentWord.toWord}
+                            />
+                        )}
                     </div>
                     <div className="controls">
-                        <button className="card-btn" onClick={handlePrev} disabled={currentSlideIndex === 0}>prev</button>
-                        <button className="card-btn" onClick={handleNext}>{currentSlideIndex === gameWords.length - 1 ? "end" : "next"}</button>
-                        <button className="card-btn" onClick={handleRetry} disabled={currentSlideIndex != gameWords.length - 1}>Retry</button>
+                        {isLastCard ? (
+                            <>
+                                <button
+                                    className="btn-primary"
+                                    onClick={handlePrev}
+                                >
+                                    <GrFormPrevious /> {buttonText.prev}
+                                </button>
+                                <button className="btn-primary" onClick={handleNext}>
+                                    {buttonText.home} <FaHome />
+                                </button>
+                                <button
+                                    className="btn-primary"
+                                    onClick={handleRetry}
+                                >
+                                    {buttonText.retry} <FaArrowRotateRight />
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    className="btn-primary"
+                                    onClick={handlePrev}
+                                >
+                                    <GrFormPrevious /> {buttonText.prev}
+                                </button>
+                                <button
+                                    className="btn-primary"
+                                    onClick={handleNext}
+                                >
+                                    {buttonText.next} <GrFormNext />
+                                </button>
+                            </>
+                        )}
                     </div>
                 </ContentState>
             </section>
         </main>
-    )
+    );
 }
 
-export default FlashCards
+export default FlashCards;

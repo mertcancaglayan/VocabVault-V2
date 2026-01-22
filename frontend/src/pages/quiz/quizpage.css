@@ -29,7 +29,9 @@
 	padding: var(--spacing-sm);
 	background-color: var(--color-bg-tertiary);
 	cursor: pointer;
-	transition: border-color 0.2s ease, background-color 0.2s ease;
+	transition:
+		border-color 0.2s ease,
+		background-color 0.2s ease;
 }
 
 .option:hover {
@@ -78,18 +80,24 @@
 .btn-primary {
 	display: flex;
 	align-items: center;
-	width: 100%;
+	justify-content: center;
+	gap: var(--spacing-xs);
 	background-color: var(--color-bg-accent);
 	color: var(--color-text-primary);
 	border: none;
 	border-radius: var(--radius-sm);
-	height: 40px;
 	font-weight: var(--font-weight-bold);
 	cursor: pointer;
 	transition: background-color var(--transition-normal);
-	padding: var(--spacing-md);
+	padding: var(--spacing-sm);
+	font-size: var(--font-size-sm);
 }
 
 .btn-primary:hover {
 	background-color: var(--color-bg-tertiary);
+}
+
+.btn-primary svg {
+	height: 30px;
+	width: 30px;
 }

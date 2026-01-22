@@ -3,7 +3,7 @@ import { useWords } from "./useWords";
 import { shuffle } from "../utils/shuffle";
 import { useParams } from "./useParams";
 
-const MATCHING_GAME_LIMIT = 8;
+const MATCHING_GAME_LIMIT = 2;
 
 interface SelectedWord {
 	id: string;
