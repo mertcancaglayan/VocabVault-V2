@@ -4,6 +4,7 @@ import { useQuizLogic } from "../../hooks/useQuizLogic";
 import ContentState from "../ui/contentState/ContentState";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
 import AppContext from "../../context/AppContext";
+import { MdNavigateNext } from "react-icons/md";
 
 function QuizSlider() {
     const {
@@ -51,6 +52,7 @@ function QuizSlider() {
             <div className="quiz-action">
                 <button className="btn-primary" onClick={handleNext}>
                     {actionButtonText}
+                    <MdNavigateNext />
                 </button>
             </div>
         </ContentState>
