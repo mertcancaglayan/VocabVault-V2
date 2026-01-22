@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import type { GameMode } from "../data/gameModes";
 import type { allowedLangs, LanguagePair, ResultI, Subcategory, WordItem } from "../models/models";
 
@@ -51,9 +51,29 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         updateLanguage({ fromLang, toLang });
     }, [updateLanguage]);
 
+    const contextValue = useMemo(() => ({
+        languagePair,
+        setLanguagePair,
+        category,
+        setCategory,
+        gameMode,
+        setGameMode,
+        selectedWords,
+        setSelectedWords,
+        results,
+        setResults,
+        totalQuestions,
+        setTotalQuestions,
+        currentSlideIndex,
+        setCurrentSlideIndex,
+        updateLanguage,
+        difficulty,
+        setDifficulty,
+    }), [languagePair, category, gameMode, selectedWords, results, totalQuestions, currentSlideIndex, updateLanguage, difficulty]);
+
 
     return (
-        <AppContext.Provider value={{ languagePair, setLanguagePair, category, setCategory, gameMode, setGameMode, selectedWords, setSelectedWords, results, setResults, totalQuestions, setTotalQuestions, currentSlideIndex, setCurrentSlideIndex, updateLanguage, difficulty, setDifficulty }}>
+        <AppContext.Provider value={contextValue}>
             {children}
         </AppContext.Provider>
     )
