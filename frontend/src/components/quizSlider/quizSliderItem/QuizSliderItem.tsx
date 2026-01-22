@@ -1,24 +1,15 @@
-import { useContext, useEffect } from "react";
 import { quizPageText } from "../../../data/quizPageTexts";
 import type { ShuffledWord } from "../../../hooks/useWords";
-import AppContext from "../../../context/AppContext";
+import { useAppContext } from "../../../hooks/useAppContext";
 
 interface QuizSliderItemProps extends ShuffledWord {
     handleAnswer: (selected: string, correct: string, id: string) => void;
 }
 
 function QuizSliderItem({ shuffledOptions, fromWord, toWord, id, handleAnswer }: QuizSliderItemProps) {
-
-    const contextValue = useContext(AppContext);
-    if (!contextValue) {
-        throw new Error("Home must be used within AppProvider");
-    }
+    const contextValue = useAppContext()
 
     const { languagePair } = contextValue;
-
-    useEffect(() => {
-        console.log(fromWord)
-    }, [fromWord])
 
     if (!languagePair) return null;
     const { from } = languagePair;
@@ -34,7 +25,6 @@ function QuizSliderItem({ shuffledOptions, fromWord, toWord, id, handleAnswer }:
             <h1>
                 {question} "{fromWord}"?
             </h1>
-
             <form className="quiz-options">
                 {shuffledOptions.map((opt, i) => (
                     <label className="option" key={i}>
