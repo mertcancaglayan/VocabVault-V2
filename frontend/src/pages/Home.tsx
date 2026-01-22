@@ -7,6 +7,7 @@ import { useCallback, useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 import GreetingsSection from "../components/greetings/Greetings";
 import { buttonTexts } from "../data/buttonTexts";
+import { FaPlay } from "react-icons/fa";
 
 function Home() {
     const [isGreeted, setIsGreeted] = useState(() => sessionStorage.getItem("greeted") === "true");
@@ -34,13 +35,13 @@ function Home() {
         <main>
             <Header />
             {!isGreeted ? (
-                <GreetingsSection onContinue={handleContinue} />
+                <GreetingsSection fromLang={from} onContinue={handleContinue} />
             ) : (
                 <>
                     <GameModesComponent fromLang={from} />
                     <CategoryContainer fromLang={from} />
 
-                    <button className="action-btn"
+                    <button className="btn-primary start-game-btn"
                         onClick={() => {
                             if (gameMode) {
                                 navigate(`/${gameMode.key}`, {
@@ -50,7 +51,7 @@ function Home() {
                         }}
                         disabled={!category || !gameMode}
                     >
-                        {actionButtonText}
+                        {actionButtonText} <FaPlay />
                     </button>
                 </>
             )}

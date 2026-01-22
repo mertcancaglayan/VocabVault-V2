@@ -1,7 +1,11 @@
 import Header from "../../components/header/Header"
+import { buttonTexts } from "../../data/buttonTexts";
 import { useQuizLogic } from "../../hooks/useQuizLogic";
 import "../results/results.css"
 import { useNavigate } from "react-router-dom"
+import { FaHome } from "react-icons/fa";
+import { FaArrowRotateRight } from "react-icons/fa6";
+import { resultPageText } from "../../data/resultPageTexts";
 
 function Results() {
     const navigateTo = useNavigate();
@@ -33,6 +37,9 @@ function Results() {
         navigateTo("/")
     }
 
+    const text = resultPageText[from]
+    const buttonText = buttonTexts[from]
+
     return (
         <main className="quiz-main">
             <Header />
@@ -46,9 +53,9 @@ function Results() {
                                 }
                             </div>
                             <div className="result-info">
-                                <p className="status">{result.isCorrect ? "Correct" : "Incorrect"}</p>
-                                <h2 className="question">Question: {result.question.charAt(0).toUpperCase() + result.question.slice(1)}</h2>
-                                <p className="answers">Your Answer: {result.selected} | Correct Answer: {result.correct}</p>
+                                <p className="status">{result.isCorrect ? `${text.correct}` : `${text.incorrect}`}</p>
+                                <h2 className="question">{text.question}: {result.question.charAt(0).toUpperCase() + result.question.slice(1)}</h2>
+                                <p className="answers">{text.yourAnswer}: {result.selected} | {text.correctAnswer}: {result.correct}</p>
                             </div>
                         </article>
                     )
@@ -57,11 +64,13 @@ function Results() {
             <div className="quiz-action">
                 <button className="btn-primary" onClick={handleHomeNavigation
                 }>
-                    Home
+                    {buttonText.home}
+                    <FaHome />
                 </button>
                 <button className="btn-primary" onClick={handleRetry
                 }>
-                    Retry
+                    {buttonText.retry}
+                    <FaArrowRotateRight />
                 </button>
             </div>
         </main>
