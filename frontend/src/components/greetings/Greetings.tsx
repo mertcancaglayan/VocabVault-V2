@@ -1,6 +1,7 @@
 import MainButton from "../ui/mainButton/MainButton";
 import { useRandomGreetings } from "../../data/greetings";
 import { buttonTexts } from "../../data/buttonTexts";
+import "../greetings/Greetings.css"
 
 interface GreetingsSectionProps {
     onContinue: () => void;
