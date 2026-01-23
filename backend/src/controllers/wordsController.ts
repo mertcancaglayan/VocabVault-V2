@@ -120,7 +120,7 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 		};
 		const phonetics: Phonetics = {
 			fromWordPhonetic: word.phonetics[lang1],
-			toWordPhonetic: word.phonetics[lang1],
+			toWordPhonetic: word.phonetics[lang2],
 		};
 
 		if (fromWord && toWord) {
@@ -137,6 +137,9 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 			});
 		}
 	});
+
+	console.log(words);
+	
 
 	return shuffle(words);
 };
