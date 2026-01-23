@@ -23,12 +23,17 @@ interface IParams {
 	difficulty: string;
 }
 
+interface Examples {
+	from: string;
+	to: string;
+}
+
 export interface IFormattedWord {
 	id: string;
 	fromWord: string;
 	toWord: string;
 	wrongWords: string[];
-	example: string;
+	examples: Examples;
 }
 
 export const getWordsByCategory = async (req: Request<IParams>, res: Response): Promise<void> => {
@@ -101,7 +106,12 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 	dictionary.forEach((word) => {
 		const fromWord: string = word.translations[lang1];
 		const toWord: string = word.translations[lang2];
-		const example: string = word.example[lang2];
+		const exampleFrom: string = word.example[lang1];
+		const exampleTo: string = word.example[lang2];
+		const examples: Examples = {
+			from: exampleFrom,
+			to: exampleTo,
+		};
 
 		if (fromWord && toWord) {
 			const wrongWords: string[] = getRandomWrongWords(toWord, allToWords);
@@ -112,7 +122,7 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 				fromWord,
 				toWord,
 				wrongWords,
-				example,
+				examples,
 			});
 		}
 	});

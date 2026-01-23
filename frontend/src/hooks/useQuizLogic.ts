@@ -47,7 +47,11 @@ export function useQuizLogic() {
 
 		const newResult = createQuizResults(currentSlide, selectedOption);
 
-		setResults((prev) => [...prev, newResult]);
+		setResults((prev) => {
+			const filtered = prev.filter((result) => result.id !== currentSlide.id);
+			return [...filtered, newResult];
+		});
+
 		setSelectedOption("");
 
 		if (currentSlideIndex < gameWords.length - 1) {
@@ -59,6 +63,25 @@ export function useQuizLogic() {
 		}
 	}
 
+	function handlePrev() {
+		if (currentSlideIndex <= 0) return;
+
+		const prevIndex = currentSlideIndex - 1;
+		setCurrentSlideIndex(prevIndex);
+
+		const prevQuestionId = gameWords[prevIndex].id;
+		const previousSavedResult = results.find((r) => r.id === prevQuestionId);
+
+		setSelectedOption(previousSavedResult ? previousSavedResult.selected : "");
+	}
+
+	useEffect(() => {
+		if (currentSlide) {
+			const existingResult = results.find((r) => r.id === currentSlide.id);
+			setSelectedOption(existingResult ? existingResult.selected : "");
+		}
+	}, [currentSlideIndex, currentSlide, results]);
+
 	return {
 		isLoading,
 		error,
@@ -67,6 +90,7 @@ export function useQuizLogic() {
 		selectedOption,
 		handleAnswer,
 		handleNext,
+		handlePrev,
 		results,
 		category,
 		from,
