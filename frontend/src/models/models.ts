@@ -21,11 +21,17 @@ export interface WordsDocument {
 	words: WordItem[];
 }
 
+export interface Example {
+	from: string;
+	to: string;
+}
+
 export interface WordItem {
 	id: string;
 	fromWord: string;
 	toWord: string;
 	wrongWords: string[];
+	examples: Example;
 }
 
 export type languages = language[];
