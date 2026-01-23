@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
-import AppContext from "../context/AppContext";
+import { useAppContext } from "../hooks/useAppContext";
 
 interface Props {
     children: ReactNode;
@@ -16,10 +16,7 @@ function QuizFlowProvider({ children }: Props) {
     const location = useLocation();
     const prevPath = useRef<string | null>(null);
 
-    const contextValue = useContext(AppContext);
-    if (!contextValue) {
-        throw new Error("Home must be used within AppProvider");
-    }
+    const contextValue = useAppContext()
 
     const { setResults, setCurrentSlideIndex } = contextValue;
 

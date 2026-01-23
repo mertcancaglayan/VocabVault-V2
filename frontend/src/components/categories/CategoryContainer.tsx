@@ -8,7 +8,6 @@ interface CategoryContainerProps {
     fromLang: allowedLangs;
 }
 
-
 function CategoryContainer({ fromLang }: CategoryContainerProps) {
     const { categories, isLoading, error } = useCategories();
 
@@ -24,9 +23,7 @@ function CategoryContainer({ fromLang }: CategoryContainerProps) {
                     <Slider key={cat.key} cat={cat} fromLang={fromLang}></Slider>
                 ))}
             </section>
-
         </ContentState>
-
     )
 }
 

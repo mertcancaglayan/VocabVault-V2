@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { buttonTexts } from "../../data/buttonTexts";
 import { useQuizLogic } from "../../hooks/useQuizLogic";
 import ContentState from "../ui/contentState/ContentState";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
-import AppContext from "../../context/AppContext";
-import { MdNavigateNext } from "react-icons/md";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { useLanguagePair } from "../../hooks/useLanguagePair";
 
 function QuizSlider() {
     const {
@@ -13,21 +12,14 @@ function QuizSlider() {
         gameWords,
         currentSlide,
         handleAnswer,
-        handleNext
+        handleNext,
+        handlePrev,
+        selectedOption
     } = useQuizLogic();
 
-    const contextValue = useContext(AppContext);
-
-    if (!contextValue) {
-        throw new Error("Home must be used within AppProvider");
-    }
-
-    const { languagePair, } = contextValue;
-
-    if (!languagePair) return null;
-    const { from } = languagePair;
-
-    const actionButtonText = buttonTexts[from].next
+    const { from } = useLanguagePair();
+    const actionButtonTextNext = buttonTexts[from].next
+    const actionButtonTextPrev = buttonTexts[from].prev
 
     return (
         <ContentState
@@ -35,14 +27,15 @@ function QuizSlider() {
             error={error}
             isEmpty={gameWords.length === 0}
             loadingMsg="questions"
-
         >
             <div className="quiz-slider">
                 {currentSlide ? (
                     <QuizSliderItem
+                        selectedOption={selectedOption}
                         key={currentSlide.id}
                         {...currentSlide}
                         handleAnswer={handleAnswer}
+                        fromLang={from}
                     />
                 ) : (
                     <p>Loading questions...</p>
@@ -50,8 +43,12 @@ function QuizSlider() {
             </div>
 
             <div className="quiz-action">
+                <button className="btn-primary" onClick={handlePrev}>
+                    <MdNavigateBefore />
+                    {actionButtonTextPrev}
+                </button>
                 <button className="btn-primary" onClick={handleNext}>
-                    {actionButtonText}
+                    {actionButtonTextNext}
                     <MdNavigateNext />
                 </button>
             </div>

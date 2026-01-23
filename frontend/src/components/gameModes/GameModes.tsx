@@ -1,21 +1,18 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { getGameModes, type GameMode } from '../../data/gameModes';
 import "../gameModes/GameModes.css";
-import AppContext from '../../context/AppContext';
+import type { allowedLangs } from '../../models/models';
+import { useAppContext } from '../../hooks/useAppContext';
 
 
 interface GameModesProps {
-    fromLang: "en" | "tr" | "pl";
+    fromLang: allowedLangs;
 }
 
 function GameModesComponent({ fromLang }: GameModesProps) {
     const [gameModes] = useState<GameMode[]>(() => getGameModes());
-    const contextValue = useContext(AppContext);
-
-    if (!contextValue) {
-        throw new Error("GameModesComponent must be used within AppProvider");
-    }
-
+    
+    const contextValue = useAppContext()
     const { gameMode, setGameMode } = contextValue;
 
     function switchGameMode(mode: GameMode) {
