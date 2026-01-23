@@ -2,7 +2,7 @@ import { buttonTexts } from "../../data/buttonTexts";
 import { useQuizLogic } from "../../hooks/useQuizLogic";
 import ContentState from "../ui/contentState/ContentState";
 import QuizSliderItem from "./quizSliderItem/QuizSliderItem";
-import { MdNavigateNext } from "react-icons/md";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { useLanguagePair } from "../../hooks/useLanguagePair";
 
 function QuizSlider() {
@@ -12,11 +12,14 @@ function QuizSlider() {
         gameWords,
         currentSlide,
         handleAnswer,
-        handleNext
+        handleNext,
+        handlePrev,
+        selectedOption
     } = useQuizLogic();
 
     const { from } = useLanguagePair();
-    const actionButtonText = buttonTexts[from].next
+    const actionButtonTextNext = buttonTexts[from].next
+    const actionButtonTextPrev = buttonTexts[from].prev
 
     return (
         <ContentState
@@ -28,6 +31,7 @@ function QuizSlider() {
             <div className="quiz-slider">
                 {currentSlide ? (
                     <QuizSliderItem
+                        selectedOption={selectedOption}
                         key={currentSlide.id}
                         {...currentSlide}
                         handleAnswer={handleAnswer}
@@ -39,8 +43,12 @@ function QuizSlider() {
             </div>
 
             <div className="quiz-action">
+                <button className="btn-primary" onClick={handlePrev}>
+                    <MdNavigateBefore />
+                    {actionButtonTextPrev}
+                </button>
                 <button className="btn-primary" onClick={handleNext}>
-                    {actionButtonText}
+                    {actionButtonTextNext}
                     <MdNavigateNext />
                 </button>
             </div>
