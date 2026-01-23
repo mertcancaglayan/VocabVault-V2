@@ -26,12 +26,18 @@ export interface Example {
 	to: string;
 }
 
+interface Phonetics {
+	fromWordPhonetic: string;
+	toWordPhonetic: string;
+}
+
 export interface WordItem {
 	id: string;
 	fromWord: string;
 	toWord: string;
 	wrongWords: string[];
 	examples: Example;
+	phonetics: Phonetics;
 }
 
 export type languages = language[];

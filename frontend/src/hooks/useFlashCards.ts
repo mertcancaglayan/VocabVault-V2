@@ -18,6 +18,7 @@ export function useFlashCards() {
 		if (!allWords.length) return [];
 
 		const sliced = allWords.slice(0, FLASCARDS_GAME_LIMIT);
+		
 		return sliced;
 	}, [allWords]);
 

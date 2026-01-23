@@ -6,6 +6,7 @@ import ProgressBar from "../../components/progressBar/ProgressBar";
 import { useNavigate } from "react-router-dom";
 import { buttonTexts } from "../../data/buttonTexts";
 import { FaAngleLeft, FaAngleRight, FaArrowRotateRight, FaHouse } from "react-icons/fa6";
+import "../flashCards/flashCards.css"
 
 function FlashCards() {
     const navigateTo = useNavigate();
@@ -50,13 +51,11 @@ function FlashCards() {
                             <p>No questions available for this category.</p>
                         ) : (
                             <FlashCard
-                                key={currentWord.id}
-                                frontText={currentWord.fromWord}
-                                backText={currentWord.toWord}
+                                {...currentWord}
                             />
                         )}
                     </div>
-                    <div className="controls">
+                    <div className="controls flashcards-controls">
                         {isLastCard ? (
                             <>
                                 <button
