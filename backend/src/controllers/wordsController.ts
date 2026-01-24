@@ -138,8 +138,5 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 		}
 	});
 
-	console.log(words);
-	
-
 	return shuffle(words);
 };
