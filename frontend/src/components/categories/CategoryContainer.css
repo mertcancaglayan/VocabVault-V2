@@ -1,4 +1,5 @@
 .categories-sliders {
 	height: auto;
 	max-height: none;
+	margin-bottom: calc(var(--spacing-lg) * 2.5);
 }
