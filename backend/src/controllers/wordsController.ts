@@ -28,12 +28,18 @@ interface Examples {
 	to: string;
 }
 
+interface Phonetics {
+	fromWordPhonetic: string;
+	toWordPhonetic: string;
+}
+
 export interface IFormattedWord {
 	id: string;
 	fromWord: string;
 	toWord: string;
 	wrongWords: string[];
 	examples: Examples;
+	phonetics: Phonetics;
 }
 
 export const getWordsByCategory = async (req: Request<IParams>, res: Response): Promise<void> => {
@@ -112,6 +118,10 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 			from: exampleFrom,
 			to: exampleTo,
 		};
+		const phonetics: Phonetics = {
+			fromWordPhonetic: word.phonetics[lang1],
+			toWordPhonetic: word.phonetics[lang2],
+		};
 
 		if (fromWord && toWord) {
 			const wrongWords: string[] = getRandomWrongWords(toWord, allToWords);
@@ -123,9 +133,13 @@ const formatQuestions = (dictionary: IWord[], lang1: string, lang2: string): IFo
 				toWord,
 				wrongWords,
 				examples,
+				phonetics,
 			});
 		}
 	});
+
+	console.log(words);
+	
 
 	return shuffle(words);
 };

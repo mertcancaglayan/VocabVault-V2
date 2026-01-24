@@ -12,6 +12,7 @@ export interface IWord {
 	level: string;
 	translations: ILangMap;
 	example: ILangMap;
+	phonetics: ILangMap;
 }
 
 export interface IDictionary {
@@ -31,6 +32,7 @@ export const wordSchema: Schema<IWord> = new mongoose.Schema(
 			required: true,
 		},
 		example: { type: Map, of: String },
+		phonetics: { type: Map, of: String },
 	},
 	{ collection: "dictionaryv3" },
 );

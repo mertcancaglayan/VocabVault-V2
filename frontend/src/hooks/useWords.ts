@@ -20,6 +20,7 @@ export function useWords(category: Subcategory, from: allowedLangs, to: allowedL
 			try {
 				setIsLoading(true);
 				const data = await getWords(category, from, to, difficulty);
+				
 				if (isMounted) setWords(data.words || []);
 			} catch (err) {
 				if (isMounted) setError(err as Error);
@@ -33,6 +34,6 @@ export function useWords(category: Subcategory, from: allowedLangs, to: allowedL
 			isMounted = false;
 		};
 	}, [category, from, to, difficulty]);
-
+	
 	return { words, isLoading, error };
 }

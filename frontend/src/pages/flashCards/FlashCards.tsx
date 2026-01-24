@@ -5,9 +5,8 @@ import ContentState from "../../components/ui/contentState/ContentState";
 import ProgressBar from "../../components/progressBar/ProgressBar";
 import { useNavigate } from "react-router-dom";
 import { buttonTexts } from "../../data/buttonTexts";
-import { FaArrowRotateRight } from "react-icons/fa6";
-import { FaHome } from "react-icons/fa";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import { FaAngleLeft, FaAngleRight, FaArrowRotateRight, FaHouse } from "react-icons/fa6";
+import "../flashCards/flashCards.css"
 
 function FlashCards() {
     const navigateTo = useNavigate();
@@ -52,23 +51,22 @@ function FlashCards() {
                             <p>No questions available for this category.</p>
                         ) : (
                             <FlashCard
-                                key={currentWord.id}
-                                frontText={currentWord.fromWord}
-                                backText={currentWord.toWord}
+                                {...currentWord}
                             />
                         )}
                     </div>
-                    <div className="controls">
+                    <div className="controls flashcards-controls">
+                     
                         {isLastCard ? (
                             <>
                                 <button
                                     className="btn-primary"
                                     onClick={handlePrev}
                                 >
-                                    <GrFormPrevious /> {buttonText.prev}
+                                    <FaAngleLeft /> {buttonText.prev}
                                 </button>
                                 <button className="btn-primary" onClick={handleNext}>
-                                    {buttonText.home} <FaHome />
+                                    {buttonText.home} <FaHouse />
                                 </button>
                                 <button
                                     className="btn-primary"
@@ -83,13 +81,13 @@ function FlashCards() {
                                     className="btn-primary"
                                     onClick={handlePrev}
                                 >
-                                    <GrFormPrevious /> {buttonText.prev}
+                                    <FaAngleLeft /> {buttonText.prev}
                                 </button>
                                 <button
                                     className="btn-primary"
                                     onClick={handleNext}
                                 >
-                                    {buttonText.next} <GrFormNext />
+                                    {buttonText.next} <FaAngleRight />
                                 </button>
                             </>
                         )}

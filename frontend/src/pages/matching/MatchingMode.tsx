@@ -4,8 +4,7 @@ import ContentState from "../../components/ui/contentState/ContentState";
 import { useMatchingGame } from "../../hooks/useMatchingGame";
 import "../matching/matchingMode.css";
 import { buttonTexts } from "../../data/buttonTexts";
-import { FaHome } from "react-icons/fa";
-import { FaArrowRotateRight } from "react-icons/fa6";
+import { FaArrowRotateRight, FaHouse } from "react-icons/fa6";
 import { useParams } from "../../hooks/useParams";
 
 function MatchingMode() {
@@ -103,10 +102,11 @@ function MatchingMode() {
                                 className="btn-primary"
                                 onClick={handleRetry}
                             >
-                                {buttonText.retry} <FaArrowRotateRight />
+                                {buttonText.retry}  <FaArrowRotateRight />
+
                             </button>
                             <button className="btn-primary" onClick={handleHome}>
-                                {buttonText.home} <FaHome />
+                                {buttonText.home} <FaHouse />
                             </button>
                         </div>
                     </section>

@@ -3,8 +3,7 @@ import { buttonTexts } from "../../data/buttonTexts";
 import { useQuizLogic } from "../../hooks/useQuizLogic";
 import "../results/results.css"
 import { useNavigate } from "react-router-dom"
-import { FaHome } from "react-icons/fa";
-import { FaArrowRotateRight } from "react-icons/fa6";
+import { FaArrowRotateRight, FaHouse } from "react-icons/fa6";
 import { resultPageText } from "../../data/resultPageTexts";
 
 function Results() {
@@ -65,7 +64,7 @@ function Results() {
                 <button className="btn-primary" onClick={handleHomeNavigation
                 }>
                     {buttonText.home}
-                    <FaHome />
+                    <FaHouse />
                 </button>
                 <button className="btn-primary" onClick={handleRetry
                 }>
