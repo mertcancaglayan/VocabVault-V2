@@ -36,9 +36,6 @@ function FlashCard({
 			const fromVoiceMatch = voices.some(v => v.lang.startsWith(from));
 			const toVoiceMatch = voices.some(v => v.lang.startsWith(to));
 
-			console.log('From voice match:', fromVoiceMatch);
-			console.log('To voice match:', toVoiceMatch);
-
 			setFromVoice(fromVoiceMatch);
 			setToVoice(toVoiceMatch);
 		};
