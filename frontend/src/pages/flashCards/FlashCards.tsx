@@ -56,6 +56,7 @@ function FlashCards() {
                         )}
                     </div>
                     <div className="controls flashcards-controls">
+                     
                         {isLastCard ? (
                             <>
                                 <button
