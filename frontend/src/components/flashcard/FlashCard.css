@@ -20,18 +20,11 @@
 	transition: var(--transition-normal);
 }
 
-.flashcard-inner:hover {
-	transform: translateY(-4px);
-}
-
 .flashcard-inner:focus-visible {
 	outline: 2px solid var(--color-border);
 	outline-offset: 4px;
 }
 
-.flashcard-inner.flipped:hover {
-	transform: translateY(-4px) rotateY(0.5deg);
-}
 
 .flashcard-inner .card-side {
 	width: 100%;
@@ -61,7 +54,6 @@
 	background-color: var(--color-bg-primary);
 }
 
-/* Back Card */
 .flashcard-inner .card-back {
 	transform: rotateY(180deg);
 	background: var(--color-bg-primary);
@@ -167,4 +159,18 @@
 	-webkit-tap-highlight-color: transparent;
 	-webkit-user-select: none;
 	user-select: none;
+}
+
+
+.flashcard-inner .hint svg {
+	float: right;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	transition: var(--transition-normal);
+}
+
+
+.flashcard-inner .hint svg:hover {
+	color: var(--color-bg-accent);
 }
