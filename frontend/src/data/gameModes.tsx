@@ -1,6 +1,5 @@
 import type { JSX } from "react";
-import { MdQuiz } from "react-icons/md";
-import { TbCards, TbArrowsJoin2 } from "react-icons/tb";
+import { FaArrowsLeftRightToLine, FaClipboardQuestion, FaCreditCard } from "react-icons/fa6";
 
 export interface GameMode {
 	name: gameModeNames;
@@ -8,7 +7,7 @@ export interface GameMode {
 	icon: JSX.Element;
 }
 
-interface gameModeNames {
+type gameModeNames = {
 	en: string,
 	tr: string,
 	pl: string
@@ -19,19 +18,19 @@ export const gameModes: GameMode[] = [
 		name: {
 			en: "Quiz",
 			tr: "Test",
-			pl: "Kwiz"
+			pl: "Quiz"
 		},
 		key: "quiz",
-		icon: <MdQuiz size={40} />,
+		icon: <FaClipboardQuestion size={40} />
 	},
 	{
 		name: {
 			en: "Flash Cards",
 			tr: "Flaş Kartlar",
-			pl: "Karty Flash"
+			pl: "Fiszki"
 		},
 		key: "flashCards",
-		icon: <TbCards size={40} />,
+		icon: <FaCreditCard size={40} />,
 	},
 	{
 		name: {
@@ -41,7 +40,7 @@ export const gameModes: GameMode[] = [
 		},
 
 		key: "wordMatching",
-		icon: <TbArrowsJoin2 size={40} />,
+		icon: <FaArrowsLeftRightToLine size={40} />,
 	},
 ];
 
