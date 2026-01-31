@@ -4,6 +4,7 @@ import { getWords } from "../../api/api";
 import type { WordsI } from "../../models/models";
 import TableRow from "./table_row/TableRow";
 import AppContext from "../../context/AppContext";
+import { wordSearchMatches } from "../utils/wordSearchMatches";
 
 
 export const Table = () => {
@@ -13,7 +14,7 @@ export const Table = () => {
 
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("Error");
-    const { isEditModalOpen, shouldRefresh, setShouldRefresh } = contextValue
+    const { isEditModalOpen, shouldRefresh, setShouldRefresh, searchQuery } = contextValue
 
     async function fetchWords() {
         try {
@@ -35,9 +36,10 @@ export const Table = () => {
     useEffect(() => {
         if (!isEditModalOpen && shouldRefresh) {
             fetchWords();
-            setShouldRefresh(false); 
+            setShouldRefresh(false);
         }
     }, [isEditModalOpen, shouldRefresh, setShouldRefresh]);
+
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -59,9 +61,13 @@ export const Table = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {words?.words.map((word) => {
-                            return <TableRow key={word._id} {...word} />
-                        })}
+                        {words?.words
+                            .filter((word) => wordSearchMatches(word, searchQuery)
+                            )
+                            .map((word) => (
+                                <TableRow key={word._id} {...word} />
+                            ))
+                        }
                     </tbody>
                 </table>
             </div>

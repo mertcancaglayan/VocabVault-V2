@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext} from "react"
 import type { Word } from "../../../models/models"
 import "./TableRow.css"
 import AppContext from "../../../context/AppContext"
