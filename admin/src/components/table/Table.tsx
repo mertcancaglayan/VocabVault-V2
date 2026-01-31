@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import "./Table.css";
 import { getWords } from "../../api/api";
 import type { WordsI } from "../../models/models";
@@ -14,7 +14,7 @@ export const Table = () => {
 
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("Error");
-    const { isEditModalOpen, shouldRefresh, setShouldRefresh, searchQuery } = contextValue
+    const { isEditModalOpen, shouldRefresh, setShouldRefresh, searchQuery, totalFilteredWord, setTotalFilteredWord } = contextValue
 
     async function fetchWords() {
         try {
@@ -40,10 +40,22 @@ export const Table = () => {
         }
     }, [isEditModalOpen, shouldRefresh, setShouldRefresh]);
 
+    const filteredWords = useMemo(() => {
+        if (!words) return [];
+        return words.words.filter(word =>
+            wordSearchMatches(word, searchQuery)
+        );
+    }, [words, searchQuery]);
+
+    useEffect(() => {
+        setTotalFilteredWord(filteredWords.length);
+    }, [filteredWords, setTotalFilteredWord]);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
     if (!words) return <div>No Data</div>
+
+
 
     return (
         <div className="table-wrapper">
@@ -61,9 +73,7 @@ export const Table = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {words?.words
-                            .filter((word) => wordSearchMatches(word, searchQuery)
-                            )
+                        {filteredWords
                             .map((word) => (
                                 <TableRow key={word._id} {...word} />
                             ))

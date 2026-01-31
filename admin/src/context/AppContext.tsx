@@ -10,6 +10,9 @@ interface AppContextType {
     setShouldRefresh: React.Dispatch<React.SetStateAction<boolean>>;
     searchQuery: string;
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+    totalFilteredWord: number;
+    setTotalFilteredWord: React.Dispatch<React.SetStateAction<number>>;
+
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -19,11 +22,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [modalWord, setModalWord] = useState<Word>()
     const [shouldRefresh, setShouldRefresh] = useState<boolean>(false)
-    const [searchQuery, setSearchQuery] = useState<string>("exa")
+    const [searchQuery, setSearchQuery] = useState<string>("Glass")
+    const [totalFilteredWord, setTotalFilteredWord] = useState<number>(0)
 
     const contextValue = {
         isEditModalOpen, setIsEditModalOpen, modalWord, setModalWord
-        , shouldRefresh, setShouldRefresh, searchQuery, setSearchQuery
+        , shouldRefresh, setShouldRefresh, searchQuery, setSearchQuery, totalFilteredWord, setTotalFilteredWord
     }
 
     return (

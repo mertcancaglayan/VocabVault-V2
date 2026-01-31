@@ -1,7 +1,7 @@
 import type { Word } from "../../models/models";
 
 export const wordSearchMatches = (word: Word, searchInValue: string): boolean => {
-	const query = searchInValue.toLowerCase();
+	const query = searchInValue.toLowerCase().trim();
 
 	const search = (value: unknown): boolean => {
 		if (typeof value === "string") {
