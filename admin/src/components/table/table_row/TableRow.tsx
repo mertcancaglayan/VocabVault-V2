@@ -1,7 +1,24 @@
+import { useContext } from "react"
 import type { Word } from "../../../models/models"
 import "./TableRow.css"
+import AppContext from "../../../context/AppContext"
+import { removeWord } from "../../../api/api"
 
 function TableRow(word: Word) {
+    const contextValue = useContext(AppContext)
+    if (!contextValue) throw new Error("Errorr");
+
+    const { setIsEditModalOpen, setModalWord } = contextValue
+
+    function openModal(word: Word) {
+        setIsEditModalOpen(true)
+        setModalWord(word)
+    }
+
+    function deleteWord(word: Word) {
+        removeWord(word)
+    }
+
     return (
         <tr>
             <td className="cell-id">{word._id}</td>
@@ -26,15 +43,10 @@ function TableRow(word: Word) {
                 </div>
             </td>
             <td className="cell-actions">
-                {/* <div className="action-buttons">
-                    <button className="icon-btn" onclick="openModal('edit', '{word._id}')" title="Edit">✏️</button>
-                    <button className="icon-btn" onclick="openModal('view', '{word._id}')" title="View Details">👁️</button>
-                    <button className="icon-btn delete" onclick="deleteWord('{word._id}')" title="Delete">🗑️</button>
-                </div> */}
                 <div className="action-buttons">
-                    <button className="icon-btn" title="Edit">✏️</button>
+                    <button className="icon-btn" onClick={() => openModal(word)} title="Edit">✏️</button>
                     <button className="icon-btn" title="View Details">👁️</button>
-                    <button className="icon-btn delete" title="Delete">🗑️</button>
+                    <button className="icon-btn delete" onClick={() => deleteWord(word)} title="Delete">🗑️</button>
                 </div>
             </td>
         </tr>

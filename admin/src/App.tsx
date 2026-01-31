@@ -1,9 +1,12 @@
+import { AppProvider } from './context/AppContext'
 import AdminHomePage from './pages/AdminHomePage'
 
 function App() {
 
   return (
-    <AdminHomePage></AdminHomePage>
+    <AppProvider>
+      <AdminHomePage></AdminHomePage>
+    </AppProvider>
   )
 }
 
