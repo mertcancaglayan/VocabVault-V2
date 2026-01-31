@@ -1,8 +1,8 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import type { Word } from "../../../models/models"
 import "./TableRow.css"
 import AppContext from "../../../context/AppContext"
-import { removeWord } from "../../../api/api"
+import { deleteWord } from "../../../api/api"
 
 function TableRow(word: Word) {
     const contextValue = useContext(AppContext)
@@ -15,8 +15,8 @@ function TableRow(word: Word) {
         setModalWord(word)
     }
 
-    function deleteWord(word: Word) {
-        removeWord(word)
+    function handleDelete(word: Word) {
+        deleteWord(word._id)
     }
 
     return (
@@ -46,7 +46,7 @@ function TableRow(word: Word) {
                 <div className="action-buttons">
                     <button className="icon-btn" onClick={() => openModal(word)} title="Edit">✏️</button>
                     <button className="icon-btn" title="View Details">👁️</button>
-                    <button className="icon-btn delete" onClick={() => deleteWord(word)} title="Delete">🗑️</button>
+                    <button className="icon-btn delete" onClick={() => handleDelete(word)} title="Delete">🗑️</button>
                 </div>
             </td>
         </tr>

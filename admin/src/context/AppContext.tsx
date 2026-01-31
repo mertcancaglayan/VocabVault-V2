@@ -1,11 +1,13 @@
-import React, { createContext, useMemo, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import type { Word } from '../models/models';
 
 interface AppContextType {
     isEditModalOpen: boolean;
     setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     modalWord: Word | undefined;
-    setModalWord: React.Dispatch<React.SetStateAction<Word | undefined>>
+    setModalWord: React.Dispatch<React.SetStateAction<Word | undefined>>;
+    shouldRefresh: boolean;
+    setShouldRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -14,12 +16,12 @@ const AppContext = createContext<AppContextType | undefined>(undefined)
 export function AppProvider({ children }: { children: React.ReactNode }) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [modalWord, setModalWord] = useState<Word>()
+    const [shouldRefresh, setShouldRefresh] = useState<boolean>(false)
 
-    const contextValue = useMemo(() => {
-        return ({
-            isEditModalOpen, setIsEditModalOpen, modalWord, setModalWord
-        })
-    })
+    const contextValue = {
+        isEditModalOpen, setIsEditModalOpen, modalWord, setModalWord
+        , shouldRefresh, setShouldRefresh
+    }
 
     return (
         <AppContext.Provider value={contextValue}>

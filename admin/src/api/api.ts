@@ -13,43 +13,50 @@ export const getWords = async (): Promise<WordsI> => {
 	return await response.json();
 };
 
-export const patchWord = async (word: Word): Promise<Word> => {
-	try {
-		const response = await fetch(
-			`${API_URL}/api/v1/admin/words/${word._id}`,
-			{
-				method: "PATCH",
-				headers: {
-					"Content-Type": "application/json",
-					"x-api-key": ADMIN_API_KEY,
-				},
-				body: JSON.stringify(word),
-			}
-		);
+export const updateWord = async (word: Word): Promise<Word> => {
 
-		if (!response.ok) {
-			throw new Error(`Response status: ${response.status}`);
-		}
+	const response = await fetch(`${API_URL}/api/v1/admin/words/${word._id}`, {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+			"x-api-key": ADMIN_API_KEY,
+		},
+		body: JSON.stringify(word),
+	});
 
-		return await response.json();
-	} catch (error) {
-		console.error("Error patching word:", error);
-		throw error;
+	if (!response.ok) {
+		throw new Error(`Response status: ${response.status}`);
 	}
+
+	return response.json();
 };
 
-export const removeWord = async (word: Word): Promise<Word> => {
+export const createWord = async (word: Word): Promise<Word> => {
+	const response = await fetch(`${API_URL}/api/v1/admin/words`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"x-api-key": ADMIN_API_KEY,
+		},
+		body: JSON.stringify(word),
+	});
+
+	if (!response.ok) {
+		throw new Error(`Response status: ${response.status}`);
+	}
+
+	return response.json();
+};
+
+export const deleteWord = async (id: string): Promise<Word> => {
 	try {
-		const response = await fetch(
-			`${API_URL}/api/v1/admin/words/${word._id}`,
-			{
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-					"x-api-key": ADMIN_API_KEY,
-				},
-			}
-		);
+		const response = await fetch(`${API_URL}/api/v1/admin/words/${id}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				"x-api-key": ADMIN_API_KEY,
+			},
+		});
 
 		if (!response.ok) {
 			throw new Error(`Response status: ${response.status}`);

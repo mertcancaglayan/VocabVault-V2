@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Table.css";
 import { getWords } from "../../api/api";
 import type { WordsI } from "../../models/models";
 import TableRow from "./table_row/TableRow";
+import AppContext from "../../context/AppContext";
 
 
 export const Table = () => {
@@ -10,27 +11,33 @@ export const Table = () => {
     const [words, setWords] = useState<WordsI>();
     const [error, setError] = useState<Error | null>(null);
 
-    useEffect(() => {
-        let isMounted = true;
+    const contextValue = useContext(AppContext);
+    if (!contextValue) throw new Error("Error");
+    const { isEditModalOpen, shouldRefresh, setShouldRefresh } = contextValue
 
-        async function fetchWords() {
-            try {
-                setIsLoading(true);
-                const data = await getWords();
-                if (isMounted) setWords(data);
-            } catch (err) {
-                if (isMounted) setError(err as Error);
-            } finally {
-                if (isMounted) setIsLoading(false);
-            }
+    async function fetchWords() {
+        try {
+            setIsLoading(true);
+            setError(null);
+            const data = await getWords();
+            setWords(data);
+        } catch (err) {
+            setError(err as Error);
+        } finally {
+            setIsLoading(false);
         }
+    }
 
+    useEffect(() => {
         fetchWords();
-
-        return () => {
-            isMounted = false;
-        };
     }, []);
+
+    useEffect(() => {
+        if (!isEditModalOpen && shouldRefresh) {
+            fetchWords();
+            setShouldRefresh(false); 
+        }
+    }, [isEditModalOpen, shouldRefresh, setShouldRefresh]);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -52,9 +59,9 @@ export const Table = () => {
                         </tr>
                     </thead>
                     <tbody>
-                     {words?.words.map((word, i)=> {
-                        return <TableRow key={i} {...word}></TableRow>
-                     })}
+                        {words?.words.map((word) => {
+                            return <TableRow key={word._id} {...word} />
+                        })}
                     </tbody>
                 </table>
             </div>

@@ -2,21 +2,50 @@ import { useContext, useState } from "react"
 import "./FormModal.css"
 import AppContext from "../../context/AppContext";
 import type { Word } from "../../models/models";
-import { patchWord } from "../../api/api";
+import { createWord, updateWord } from "../../api/api";
 
 function FormModal() {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Error");
 
-    const { setIsEditModalOpen, modalWord } = contextValue
-    const [formData, setFormData] = useState<Word>(modalWord || {} as Word);
+    const { setIsEditModalOpen, modalWord, setShouldRefresh } = contextValue
 
-    if (!modalWord) return
+    const [formData, setFormData] = useState<Word>(modalWord || {
+        _id: '',
+        level: '',
+        category_key: '',
+        sub_category_key: '',
+        sub_category_label: '',
+        translations: {
+            en: '',
+            tr: '',
+            pl: ''
+        },
+        example: {
+            en: '',
+            tr: '',
+            pl: ''
+        },
+        phonetics: {
+            en: '',
+            tr: '',
+            pl: ''
+        }
+    } as Word);
 
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        patchWord(formData);
-        setIsEditModalOpen(false);
+        try {
+            if (modalWord?._id) {
+                await updateWord(formData);
+            } else {
+                await createWord(formData);
+            }
+            setShouldRefresh(true);
+            setIsEditModalOpen(false);
+        } catch (error) {
+            console.error("Error saving word:", error);
+        }
     };
 
     const handleChange = (
@@ -80,6 +109,10 @@ function FormModal() {
                                 <label htmlFor="subcategory_key">Subcategory Key *</label>
                                 <input type="text" id="subcategory_key" name="sub_category_key" value={formData.sub_category_key || ""} onChange={handleChange} required />
                             </div>
+                            <div className="form-group">
+                                <label htmlFor="subcategory_label">Subcategory Label *</label>
+                                <input type="text" id="subcategory_label" name="sub_category_label" value={formData.sub_category_label || ""} onChange={handleChange} required />
+                            </div>
                         </div>
 
                         <div className="form-section">
@@ -101,12 +134,16 @@ function FormModal() {
                         <div className="form-section">
                             <div className="form-section-title">📝 Example Sentences</div>
                             <div className="form-group">
-                                <label htmlFor="examples.en">English Example</label>
-                                <textarea id="examples.en" name="example.en" value={formData.example?.en || ""} onChange={handleChange}></textarea>
+                                <label htmlFor="example.en">English Example</label>
+                                <textarea id="example.en" name="example.en" value={formData.example?.en || ""} onChange={handleChange}></textarea>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="examples.tr">Turkish Example</label>
-                                <textarea id="examples.tr" name="example.tr" value={formData.example?.tr || ""} onChange={handleChange}></textarea>
+                                <label htmlFor="example.tr">Turkish Example</label>
+                                <textarea id="example.tr" name="example.tr" value={formData.example?.tr || ""} onChange={handleChange}></textarea>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="example.pl">Polish Example</label>
+                                <textarea id="example.pl" name="example.pl" value={formData.example?.pl || ""} onChange={handleChange}></textarea>
                             </div>
                         </div>
 
@@ -115,6 +152,14 @@ function FormModal() {
                             <div className="form-group">
                                 <label htmlFor="phonetics.en">English Phonetic</label>
                                 <input type="text" id="phonetics.en" name="phonetics.en" value={formData.phonetics?.en || ""} onChange={handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="phonetics.tr">Turkish Phonetic</label>
+                                <input type="text" id="phonetics.tr" name="phonetics.tr" value={formData.phonetics?.tr || ""} onChange={handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="phonetics.pl">Polish Phonetic</label>
+                                <input type="text" id="phonetics.pl" name="phonetics.pl" value={formData.phonetics?.pl || ""} onChange={handleChange} />
                             </div>
                         </div>
 

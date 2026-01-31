@@ -1,6 +1,18 @@
+import { useContext } from "react"
 import "./Toolbar.css"
+import AppContext from "../../context/AppContext"
 
 function Toolbar() {
+    const contextValue = useContext(AppContext)
+    if (!contextValue) throw new Error("Error");
+
+    const { setIsEditModalOpen,setModalWord } = contextValue
+
+    function openModal() {
+        setModalWord(undefined)
+        setIsEditModalOpen(true)
+    }
+
     return (
         <div className="toolbar">
             <div className="toolbar-left">
@@ -23,12 +35,9 @@ function Toolbar() {
                     <option value="technology">Technology</option>
                 </select>
             </div>
-            <button className="btn btn-primary" >
+            <button className="btn btn-primary" onClick={openModal}>
                 ➕ Add New Word
             </button>
-            {/* <button className="btn btn-primary" onClick="openModal('add')">
-                ➕ Add New Word
-            </button> */}
 
         </div>
     )
