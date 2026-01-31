@@ -1,4 +1,4 @@
-import { useContext} from "react"
+import { useContext } from "react"
 import type { Word } from "../../../models/models"
 import "./TableRow.css"
 import AppContext from "../../../context/AppContext"
@@ -8,7 +8,7 @@ function TableRow(word: Word) {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Errorr");
 
-    const { setIsEditModalOpen, setModalWord } = contextValue
+    const { setIsEditModalOpen, setModalWord, setShouldRefresh } = contextValue
 
     function openModal(word: Word) {
         setIsEditModalOpen(true)
@@ -16,6 +16,8 @@ function TableRow(word: Word) {
     }
 
     function handleDelete(word: Word) {
+        setShouldRefresh(true);
+        setIsEditModalOpen(false);
         deleteWord(word._id)
     }
 

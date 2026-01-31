@@ -8,7 +8,7 @@ function Toolbar() {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Error");
 
-    const { setIsEditModalOpen, setModalWord, setSearchQuery } = contextValue
+    const { setIsEditModalOpen, setModalWord, setSearchQuery, categories } = contextValue
 
     function openModal() {
         setModalWord(undefined)
@@ -29,6 +29,14 @@ function Toolbar() {
                 <div className="search-box">
                     <input type="text" onChange={(e) => setSearchValue(e.target.value)} placeholder="Search by word, ID, or category..." id="searchInput" />
                 </div>
+                <select className="filter-select" id="categoryFilter" onChange={(e) => setSearchValue(e.target.value)}>
+                    <option value="">All Categories</option>
+                    {Array.from(categories).map(([key, value]) => (
+                        <option key={key} value={key}>
+                            {value}
+                        </option>
+                    ))}
+                </select>
             </div>
             <button className="btn btn-primary" onClick={openModal}>
                 ➕ Add New Word

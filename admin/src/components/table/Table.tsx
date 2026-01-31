@@ -14,7 +14,7 @@ export const Table = () => {
 
     const contextValue = useContext(AppContext);
     if (!contextValue) throw new Error("Error");
-    const { isEditModalOpen, shouldRefresh, setShouldRefresh, searchQuery, totalFilteredWord, setTotalFilteredWord } = contextValue
+    const { isEditModalOpen, shouldRefresh, setShouldRefresh, searchQuery, setTotalFilteredWord, setCategories } = contextValue
 
     async function fetchWords() {
         try {
@@ -40,8 +40,22 @@ export const Table = () => {
         }
     }, [isEditModalOpen, shouldRefresh, setShouldRefresh]);
 
+    useEffect(() => {
+        if (!words) return;
+
+        const categorySet = new Map<string, string>();
+
+        words.words.forEach(element => {
+            categorySet.set(element.sub_category_key, element.sub_category_label)
+        });
+
+        setCategories(categorySet);
+    }, [words, setCategories]);
+
+
     const filteredWords = useMemo(() => {
         if (!words) return [];
+
         return words.words.filter(word =>
             wordSearchMatches(word, searchQuery)
         );
@@ -54,8 +68,6 @@ export const Table = () => {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
     if (!words) return <div>No Data</div>
-
-
 
     return (
         <div className="table-wrapper">
