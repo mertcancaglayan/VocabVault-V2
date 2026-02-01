@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { Dictionary } from "../models/Dictionary";
-
+import { Dictionary } from "../../models/Dictionary";
 
 export const patchWord = async (req: Request, res: Response) => {
 	try {

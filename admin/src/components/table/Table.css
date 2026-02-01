@@ -1,0 +1,46 @@
+/* --- TABLE SECTION --- */
+.table-wrapper {
+	background: var(--card-bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	overflow: hidden;
+}
+
+.table-container {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+thead {
+	background: rgba(139, 92, 246, 0.1);
+	border-bottom: 2px solid var(--border);
+}
+
+th {
+	padding: 15px 12px;
+	text-align: left;
+	font-weight: 600;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	color: var(--primary);
+	white-space: nowrap;
+}
+
+tbody tr {
+	border-bottom: 1px solid var(--border);
+	transition: background 0.2s;
+}
+
+tbody tr:hover {
+	background: rgba(139, 92, 246, 0.05);
+}
+
+td {
+	padding: 15px 12px;
+	font-size: 0.9rem;
+	color: var(--text-main);
+}
