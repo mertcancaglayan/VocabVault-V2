@@ -8,11 +8,26 @@ function TableRow(word: Word) {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Errorr");
 
-    const { setIsEditModalOpen, setModalWord, setShouldRefresh } = contextValue
+    const { setIsEditModalOpen, setModalWord, setShouldRefresh, setIsViewModalOpen } = contextValue
 
-    function openModal(word: Word) {
-        setIsEditModalOpen(true)
-        setModalWord(word)
+    function openModal(word: Word, typeModel: string) {
+        console.log(typeModel
+        );
+
+        switch (typeModel) {
+            case "edit":
+                setIsEditModalOpen(true)
+                setModalWord(word)
+                break;
+            case "view":
+                setIsViewModalOpen(true)
+                setModalWord(word)
+                break
+            default:
+                setIsViewModalOpen(true)
+                setModalWord(word)
+                break;
+        }
     }
 
     function handleDelete(word: Word) {
@@ -46,8 +61,8 @@ function TableRow(word: Word) {
             </td>
             <td className="cell-actions">
                 <div className="action-buttons">
-                    <button className="icon-btn" onClick={() => openModal(word)} title="Edit">✏️</button>
-                    <button className="icon-btn" title="View Details">👁️</button>
+                    <button className="icon-btn" onClick={() => openModal(word, "edit")} title="Edit">✏️</button>
+                    <button className="icon-btn" onClick={() => openModal(word, "view")} title="View Details">👁️</button>
                     <button className="icon-btn delete" onClick={() => handleDelete(word)} title="Delete">🗑️</button>
                 </div>
             </td>

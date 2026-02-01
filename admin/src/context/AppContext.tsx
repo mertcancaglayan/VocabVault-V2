@@ -4,6 +4,8 @@ import type { Word } from '../models/models';
 interface AppContextType {
     isEditModalOpen: boolean;
     setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    isViewModalOpen: boolean;
+    setIsViewModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     modalWord: Word | undefined;
     setModalWord: React.Dispatch<React.SetStateAction<Word | undefined>>;
     shouldRefresh: boolean;
@@ -16,6 +18,7 @@ interface AppContextType {
     setCategories: React.Dispatch<React.SetStateAction<Map<string, string>>>;
     totalCategories: number;
     setTotalCategories: React.Dispatch<React.SetStateAction<number>>;
+
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -23,6 +26,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined)
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false)
     const [modalWord, setModalWord] = useState<Word>()
     const [shouldRefresh, setShouldRefresh] = useState<boolean>(false)
     const [searchQuery, setSearchQuery] = useState<string>("")
@@ -34,7 +38,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     const contextValue = {
         isEditModalOpen, setIsEditModalOpen, modalWord, setModalWord
-        , shouldRefresh, setShouldRefresh, searchQuery, setSearchQuery, totalFilteredWord, setTotalFilteredWord, categories, setCategories, totalCategories, setTotalCategories
+        , shouldRefresh, setShouldRefresh, searchQuery, setSearchQuery, totalFilteredWord, setTotalFilteredWord, categories, setCategories, totalCategories, setTotalCategories, isViewModalOpen, setIsViewModalOpen
     }
 
     return (

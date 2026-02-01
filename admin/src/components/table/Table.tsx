@@ -4,7 +4,7 @@ import { getWords } from "../../api/api";
 import type { WordsI } from "../../models/models";
 import TableRow from "./table_row/TableRow";
 import AppContext from "../../context/AppContext";
-import { wordSearchMatches } from "../utils/wordSearchMatches";
+import { wordSearchMatches } from "../../utils/wordSearchMatches";
 
 
 export const Table = () => {

@@ -4,15 +4,16 @@ import "./AdminHomePage.css"
 import StatsGrid from "../components/stats_grid/StatsGrid"
 import Toolbar from "../components/toolbar/Toolbar"
 import Table from "../components/table/Table"
-import FormModal from "../components/from_modal/FormModal"
+import FormModal from "../components/form_modal/FormModal"
 import { useContext } from "react"
 import AppContext from "../context/AppContext"
+import ViewModal from "../components/view_modal/ViewModal"
 
 function AdminHomePage() {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("erorr");
 
-    const { isEditModalOpen } = contextValue
+    const { isEditModalOpen, isViewModalOpen } = contextValue
 
     return (
         <Fragment>
@@ -23,6 +24,7 @@ function AdminHomePage() {
                 <Table></Table>
             </main>
             {isEditModalOpen && <FormModal></FormModal>}
+            {isViewModalOpen && <ViewModal></ViewModal>}
         </Fragment>
     )
 }
