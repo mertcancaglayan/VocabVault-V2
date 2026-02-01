@@ -30,16 +30,21 @@ function TableRow(word: Word) {
         }
     }
 
-    function handleDelete(word: Word) {
-        setShouldRefresh(true);
-        setIsEditModalOpen(false);
-        deleteWord(word._id)
+    async function handleDelete(word: Word) {
+        try {
+            await deleteWord(word._id)
+            setShouldRefresh(true);
+        } catch (error) {
+            console.error("Error while deleting the word:", error)
+        } finally {
+            setIsEditModalOpen(false);
+        }
     }
 
     return (
         <tr>
             <td className="cell-id">{word._id}</td>
-            <td><span className="cell-badge badge-{word.level.toLowerCase()}">{word.level}</span></td>
+            <td><span className={`cell-badge badge-${word.level.toLowerCase()}`}>{word.level}</span></td>
             <td>{word.category_key}</td>
             <td>
                 <div>{word.sub_category_key}</div>

@@ -80,7 +80,7 @@ export const Table = () => {
                             <th>Category</th>
                             <th>Subcategory</th>
                             <th>Translations</th>
-                            <th>Example (EN)</th>
+                            <th>Examples</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

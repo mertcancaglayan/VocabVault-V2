@@ -11,7 +11,7 @@ import ViewModal from "../components/view_modal/ViewModal"
 
 function AdminHomePage() {
     const contextValue = useContext(AppContext)
-    if (!contextValue) throw new Error("erorr");
+     if (!contextValue) throw new Error("error");
 
     const { isEditModalOpen, isViewModalOpen } = contextValue
 

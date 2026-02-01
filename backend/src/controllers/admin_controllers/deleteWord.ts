@@ -16,6 +16,7 @@ export const deleteWord = async (req: Request, res: Response) => {
 			id,
 		});
 	} catch (error) {
-		return res.status(500).json({ message: "Server error", error });
+		console.error("deleteWord failed", error);
+		return res.status(500).json({ message: "Server error" });
 	}
 };

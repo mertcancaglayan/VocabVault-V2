@@ -8,8 +8,6 @@ export const postWord = async (req: Request, res: Response) => {
 		if (!newWord) {
 			return res.status(400).json({ message: "Word is required" });
 		}
-    console.log(newWord);
-    
 
 		const word = new Dictionary(newWord);
 		await word.save();

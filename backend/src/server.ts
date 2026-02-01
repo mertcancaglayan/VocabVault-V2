@@ -13,7 +13,7 @@ import mongoSanitize from "express-mongo-sanitize";
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: "10kb" }));
 
 connectDB();
 
@@ -37,8 +37,6 @@ const limiter = rateLimit({
 });
 
 app.use("/api", limiter);
-
-app.use(express.json({ limit: "10kb" }));
 
 app.use("/api/v1/words", publicCors, wordsRoute);
 app.use("/api/v1/admin/words", adminRoute);

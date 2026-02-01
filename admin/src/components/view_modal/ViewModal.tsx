@@ -18,7 +18,7 @@ function ViewModal() {
         setIsEditModalOpen(true)
     }
 
-    if (!modalWord) return
+    if (!modalWord) return null
 
     return (
         <div className="modal" id="viewModal">
