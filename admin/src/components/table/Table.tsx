@@ -16,6 +16,12 @@ export const Table = () => {
     if (!contextValue) throw new Error("Error");
     const { isEditModalOpen, shouldRefresh, setShouldRefresh, searchQuery, setTotalFilteredWord, setCategories } = contextValue
 
+    /**
+     * Fetches words from the API and updates local loading, error, and words state.
+     *
+     * Sets the loading flag while the request is in progress, stores returned words on success,
+     * and records any error encountered.
+     */
     async function fetchWords() {
         try {
             setIsLoading(true);

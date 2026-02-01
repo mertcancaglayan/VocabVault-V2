@@ -24,6 +24,12 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
 
+/**
+ * Provides the AppContext to descendant components and manages shared UI and data state used across the admin app.
+ *
+ * @param children - React nodes to be wrapped by the provider
+ * @returns The React element rendering an AppContext.Provider with the composed context value
+ */
 export function AppProvider({ children }: { children: React.ReactNode }) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [isViewModalOpen, setIsViewModalOpen] = useState(false)

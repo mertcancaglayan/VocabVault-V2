@@ -2,6 +2,11 @@ import { useContext } from "react"
 import "../form_modal/FormModal.css"
 import AppContext from "../../context/AppContext"
 
+/**
+ * Renders a read-only modal showing details for the currently selected word and actions to edit or close it.
+ *
+ * @returns The modal JSX element when a word is selected; `undefined` if no word is selected.
+ */
 function ViewModal() {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Error");

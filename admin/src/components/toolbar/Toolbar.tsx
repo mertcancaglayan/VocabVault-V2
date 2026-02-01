@@ -2,6 +2,14 @@ import { useContext, useEffect, useState } from "react"
 import "./Toolbar.css"
 import AppContext from "../../context/AppContext"
 
+/**
+ * Renders the admin toolbar with a search field, category filter, and an "Add New Word" button.
+ *
+ * The component debounces updates to the global search query (500ms) and keeps the global total
+ * category count in sync with the provided categories collection.
+ *
+ * @returns The toolbar JSX element containing a search input, category filter select, and an add-new-word button.
+ */
 function Toolbar() {
     const [searchValue, setSearchValue] = useState<string>("")
 

@@ -4,6 +4,13 @@ import AppContext from "../../context/AppContext";
 import type { Word } from "../../models/models";
 import { createWord, updateWord } from "../../api/api";
 
+/**
+ * Render a modal form for adding or editing a Word.
+ *
+ * Reads values and setters from AppContext (including `setIsEditModalOpen`, `modalWord`, and `setShouldRefresh`), initializes form state from `modalWord` or defaults, updates nested and top-level fields from user input, and submits the form to create or update a word before triggering a refresh and closing the modal.
+ *
+ * @returns The modal form JSX element for creating or editing a `Word`.
+ */
 function FormModal() {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Error");
