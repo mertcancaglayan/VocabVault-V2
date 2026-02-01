@@ -14,6 +14,8 @@ interface AppContextType {
     setTotalFilteredWord: React.Dispatch<React.SetStateAction<number>>;
     categories: Map<string, string>;
     setCategories: React.Dispatch<React.SetStateAction<Map<string, string>>>;
+    totalCategories: number;
+    setTotalCategories: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -28,9 +30,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const [categories, setCategories] = useState<Map<string, string>>(
         new Map()
     );
+    const [totalCategories, setTotalCategories] = useState<number>(0)
+
     const contextValue = {
         isEditModalOpen, setIsEditModalOpen, modalWord, setModalWord
-        , shouldRefresh, setShouldRefresh, searchQuery, setSearchQuery, totalFilteredWord, setTotalFilteredWord, categories, setCategories
+        , shouldRefresh, setShouldRefresh, searchQuery, setSearchQuery, totalFilteredWord, setTotalFilteredWord, categories, setCategories, totalCategories, setTotalCategories
     }
 
     return (

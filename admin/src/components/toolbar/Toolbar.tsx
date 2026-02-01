@@ -8,12 +8,16 @@ function Toolbar() {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Error");
 
-    const { setIsEditModalOpen, setModalWord, setSearchQuery, categories } = contextValue
+    const { setIsEditModalOpen, setModalWord, setSearchQuery, categories, setTotalCategories } = contextValue
 
     function openModal() {
         setModalWord(undefined)
         setIsEditModalOpen(true)
     }
+
+    useEffect(() => {
+        setTotalCategories(Array.from(categories).length)
+    }, [categories, setTotalCategories])
 
     useEffect(() => {
         const timer = setTimeout(() => {
