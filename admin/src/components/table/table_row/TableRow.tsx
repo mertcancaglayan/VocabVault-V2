@@ -4,6 +4,14 @@ import "./TableRow.css"
 import AppContext from "../../../context/AppContext"
 import { deleteWord } from "../../../api/api"
 
+/**
+ * Render a table row for a Word including its identifiers, category, translations, examples, and action buttons.
+ *
+ * Action buttons open the edit or view modal with the word set as the modal payload, or delete the word (calls `deleteWord` and triggers a refresh).
+ *
+ * @param word - The Word object to render as a table row
+ * @returns The JSX table row element representing `word`
+ */
 function TableRow(word: Word) {
     const contextValue = useContext(AppContext)
     if (!contextValue) throw new Error("Errorr");

@@ -9,6 +9,12 @@ import { useContext } from "react"
 import AppContext from "../context/AppContext"
 import ViewModal from "../components/view_modal/ViewModal"
 
+/**
+ * Renders the admin dashboard layout and conditionally displays edit and view modals.
+ *
+ * @returns The rendered React element tree for the Admin home page.
+ * @throws Error if AppContext is not available (context missing)
+ */
 function AdminHomePage() {
     const contextValue = useContext(AppContext)
      if (!contextValue) throw new Error("error");
