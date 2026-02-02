@@ -5,13 +5,12 @@ import StatsGrid from "../components/stats_grid/StatsGrid"
 import Toolbar from "../components/toolbar/Toolbar"
 import Table from "../components/table/Table"
 import FormModal from "../components/form_modal/FormModal"
-import { useContext } from "react"
-import AppContext from "../context/AppContext"
 import ViewModal from "../components/view_modal/ViewModal"
+import { useAppContext } from "../hooks/useAppContext"
+import Pagination from "../components/pagination/Pagination"
 
 function AdminHomePage() {
-    const contextValue = useContext(AppContext)
-     if (!contextValue) throw new Error("error");
+    const contextValue = useAppContext()
 
     const { isEditModalOpen, isViewModalOpen } = contextValue
 
@@ -22,6 +21,7 @@ function AdminHomePage() {
                 <StatsGrid></StatsGrid>
                 <Toolbar></Toolbar>
                 <Table></Table>
+                <Pagination></Pagination>
             </main>
             {isEditModalOpen && <FormModal></FormModal>}
             {isViewModalOpen && <ViewModal></ViewModal>}

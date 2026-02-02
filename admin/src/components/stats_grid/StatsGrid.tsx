@@ -1,11 +1,8 @@
-import { useContext } from "react"
 import "./StatsGrid.css"
-import AppContext from "../../context/AppContext"
+import { useAppContext } from "../../hooks/useAppContext"
 
 function StatsGrid() {
-    const contextValue = useContext(AppContext)
-    if (!contextValue) throw new Error("Error");
-
+    const contextValue = useAppContext()
     const { totalFilteredWord, totalCategories } = contextValue
 
     return (

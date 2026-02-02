@@ -1,5 +1,7 @@
 export interface WordsI {
 	words: Word[];
+	totalCount: number;
+	totalPages: number;
 }
 
 export interface Word {

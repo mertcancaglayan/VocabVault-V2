@@ -1,14 +1,11 @@
-import { useContext, useState } from "react"
 import "./FormModal.css"
-import AppContext from "../../context/AppContext";
 import type { Word } from "../../models/models";
 import { createWord, updateWord } from "../../api/api";
+import { useAppContext } from "../../hooks/useAppContext";
+import { useState } from "react";
 
 function FormModal() {
-    const contextValue = useContext(AppContext)
-    if (!contextValue) throw new Error("Error");
-
-    const { setIsEditModalOpen, modalWord, setShouldRefresh } = contextValue
+    const { setIsEditModalOpen, modalWord } = useAppContext()
 
     const [formData, setFormData] = useState<Word>(modalWord || {
         _id: '',
@@ -41,7 +38,6 @@ function FormModal() {
             } else {
                 await createWord(formData);
             }
-            setShouldRefresh(true);
             setIsEditModalOpen(false);
         } catch (error) {
             console.error("Error saving word:", error);
