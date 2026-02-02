@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Dictionary,  IWord } from "../models/Dictionary";
+import { Dictionary, IWord } from "../models/Dictionary";
 import { shuffle } from "../utils/shuffle";
 
 const ALLOWED_LANGUAGES = ["en", "tr", "pl"];
