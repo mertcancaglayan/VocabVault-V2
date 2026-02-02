@@ -8,7 +8,7 @@ import { getWords } from "../../controllers/wordsController";
 
 const router: Router = express.Router();
 
-const allowedOrigins = ["http://localhost:5174", "http://localhost:5500", "http://127.0.0.1:5500"];
+const allowedOrigins = [process.env.ADMIN_URL, process.env.ADMIN_URL_PROD];
 
 const adminCors = cors({
 	origin: (origin, callback) => {
