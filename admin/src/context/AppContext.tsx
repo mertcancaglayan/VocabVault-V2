@@ -16,6 +16,10 @@ interface AppContextType {
     setCategories: React.Dispatch<React.SetStateAction<Map<string, string>>>;
     totalCategories: number;
     setTotalCategories: React.Dispatch<React.SetStateAction<number>>;
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    pageCount: number;
+    setPageCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -31,10 +35,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         new Map()
     );
     const [totalCategories, setTotalCategories] = useState<number>(0)
+    const [page, setPage] = useState<number>(1)
+    const [pageCount, setPageCount] = useState<number>(0)
 
 
     const contextValue = {
-        isEditModalOpen, setIsEditModalOpen, modalWord, setModalWord, searchQuery, setSearchQuery, totalFilteredWord, setTotalFilteredWord, categories, setCategories, totalCategories, setTotalCategories, isViewModalOpen, setIsViewModalOpen
+        isEditModalOpen, setIsEditModalOpen, modalWord, setModalWord, searchQuery, setSearchQuery, totalFilteredWord, setTotalFilteredWord, categories, setCategories, totalCategories, setTotalCategories, isViewModalOpen, setIsViewModalOpen, page, setPage, pageCount, setPageCount
     }
 
     return (

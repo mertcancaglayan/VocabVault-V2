@@ -8,21 +8,22 @@ import { useWords } from "../../hooks/useWords";
 
 export const Table = () => {
     const contextValue = useAppContext()
-    const { searchQuery, setTotalFilteredWord, setCategories } = contextValue
+    const { searchQuery, setTotalFilteredWord, setCategories, page,  setPageCount } = contextValue
 
-    const { words: wordsList, isLoading, error } = useWords()
+    const { words: wordsList, isLoading, error } = useWords(page)
 
     useEffect(() => {
         if (!wordsList) return;
 
         const categorySet = new Map<string, string>();
+        setPageCount(wordsList.totalPages)
 
         wordsList.words.forEach(element => {
             categorySet.set(element.sub_category_key, element.sub_category_label)
         });
 
         setCategories(categorySet);
-    }, [wordsList, setCategories]);
+    }, [wordsList, setCategories, setPageCount]);
 
 
     const filteredWords = useMemo(() => {

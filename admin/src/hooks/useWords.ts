@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { WordsI } from "../models/models";
 import { getWords } from "../api/api";
 
-export function useWords() {
+export function useWords(page: number) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [words, setWords] = useState<WordsI>();
 	const [error, setError] = useState<Error | null>(null);
@@ -14,7 +14,7 @@ export function useWords() {
 			try {
 				setIsLoading(true);
 				setError(null);
-				const data = await getWords();
+				const data = await getWords(page);
 				if (isMounted) setWords(data);
 			} catch (err) {
 				if (isMounted) setError(err as Error);
@@ -28,7 +28,7 @@ export function useWords() {
 		return () => {
 			isMounted = false;
 		};
-	}, []);
+	}, [page]);
 
 	return { isLoading, words, error };
 }

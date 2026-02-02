@@ -17,6 +17,8 @@ export interface IWord {
 
 export interface IDictionary {
 	words: IWord[];
+	page: number;
+	pageCount: number;
 }
 
 export const wordSchema: Schema<IWord> = new mongoose.Schema(
@@ -34,7 +36,7 @@ export const wordSchema: Schema<IWord> = new mongoose.Schema(
 		example: { type: Map, of: String },
 		phonetics: { type: Map, of: String },
 	},
-	{ collection: "testAdminDB" },
+	{ collection: "dictionaryv3" },
 );
 
 export const Dictionary: Model<IWord> = mongoose.model("Dictionary", wordSchema);

@@ -7,6 +7,7 @@ import Table from "../components/table/Table"
 import FormModal from "../components/form_modal/FormModal"
 import ViewModal from "../components/view_modal/ViewModal"
 import { useAppContext } from "../hooks/useAppContext"
+import Pagination from "../components/pagination/Pagination"
 
 function AdminHomePage() {
     const contextValue = useAppContext()
@@ -20,6 +21,7 @@ function AdminHomePage() {
                 <StatsGrid></StatsGrid>
                 <Toolbar></Toolbar>
                 <Table></Table>
+                <Pagination></Pagination>
             </main>
             {isEditModalOpen && <FormModal></FormModal>}
             {isViewModalOpen && <ViewModal></ViewModal>}

@@ -1,16 +1,28 @@
 import { Request, Response } from "express";
-import { Dictionary, IDictionary, IWord } from "../models/Dictionary";
+import { Dictionary,  IWord } from "../models/Dictionary";
 import { shuffle } from "../utils/shuffle";
 
 const ALLOWED_LANGUAGES = ["en", "tr", "pl"];
 
-export const getDictionary = async (req: Request, res: Response): Promise<void> => {
+const ITEM_PER_PAGE = 20;
+
+export const getWords = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const words: IWord[] = await Dictionary.find();
+		const page = parseInt(req.query.page as string) || 1;
 
-		const dictionary: IDictionary = { words };
+		const dictionary = await Dictionary.aggregate([
+			{
+				$facet: {
+					metadata: [{ $count: "totalCount" }],
+					data: [{ $skip: (page - 1) * ITEM_PER_PAGE }, { $limit: ITEM_PER_PAGE }],
+				},
+			},
+		]);
 
-		res.status(200).json(dictionary);
+		const totalCount = dictionary[0].metadata[0] ? dictionary[0].metadata[0].totalCount : 0;
+		const totalPages = Math.ceil(totalCount / ITEM_PER_PAGE);
+
+		res.status(200).json({ words: dictionary[0].data, totalCount, totalPages });
 	} catch (error: any) {
 		console.error("Error in get controller", error);
 		res.status(500).json({ message: error.message });
