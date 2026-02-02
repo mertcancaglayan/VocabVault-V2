@@ -1,0 +1,15 @@
+.admin-header {
+	background: var(--card-bg);
+	border-bottom: 1px solid var(--border);
+	padding: 20px 0;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	box-shadow: var(--shadow);
+}
+
+.admin-header h1 {
+	text-align: center;
+	font-size: 1.8rem;
+	font-weight: 700;
+}

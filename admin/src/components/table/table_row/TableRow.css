@@ -1,0 +1,93 @@
+.cell-id {
+	font-family: "Courier New", monospace;
+	color: var(--text-muted);
+	font-size: 0.85rem;
+}
+
+.cell-badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 12px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.badge-a1 {
+	background: rgba(16, 185, 129, 0.1);
+	color: var(--success);
+}
+
+.badge-a2 {
+	background: rgba(59, 130, 246, 0.1);
+	color: #3b82f6;
+}
+
+.badge-b1 {
+	background: rgba(245, 158, 11, 0.1);
+	color: var(--warning);
+}
+
+.badge-b2 {
+	background: rgba(239, 68, 68, 0.1);
+	color: var(--danger);
+}
+
+.cell-translation {
+	max-width: 200px;
+}
+
+.lang-group {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.lang-item {
+	display: flex;
+	gap: 6px;
+	font-size: 0.85rem;
+}
+
+.lang-label {
+	color: var(--text-muted);
+	font-weight: 600;
+	min-width: 30px;
+	text-transform: uppercase;
+}
+
+.lang-value {
+	color: var(--text-main);
+}
+
+.cell-actions {
+	white-space: nowrap;
+}
+
+.action-buttons {
+	display: flex;
+	gap: 8px;
+}
+
+.icon-btn {
+	background: transparent;
+	border: 1px solid var(--border);
+	color: var(--text-muted);
+	padding: 6px 10px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.3s;
+	font-size: 1rem;
+}
+
+.icon-btn:hover {
+	border-color: var(--primary);
+	color: var(--primary);
+	background: rgba(139, 92, 246, 0.1);
+}
+
+.icon-btn.delete:hover {
+	border-color: var(--danger);
+	color: var(--danger);
+	background: rgba(239, 68, 68, 0.1);
+}

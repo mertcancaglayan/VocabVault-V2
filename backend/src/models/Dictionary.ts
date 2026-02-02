@@ -17,6 +17,8 @@ export interface IWord {
 
 export interface IDictionary {
 	words: IWord[];
+	page: number;
+	pageCount: number;
 }
 
 export const wordSchema: Schema<IWord> = new mongoose.Schema(
