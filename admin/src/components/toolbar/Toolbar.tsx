@@ -18,19 +18,17 @@ function Toolbar() {
         setTotalCategories(Array.from(categories).length)
     }, [categories, setTotalCategories])
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setSearchQuery(searchValue)
-        }, 500)
-
-        return () => clearTimeout(timer)
-    }, [searchValue, setSearchValue, setSearchQuery])
 
     return (
         <div className="toolbar">
             <div className="toolbar-left">
                 <div className="search-box">
-                    <input type="text" onChange={(e) => setSearchValue(e.target.value)} placeholder="Search by word, ID, or category..." id="searchInput" />
+                    <input type="text" onChange={(e) => setSearchValue(e.target.value)} placeholder="Search by word, ID, or category..." id="searchInput" onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            setSearchQuery(searchValue)
+                        }
+                    }} value={searchValue} />
+                    <button className="search-btn" onClick={() => setSearchQuery(searchValue)}>Search <span>🔍</span></button>
                 </div>
                 <select className="filter-select" id="categoryFilter" onChange={(e) => setSearchValue(e.target.value)}>
                     <option value="">All Categories</option>

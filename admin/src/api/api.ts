@@ -3,8 +3,13 @@ import type { Word, WordsI } from "../models/models";
 const API_URL = import.meta.env.VITE_ADMIN_API_URL;
 const ADMIN_API_KEY = import.meta.env.VITE_ADMIN_API_KEY;
 
-export const getWords = async (page: number): Promise<WordsI> => {
-	const response = await fetch(`${API_URL}/api/v1/admin/words?page=${page}`, {
+export const getWords = async (page: number, searchQuery: string = ""): Promise<WordsI> => {
+	const params = new URLSearchParams({
+		page: page.toString(),
+		...(searchQuery && { search: searchQuery }),
+	});
+
+	const response = await fetch(`${API_URL}/api/v1/admin/words?${params}`, {
 		headers: {
 			"x-api-key": ADMIN_API_KEY,
 		},

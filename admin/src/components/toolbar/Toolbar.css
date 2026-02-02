@@ -19,6 +19,24 @@
 
 .search-box {
 	position: relative;
+	display: flex;
+	gap: 10px;
+}
+
+.search-btn {
+	background: var(--primary);
+	color: white;
+	outline: none;
+	border: none;
+	padding: 10px 15px;
+	border-radius: var(--radius);
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.search-btn:hover {
+	background: var(--primary-hover);
 }
 
 .search-box input {

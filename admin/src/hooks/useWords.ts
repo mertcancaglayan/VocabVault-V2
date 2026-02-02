@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
-import type { WordsI } from "../models/models";
+import type { Word } from "../models/models";
 import { getWords } from "../api/api";
+import { useAppContext } from "./useAppContext";
 
-export function useWords(page: number) {
+export function useWords(page: number, searchQuery: string = "") {
 	const [isLoading, setIsLoading] = useState(false);
-	const [words, setWords] = useState<WordsI>();
+	const [words, setWords] = useState<Word[]>();
 	const [error, setError] = useState<Error | null>(null);
+
+	const { setTotalFilteredWord, setPageCount } = useAppContext();
 
 	useEffect(() => {
 		let isMounted = true;
 
 		async function fetch() {
+			setIsLoading(true);
+
 			try {
-				setIsLoading(true);
 				setError(null);
-				const data = await getWords(page);
-				if (isMounted) setWords(data);
+				const data = await getWords(page, searchQuery);
+				if (isMounted) {
+					setWords(data.words);
+					setTotalFilteredWord(data.totalCount);
+					setPageCount(data.totalPages);
+				}
 			} catch (err) {
 				if (isMounted) setError(err as Error);
 			} finally {
@@ -28,7 +36,7 @@ export function useWords(page: number) {
 		return () => {
 			isMounted = false;
 		};
-	}, [page]);
+	}, [page, searchQuery, setTotalFilteredWord, setPageCount]);
 
 	return { isLoading, words, error };
 }

@@ -9,15 +9,32 @@ const ITEM_PER_PAGE = 20;
 export const getWords = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const page = parseInt(req.query.page as string) || 1;
+		const search = (req.query.search as string) || "";
 
-		const dictionary = await Dictionary.aggregate([
-			{
-				$facet: {
-					metadata: [{ $count: "totalCount" }],
-					data: [{ $skip: (page - 1) * ITEM_PER_PAGE }, { $limit: ITEM_PER_PAGE }],
+		const pipeline: any[] = [];
+
+		if (search) {
+			pipeline.push({
+				$match: {
+					$or: [
+						{ "translations.en": { $regex: search, $options: "i" } },
+						{ "translations.tr": { $regex: search, $options: "i" } },
+						{ "translations.pl": { $regex: search, $options: "i" } },
+						{ category_key: { $regex: search, $options: "i" } },
+						{ sub_category_label: { $regex: search, $options: "i" } },
+					],
 				},
+			});
+		}
+
+		pipeline.push({
+			$facet: {
+				metadata: [{ $count: "totalCount" }],
+				data: [{ $skip: (page - 1) * ITEM_PER_PAGE }, { $limit: ITEM_PER_PAGE }],
 			},
-		]);
+		});
+
+		const dictionary = await Dictionary.aggregate(pipeline);
 
 		const totalCount = dictionary[0].metadata[0] ? dictionary[0].metadata[0].totalCount : 0;
 		const totalPages = Math.ceil(totalCount / ITEM_PER_PAGE);
