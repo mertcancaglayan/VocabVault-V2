@@ -1,19 +1,12 @@
-import { useContext } from "react"
 import type { Word } from "../../../models/models"
 import "./TableRow.css"
-import AppContext from "../../../context/AppContext"
 import { deleteWord } from "../../../api/api"
+import { useAppContext } from "../../../hooks/useAppContext"
 
 function TableRow(word: Word) {
-    const contextValue = useContext(AppContext)
-    if (!contextValue) throw new Error("Errorr");
-
-    const { setIsEditModalOpen, setModalWord, setShouldRefresh, setIsViewModalOpen } = contextValue
+    const { setIsEditModalOpen, setModalWord, setIsViewModalOpen } = useAppContext()
 
     function openModal(word: Word, typeModel: string) {
-        console.log(typeModel
-        );
-
         switch (typeModel) {
             case "edit":
                 setIsEditModalOpen(true)
@@ -33,7 +26,6 @@ function TableRow(word: Word) {
     async function handleDelete(word: Word) {
         try {
             await deleteWord(word._id)
-            setShouldRefresh(true);
         } catch (error) {
             console.error("Error while deleting the word:", error)
         } finally {

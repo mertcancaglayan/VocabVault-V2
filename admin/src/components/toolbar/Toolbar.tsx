@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import "./Toolbar.css"
-import AppContext from "../../context/AppContext"
+import { useAppContext } from "../../hooks/useAppContext"
 
 function Toolbar() {
     const [searchValue, setSearchValue] = useState<string>("")
 
-    const contextValue = useContext(AppContext)
-    if (!contextValue) throw new Error("Error");
+    const contextValue = useAppContext()
 
     const { setIsEditModalOpen, setModalWord, setSearchQuery, categories, setTotalCategories } = contextValue
 
